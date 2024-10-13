@@ -8,7 +8,11 @@ export default {
 		'./src/**/*.tsx',
 	],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				custom: ['EVA', 'serif'],
+			},
+		},
 	},
 	plugins: [],
 };
