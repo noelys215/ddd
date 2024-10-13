@@ -2,7 +2,6 @@ import React from 'react';
 import BioCard from '../components/BioCard';
 import Layout from '../components/Layout';
 import whomImage from '../assets/whom.jpeg';
-import Card from '../components/Card';
 
 export const Home: React.FC = () => {
 	return (
@@ -13,11 +12,11 @@ export const Home: React.FC = () => {
 				subtitle="Software Engineer"
 				githubUrl="https://github.com/noelys215"
 				linkedinUrl="https://www.linkedin.com/in/henry-betancourth/"
-				text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-			/>
-			<Card
-				title="Card Title"
-				content="Hendrerit congue dui praesent erat volutpat. Egestas proin lacinia vitae vehicula; nunc tempus dui. Aptent eget purus integer orci integer turpis sollicitudin vulputate. Laoreet eleifend mi laoreet sagittis platea mattis. Facilisi aptent massa blandit mauris euismod est aptent natoque. Semper nec sollicitudin eros dapibus pulvinar quam curae. Curae risus purus sem dapibus integer, non a. Tincidunt viverra eleifend feugiat; nascetur curae class magnis. Per penatibus metus convallis erat ex eleifend ridiculus. Suspendisse nam nullam penatibus laoreet hendrerit."
+				text="Hi there! I’m a self-motivated full-stack software engineer based in Southern New Jersey. card        
+        I take great pleasure in designing websites that are not only visually appealing but also easy to use. I’m all about simplicity – in both design and code.
+        While JavaScript is my go-to language, with a strong grasp of React and Next.js, I consider myself language-agnostic and am comfortable working with any programming language. I’m always on the lookout for new technologies to master, and staying current while expanding my skill set is something I’m passionate about.
+        During college, I had the opportunity to learn and work with AWS and Java/Spring Boot, further broadening my expertise in backend development and cloud services.
+        I invite you to click around and explore my website to see the projects and work that I’m most proud of. I hope you’ll find the creativity and precision in my work as exciting as I do."
 			/>
 		</Layout>
 	);

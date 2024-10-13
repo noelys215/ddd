@@ -1,6 +1,7 @@
-import { GithubLogo, LinkedinLogo } from '@phosphor-icons/react';
+import { GithubLogo, LinkedinLogo, SmileyMelting } from '@phosphor-icons/react';
 import React from 'react';
 import { useGlitch } from 'react-powerglitch';
+import Text from './Text';
 
 interface BioCardProps {
 	imageUrl?: string;
@@ -30,6 +31,28 @@ const BioCard: React.FC<BioCardProps> = ({
 					<h2 className="text-white text-lg font-semibold">{name}</h2>
 					{/* Subtitle */}
 					<p className="text-gray-400 text-sm">{subtitle}</p>
+
+					{/* Social Links (now under subtitle) */}
+					<div className="flex space-x-4 mt-2">
+						{linkedinUrl && (
+							<a
+								href={linkedinUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-white hover:text-gray-400">
+								<LinkedinLogo size={24} weight="fill" />
+							</a>
+						)}
+						{githubUrl && (
+							<a
+								href={githubUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-white hover:text-gray-400">
+								<GithubLogo size={24} weight="fill" />
+							</a>
+						)}
+					</div>
 				</div>
 
 				{/* Image on the top right */}
@@ -47,35 +70,19 @@ const BioCard: React.FC<BioCardProps> = ({
 			{/* Horizontal Line */}
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" />
-				{/* Heart in the middle of the horizontal line */}
-				<div className="absolute inset-x-0 top-0 flex justify-center -mt-3">
-					<div className="w-8 h-8">🤍</div>
+				<div className="absolute inset-x-0 top-0 flex justify-center -mt-6">
+					<SmileyMelting fill="#fff" size={32} weight="fill" />
 				</div>
 			</div>
 
 			{/* Text Component */}
-			<p className="text-white mb-4">{text}</p>
+			{text && <Text text={text} />}
 
-			{/* Social Links */}
-			<div className="flex justify-center space-x-4">
-				{linkedinUrl && (
-					<a
-						href={linkedinUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-white hover:text-gray-400">
-						<LinkedinLogo size={26} weight="fill" />
-					</a>
-				)}
-				{githubUrl && (
-					<a
-						href={githubUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-white hover:text-gray-400">
-						<GithubLogo size={26} weight="fill" />
-					</a>
-				)}
+			{/* Button (added here) */}
+			<div className="flex justify-center mt-6">
+				<button className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
+					Portfolio
+				</button>
 			</div>
 		</div>
 	);
