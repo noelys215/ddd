@@ -1,14 +1,17 @@
 import { HeartBreak } from '@phosphor-icons/react';
 import React from 'react';
+import Text from './Text';
+import SkillsCard from './SkillsCard'; // Import the SkillsCard
 
 interface CardProps {
 	title: string;
 	content: string;
+	skills?: string[]; // Optional skills array
 }
 
-const Card: React.FC<CardProps> = ({ title, content }) => {
+const Card: React.FC<CardProps> = ({ title, content, skills }) => {
 	return (
-		<div className="border border-white rounded-lg max-w-2xl w-full p-6 bg-black shadow-md mx-auto">
+		<div className="border border-white rounded-lg max-w-3xl w-full p-6 bg-black shadow-md mx-auto">
 			<h2 className="text-white text-lg font-semibold mb-2">{title}</h2>
 
 			{/* Horizontal Line */}
@@ -20,7 +23,10 @@ const Card: React.FC<CardProps> = ({ title, content }) => {
 			</div>
 
 			{/* Text Component */}
-			<p className="text-white">{content}</p>
+			<Text text={content} />
+
+			{/* Skills Section (if skills are provided) */}
+			{skills && <SkillsCard skills={skills} />}
 		</div>
 	);
 };

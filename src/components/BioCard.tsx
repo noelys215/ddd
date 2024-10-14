@@ -1,5 +1,5 @@
 import { GithubLogo, LinkedinLogo, SmileyMelting } from '@phosphor-icons/react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGlitch } from 'react-powerglitch';
 import Text from './Text';
 
@@ -21,9 +21,29 @@ const BioCard: React.FC<BioCardProps> = ({
 	githubUrl,
 }) => {
 	const glitch = useGlitch();
+	const [time, setTime] = useState<string>('');
+
+	// Function to get current time in 24-hour format
+	const getTime = () => {
+		const now = new Date();
+		const hours = String(now.getHours()).padStart(2, '0');
+		const minutes = String(now.getMinutes()).padStart(2, '0');
+		const seconds = String(now.getSeconds()).padStart(2, '0');
+		return `${hours}:${minutes}:${seconds}`;
+	};
+
+	// useEffect to update the time every second
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setTime(getTime());
+		}, 1000);
+
+		// Cleanup interval on component unmount
+		return () => clearInterval(interval);
+	}, []);
 
 	return (
-		<div className="border border-white rounded-lg max-w-2xl w-full p-6 bg-black shadow-md mx-auto">
+		<div className="border border-white rounded-md max-w-3xl w-full p-6 bg-black shadow-md mx-auto">
 			<div className="flex items-center justify-between mb-4">
 				{/* Name/Title and Subtitle on the left */}
 				<div>
@@ -31,6 +51,8 @@ const BioCard: React.FC<BioCardProps> = ({
 					<h2 className="text-white text-lg font-semibold">{name}</h2>
 					{/* Subtitle */}
 					<p className="text-gray-400 text-sm">{subtitle}</p>
+					{/* 24-hour Clock */}
+					<p className="text-gray-300 text-sm mt-2">{time}</p>
 
 					{/* Social Links (now under subtitle) */}
 					<div className="flex space-x-4 mt-2">
@@ -39,7 +61,7 @@ const BioCard: React.FC<BioCardProps> = ({
 								href={linkedinUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-white hover:text-gray-400">
+								className="text-white hover:text-blue-400">
 								<LinkedinLogo size={24} weight="fill" />
 							</a>
 						)}
@@ -78,10 +100,13 @@ const BioCard: React.FC<BioCardProps> = ({
 			{/* Text Component */}
 			{text && <Text text={text} />}
 
-			{/* Button (added here) */}
-			<div className="flex justify-center mt-6">
+			{/* Buttons (added Experience button) */}
+			<div className="flex justify-center space-x-4 mt-6">
 				<button className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
-					Portfolio
+					Works
+				</button>
+				<button className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
+					Experience
 				</button>
 			</div>
 		</div>
