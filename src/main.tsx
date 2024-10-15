@@ -6,7 +6,7 @@ import { Experience } from './views/Experience.tsx';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		{/* <Home /> */}
-		<Experience />
+		<Home />
+		{/* <Experience /> */}
 	</StrictMode>
 );
