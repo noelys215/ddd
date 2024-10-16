@@ -4,12 +4,14 @@ import Text from './Text';
 import SkillsCard from './SkillsCard'; // Import the SkillsCard
 
 interface CardProps {
-	title: string;
+	title?: string;
 	content: string;
-	skills?: string[]; // Optional skills array
+	skills?: string[];
+	buttonText?: string;
+	buttonAction?: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ title, content, skills }) => {
+const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonAction }) => {
 	return (
 		<div className="border border-white rounded-lg max-w-3xl w-full p-6 bg-black shadow-md mx-auto">
 			<h2 className="text-white text-lg font-semibold mb-2">{title}</h2>
@@ -27,6 +29,17 @@ const Card: React.FC<CardProps> = ({ title, content, skills }) => {
 
 			{/* Skills Section (if skills are provided) */}
 			{skills && <SkillsCard skills={skills} />}
+
+			{/* Optional Button (if buttonText and buttonAction are provided) */}
+			{buttonText && buttonAction && (
+				<div className="flex justify-center mt-6">
+					<button
+						onClick={buttonAction}
+						className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
+						{buttonText}
+					</button>
+				</div>
+			)}
 		</div>
 	);
 };

@@ -2,6 +2,7 @@ import { GithubLogo, LinkedinLogo, SmileyMelting } from '@phosphor-icons/react';
 import React, { useState, useEffect } from 'react';
 import { useGlitch } from 'react-powerglitch';
 import Text from './Text';
+import { useNavigate } from 'react-router-dom';
 
 interface BioCardProps {
 	imageUrl?: string;
@@ -22,6 +23,7 @@ const BioCard: React.FC<BioCardProps> = ({
 }) => {
 	const glitch = useGlitch();
 	const [time, setTime] = useState<string>('');
+	const navigate = useNavigate();
 
 	// Function to get current time in 24-hour format
 	const getTime = () => {
@@ -93,7 +95,12 @@ const BioCard: React.FC<BioCardProps> = ({
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" />
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-6">
-					<SmileyMelting fill="#fff" size={32} weight="fill" />
+					<SmileyMelting
+						fill="#fff"
+						size={32}
+						weight="fill"
+						onClick={() => navigate('/error')}
+					/>
 				</div>
 			</div>
 
@@ -102,10 +109,14 @@ const BioCard: React.FC<BioCardProps> = ({
 
 			{/* Buttons (added Experience button) */}
 			<div className="flex justify-center space-x-4 mt-6">
-				<button className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
+				<button
+					onClick={() => navigate('/works')}
+					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
 					Works
 				</button>
-				<button className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
+				<button
+					onClick={() => navigate('/experience')}
+					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
 					Experience
 				</button>
 			</div>

@@ -4,6 +4,7 @@ import './index.css';
 import { Home } from './views/Home.tsx';
 import { Experience } from './views/Experience.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { NotFound } from './views/NotFound.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
 	{
 		path: '/experience',
 		element: <Experience />,
+	},
+	{
+		path: '*',
+		element: <NotFound />,
 	},
 ]);
 
