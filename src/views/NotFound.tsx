@@ -9,7 +9,7 @@ export const NotFound = () => {
 	return (
 		<Layout>
 			<MotionSection delay={0.2}>
-				<div className="max-w-3xl w-full p-6 bg-black shadow-md mx-auto text-center">
+				<div className="max-w-3xl w-full p-6  shadow-md mx-auto text-center">
 					{/* Error Image */}
 					<div className="mb-6">
 						<img
