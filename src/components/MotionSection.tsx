@@ -12,7 +12,7 @@ const MotionSection: React.FC<MotionSectionProps> = ({ children, delay = 0 }) =>
 			initial={{ y: 10, opacity: 0 }}
 			animate={{ y: 0, opacity: 1 }}
 			transition={{ duration: 0.8, delay }}
-			style={{ marginBottom: '1.5rem' }} // You can adjust the spacing if needed
+			// style={{ marginBottom: '1.5rem' }}
 		>
 			{children}
 		</motion.div>

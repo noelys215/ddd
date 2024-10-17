@@ -63,7 +63,7 @@ const BioCard: React.FC<BioCardProps> = ({
 								href={linkedinUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-white hover:text-blue-400">
+								className="text-white hover:text-gray-400">
 								<LinkedinLogo size={24} weight="fill" />
 							</a>
 						)}
