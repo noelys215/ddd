@@ -13,7 +13,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonAction }) => {
 	return (
-		<div className="border border-white rounded-lg max-w-3xl w-full p-6 bg-black shadow-md mx-auto">
+		<div className="border border-white rounded-lg max-w-3xl w-full p-6 bg-black shadow-md mx-auto opacity-95">
 			<h2 className="text-white text-lg font-semibold mb-2">{title}</h2>
 
 			{/* Horizontal Line */}

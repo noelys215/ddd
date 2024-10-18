@@ -45,7 +45,7 @@ const BioCard: React.FC<BioCardProps> = ({
 	}, []);
 
 	return (
-		<div className="border border-white rounded-md max-w-3xl w-full p-6 bg-black shadow-md mx-auto">
+		<div className="border border-white rounded-md max-w-3xl w-full p-6 bg-black shadow-md mx-auto opacity-95">
 			<div className="flex items-center justify-between mb-4">
 				{/* Name/Title and Subtitle on the left */}
 				<div>

@@ -12,10 +12,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 			style={{
 				backgroundImage: `url(${backgroundImage})`,
 				backgroundSize: 'contain',
-				// backgroundPosition: 'center',
-				// backgroundRepeat: 'no-repeat',
 				minHeight: '100vh',
-				// opacity: 0.96,
+				filter: 'brightness(90%)',
 			}}>
 			{children}
 		</div>
