@@ -16,6 +16,7 @@ import { useGlitch } from 'react-powerglitch';
 import Text from './Text';
 import { useNavigate } from 'react-router-dom';
 import { useGetWeather } from '../hooks/useGetWeather';
+import Typewriter from 'typewriter-effect';
 
 interface BioCardProps {
 	imageUrl?: string;
@@ -91,13 +92,33 @@ const BioCard: React.FC<BioCardProps> = ({
 		return () => clearInterval(interval);
 	}, []);
 
+	// Split the name into two parts
+	const staticPart = name?.slice(0, -3); // First part of the name (excluding the last 4 characters)
+	const typewriterPart = name?.slice(-3); // Last 4 characters to animate
+
 	return (
-		<div className="border border-white rounded-md max-w-3xl w-full p-6 bg-black shadow-md mx-auto opacity-95">
+		<div className="border border-white rounded-md max-w-4xl w-full p-6 md:p-12 bg-black shadow-md mx-auto opacity-95">
 			<div className="flex items-center justify-between mb-4">
 				{/* Name/Title and Subtitle on the left */}
 				<div>
 					{/* Name/Title */}
-					<h2 className="text-white text-lg font-semibold">{name}</h2>
+					<h2 className="text-white text-lg font-semibold">
+						{/* Static part */}
+						<span>{staticPart}</span>
+						<span style={{ display: 'inline-block' }}>
+							<Typewriter
+								options={{
+									strings: typewriterPart,
+									autoStart: true,
+									loop: true,
+									cursor: '_',
+									delay: 250,
+									deleteSpeed: 250,
+								}}
+							/>
+						</span>
+					</h2>
+
 					{/* Subtitle */}
 					<p className="text-gray-400 text-sm">{subtitle}</p>
 					{/* 24-hour Clock and Weather */}
@@ -147,7 +168,7 @@ const BioCard: React.FC<BioCardProps> = ({
 						src={imageUrl}
 						alt={name}
 						className="object-cover rounded-full border border-gray-300"
-						style={{ width: '140px', height: '140px' }}
+						style={{ width: '147px', height: '147px' }}
 						ref={glitch.ref}
 					/>
 				</div>

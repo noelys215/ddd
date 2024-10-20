@@ -17,7 +17,7 @@ export const Works: React.FC = () => {
 	return (
 		<Layout>
 			<MotionSection delay={0.1}>
-				<div className="border border-white rounded-md max-w-4xl w-full p-6 bg-black shadow-md mx-auto opacity-95">
+				<div className="border border-white rounded-md max-w-5xl w-full p-6 bg-black shadow-md mx-auto opacity-95">
 					<div className="text-white text-3xl  mb-8 text-center">Works</div>
 
 					{/* Grid Layout - 2 columns */}
