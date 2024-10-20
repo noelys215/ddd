@@ -1,5 +1,15 @@
-import { GithubLogo, LinkedinLogo, SmileyMelting } from '@phosphor-icons/react';
-import { Sun, Cloud, CloudLightning, CloudRain, CloudSnow, CloudFog } from '@phosphor-icons/react';
+import {
+	GithubLogo,
+	LinkedinLogo,
+	SmileyMelting,
+	SmileySad,
+	Sun,
+	Cloud,
+	CloudLightning,
+	CloudRain,
+	CloudSnow,
+	CloudFog,
+} from '@phosphor-icons/react';
 
 import React, { useState, useEffect } from 'react';
 import { useGlitch } from 'react-powerglitch';
@@ -38,7 +48,7 @@ const BioCard: React.FC<BioCardProps> = ({
 			setWeatherDescription(weather.description);
 			setWeatherMain(weather.main);
 		} else {
-			setWeatherDescription('you disabled location :c');
+			setWeatherDescription(`you disabled location...`);
 		}
 	}, [weather]);
 
@@ -58,7 +68,7 @@ const BioCard: React.FC<BioCardProps> = ({
 			case 'Clouds':
 				return <Cloud size={24} weight="fill" className="ml-2 text-gray-400" />;
 			default:
-				return null; // no icon
+				return null;
 		}
 	};
 
@@ -91,10 +101,21 @@ const BioCard: React.FC<BioCardProps> = ({
 					{/* Subtitle */}
 					<p className="text-gray-400 text-sm">{subtitle}</p>
 					{/* 24-hour Clock and Weather */}
-					<p className="text-gray-300 text-sm mt-2 flex items-center">
-						{time}
-						{weatherDescription && ` | ${weatherDescription}`}
-						{weatherMain && getWeatherIcon(weatherMain)}
+					<p className="text-gray-300 text-sm mt-1 flex flex-wrap items-center gap-1.5">
+						<span>{time}</span>
+						{weatherDescription && (
+							<>
+								<span className="hidden md:inline"> | </span>
+								{/* Show pipe on medium screens and above */}
+								<span className="flex items-center ">
+									{/* Keeps description and icon inline */}
+									{weatherDescription}
+									{weatherMain && getWeatherIcon(weatherMain)}
+									{!weather && <SmileySad size={24} className="ml-1" />}
+									{/* Icon stays next to description */}
+								</span>
+							</>
+						)}
 					</p>
 
 					{/* Social Links (now under subtitle) */}
@@ -137,7 +158,6 @@ const BioCard: React.FC<BioCardProps> = ({
 				<hr className="border-gray-400 w-4/5 mx-auto" />
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-6">
 					<SmileyMelting
-						// fill="#fff"
 						fill="#FF69B4"
 						size={32}
 						weight="fill"
