@@ -1,8 +1,11 @@
 import { GithubLogo, LinkedinLogo, SmileyMelting } from '@phosphor-icons/react';
+import { Sun, Cloud, CloudLightning, CloudRain, CloudSnow, CloudFog } from '@phosphor-icons/react';
+
 import React, { useState, useEffect } from 'react';
 import { useGlitch } from 'react-powerglitch';
 import Text from './Text';
 import { useNavigate } from 'react-router-dom';
+import { useGetWeather } from '../hooks/useGetWeather';
 
 interface BioCardProps {
 	imageUrl?: string;
@@ -23,7 +26,41 @@ const BioCard: React.FC<BioCardProps> = ({
 }) => {
 	const glitch = useGlitch();
 	const [time, setTime] = useState<string>('');
+	const [weatherDescription, setWeatherDescription] = useState<string | null>(null);
+	const [weatherMain, setWeatherMain] = useState<string | null>(null);
 	const navigate = useNavigate();
+
+	// Weather
+	const { weather } = useGetWeather();
+
+	useEffect(() => {
+		if (weather) {
+			setWeatherDescription(weather.description);
+			setWeatherMain(weather.main);
+		} else {
+			setWeatherDescription('you disabled location :c');
+		}
+	}, [weather]);
+
+	const getWeatherIcon = (main: string) => {
+		switch (main) {
+			case 'Thunderstorm':
+				return <CloudLightning size={24} weight="fill" className="ml-2 text-white" />;
+			case 'Drizzle':
+			case 'Rain':
+				return <CloudRain size={24} weight="fill" className="ml-2 text-white" />;
+			case 'Snow':
+				return <CloudSnow size={24} weight="fill" className="ml-2 text-white" />;
+			case 'Atmosphere': // mist, smoke, haze, etc.
+				return <CloudFog size={24} weight="fill" className="ml-2 text-white" />;
+			case 'Clear':
+				return <Sun size={24} weight="fill" className="ml-2" />;
+			case 'Clouds':
+				return <Cloud size={24} weight="fill" className="ml-2 text-gray-400" />;
+			default:
+				return null; // no icon
+		}
+	};
 
 	// Function to get current time in 24-hour format
 	const getTime = () => {
@@ -53,8 +90,12 @@ const BioCard: React.FC<BioCardProps> = ({
 					<h2 className="text-white text-lg font-semibold">{name}</h2>
 					{/* Subtitle */}
 					<p className="text-gray-400 text-sm">{subtitle}</p>
-					{/* 24-hour Clock */}
-					<p className="text-gray-300 text-sm mt-2">{time}</p>
+					{/* 24-hour Clock and Weather */}
+					<p className="text-gray-300 text-sm mt-2 flex items-center">
+						{time}
+						{weatherDescription && ` | ${weatherDescription}`}
+						{weatherMain && getWeatherIcon(weatherMain)}
+					</p>
 
 					{/* Social Links (now under subtitle) */}
 					<div className="flex space-x-4 mt-2">
@@ -63,7 +104,7 @@ const BioCard: React.FC<BioCardProps> = ({
 								href={linkedinUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-white hover:text-gray-400">
+								className="text-white hover:text-pink-400">
 								<LinkedinLogo size={24} weight="fill" />
 							</a>
 						)}
@@ -72,7 +113,7 @@ const BioCard: React.FC<BioCardProps> = ({
 								href={githubUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="text-white hover:text-gray-400">
+								className="text-white hover:text-pink-400">
 								<GithubLogo size={24} weight="fill" />
 							</a>
 						)}
@@ -96,7 +137,8 @@ const BioCard: React.FC<BioCardProps> = ({
 				<hr className="border-gray-400 w-4/5 mx-auto" />
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-6">
 					<SmileyMelting
-						fill="#fff"
+						// fill="#fff"
+						fill="#FF69B4"
 						size={32}
 						weight="fill"
 						onClick={() => navigate('/error')}
@@ -111,12 +153,12 @@ const BioCard: React.FC<BioCardProps> = ({
 			<div className="flex justify-center space-x-4 mt-6">
 				<button
 					onClick={() => navigate('/works')}
-					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
+					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300">
 					Works
 				</button>
 				<button
 					onClick={() => navigate('/experience')}
-					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
+					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300">
 					Experience
 				</button>
 			</div>

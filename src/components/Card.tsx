@@ -20,7 +20,7 @@ const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonA
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" />
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-3.5">
-					<HeartBreak fill="#fff" weight="fill" size={26} />
+					<HeartBreak fill="#FF69B4" weight="fill" size={26} />
 				</div>
 			</div>
 

@@ -1,4 +1,4 @@
-import { HeartBreak } from '@phosphor-icons/react';
+// import { HeartBreak } from '@phosphor-icons/react';
 
 interface WorkGridItemProps {
 	title: string;
@@ -30,7 +30,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 				<div className="relative mb-4">
 					<hr className="border-gray-400 w-4/5 mx-auto" />
 					<div className="absolute inset-x-0 top-0 flex justify-center -mt-3.5">
-						<HeartBreak fill="#fff" weight="fill" size={26} />
+						{/* <HeartBreak fill="#FF69B4" weight="fill" size={26} /> */}
 					</div>
 				</div>
 
