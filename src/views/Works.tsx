@@ -27,7 +27,7 @@ export const Works: React.FC = () => {
 							title="Atalanta A.C."
 							description="A semi-modern athletic clothing e-commerce store."
 							imageUrl={atalantaThumb}
-							link="#"
+							link="/works/atalanta"
 						/>
 
 						<WorkGridItem

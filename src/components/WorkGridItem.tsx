@@ -1,4 +1,4 @@
-// import { HeartBreak } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
 
 interface WorkGridItemProps {
 	title: string;
@@ -13,9 +13,14 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 	imageUrl,
 	link,
 }) => {
+	const navigate = useNavigate();
+
 	return (
 		<div className=" p-6 bg-black shadow-md">
-			<a href={link} target="_blank" rel="noopener noreferrer" className="block text-center">
+			<a
+				onClick={() => navigate(link)}
+				rel="noopener noreferrer"
+				className="block text-center">
 				{/* Image */}
 				<img
 					src={imageUrl}

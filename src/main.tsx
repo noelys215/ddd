@@ -6,6 +6,7 @@ import { Experience } from './views/Experience.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { NotFound } from './views/NotFound.tsx';
 import { Works } from './views/Works.tsx';
+import Atalanta from './views/works/Atalanta.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
 	{
 		path: '/works',
 		element: <Works />,
+	},
+	{
+		path: '/works/atalanta',
+		element: <Atalanta />,
 	},
 ]);
 
