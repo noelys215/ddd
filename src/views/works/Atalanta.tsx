@@ -24,15 +24,15 @@ const Atalanta = () => {
 			<MotionSection delay={0.1}>
 				<div className="border border-white rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95 overflow-hidden">
 					{/* Title Section */}
-					<Title>
+					<Title title="Works">
 						Atalanta A.C. <Badge>2024</Badge>
 					</Title>
 
 					{/* List Section */}
-					<ul className="my-4 space-y-2 text-white">
+					<ul className="my-4 space-y-1 text-white">
 						<li>
 							<Meta>Status</Meta>
-							<span className="text-xs uppercase font-semibold px-2 py-1 rounded-sm bg-green-700">
+							<span className="text-green-50 text-xs uppercase font-semibold px-1.5 py-0.5 rounded-sm bg-green-700">
 								Online
 							</span>
 						</li>

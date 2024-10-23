@@ -33,11 +33,13 @@ export const Slider: React.FC<SliderProps> = ({ array }) => {
 			{array.map((item) => (
 				<SwiperSlide className="swiper-slide" key={item.src}>
 					<Zoom>
-						<img
-							src={item.src}
-							alt={item.alt}
-							className="rounded-lg w-full h-auto object-cover"
-						/>
+						<div className="relative w-full h-0 pb-[56.25%]">
+							<img
+								src={item.src}
+								alt={item.alt}
+								className="absolute top-0 left-0 w-full h-0  rounded-lg"
+							/>
+						</div>
 					</Zoom>
 				</SwiperSlide>
 			))}

@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import MotionSection from '../components/MotionSection';
@@ -21,7 +20,6 @@ const skillsArray = [
 ];
 
 export const Experience = () => {
-	const navigate = useNavigate();
 	return (
 		<Layout>
 			<MotionSection delay={0.2}>
@@ -33,8 +31,6 @@ export const Experience = () => {
         
         I actively contributed to troubleshooting and testing, enhancing product reliability, while documenting technical workflows and API endpoints for future reference. This experience solidified my ability to deliver high-quality solutions in collaborative environments and tackle blockers effectively in daily standups."
 					skills={skillsArray}
-					buttonAction={() => navigate('/')}
-					buttonText="Return Home"
 				/>
 			</MotionSection>
 		</Layout>

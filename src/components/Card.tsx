@@ -1,7 +1,8 @@
-import { HeartBreak } from '@phosphor-icons/react';
+import { CaretRight, HeartBreak } from '@phosphor-icons/react';
 import React from 'react';
 import Text from './Text';
 import SkillsCard from './SkillsCard'; // Import the SkillsCard
+import { useNavigate } from 'react-router-dom';
 
 interface CardProps {
 	title?: string;
@@ -12,10 +13,18 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonAction }) => {
+	const navigate = useNavigate();
 	return (
 		<div className="border border-white rounded-lg max-w-4xl w-full p-6 md:p-12 bg-black shadow-md mx-auto opacity-95">
-			<h2 className="text-white text-xl font-semibold mb-2">{title}</h2>
-
+			<div className="mb-5">
+				<a
+					onClick={() => navigate('/')}
+					className="text-pink-500 hover:underline cursor-pointer">
+					Home
+				</a>
+				<CaretRight size={14} weight="bold" className="mx-1 text-pink-500 inline-flex" />
+				<h3 className="inline-block text-white text-2xl font-medium">{title}</h3>
+			</div>
 			{/* Horizontal Line */}
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" />

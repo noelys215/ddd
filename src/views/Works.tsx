@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import MotionSection from '../components/MotionSection';
 import { WorkGridItem } from '../components/WorkGridItem';
+import { CaretRight } from '@phosphor-icons/react';
 
 // Images
 import gloriaThumb from '../assets/works/gloria/gloria4.png';
@@ -18,7 +19,19 @@ export const Works: React.FC = () => {
 		<Layout>
 			<MotionSection delay={0.1}>
 				<div className="border border-white rounded-md max-w-5xl w-full p-6 bg-black shadow-md mx-auto opacity-95">
-					<div className="text-white text-3xl  mb-8 text-center">Works</div>
+					<div className="mb-5">
+						<a
+							onClick={() => navigate('/')}
+							className="text-pink-500 hover:underline cursor-pointer">
+							Home
+						</a>
+						<CaretRight
+							size={14}
+							weight="bold"
+							className="mx-1 text-pink-500 inline-flex"
+						/>
+						<h3 className="inline-block text-white text-2xl font-medium">Works</h3>
+					</div>
 
 					{/* Grid Layout - 2 columns */}
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -57,15 +70,6 @@ export const Works: React.FC = () => {
 							imageUrl={calcThumb}
 							link="https://coupon-henna.vercel.app/"
 						/>
-					</div>
-
-					{/* Go Home Button */}
-					<div className="flex justify-center mt-8">
-						<button
-							onClick={() => navigate('/')}
-							className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300">
-							Go Home
-						</button>
 					</div>
 				</div>
 			</MotionSection>
