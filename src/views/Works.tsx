@@ -18,7 +18,9 @@ export const Works: React.FC = () => {
 	return (
 		<Layout title="works">
 			<MotionSection delay={0.1}>
-				<div className="border border-white rounded-md max-w-5xl w-full p-6 bg-black shadow-md mx-auto opacity-95">
+				<div
+					className="border border-white rounded-md max-w-5xl w-full p-6 bg-black shadow-md mx-auto opacity-95"
+					style={{ backgroundColor: '#101010' }}>
 					<div className="mb-5">
 						<a
 							onClick={() => navigate('/')}

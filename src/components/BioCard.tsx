@@ -97,7 +97,9 @@ const BioCard: React.FC<BioCardProps> = ({
 	const typewriterPart = name?.slice(-3); // Last 4 characters to animate
 
 	return (
-		<div className="border border-white rounded-md max-w-4xl w-full p-6 md:p-12 bg-black shadow-md mx-auto opacity-95">
+		<div
+			className="border border-white rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
+			style={{ backgroundColor: '#101010' }}>
 			<div className="flex items-center justify-between mb-4">
 				{/* Name/Title and Subtitle on the left */}
 				<div>
@@ -167,7 +169,7 @@ const BioCard: React.FC<BioCardProps> = ({
 					<img
 						src={imageUrl}
 						alt={name}
-						className="object-cover rounded-full border border-gray-300"
+						className="object-cover rounded-full border border-gray-200"
 						style={{ width: '147px', height: '147px' }}
 						ref={glitch.ref}
 					/>
@@ -182,7 +184,7 @@ const BioCard: React.FC<BioCardProps> = ({
 						fill="#FF69B4"
 						size={32}
 						weight="fill"
-						onClick={() => navigate('/error')}
+						onClick={() => navigate('/ERR0R')}
 					/>
 				</div>
 			</div>
@@ -194,12 +196,14 @@ const BioCard: React.FC<BioCardProps> = ({
 			<div className="flex justify-center space-x-4 mt-6">
 				<button
 					onClick={() => navigate('/works')}
-					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300">
+					// className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300"
+					className="button-89">
 					Works
 				</button>
 				<button
 					onClick={() => navigate('/experience')}
-					className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300">
+					// className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300"
+					className="button-89">
 					Experience
 				</button>
 			</div>

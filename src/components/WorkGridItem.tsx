@@ -16,7 +16,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 	const navigate = useNavigate();
 
 	return (
-		<div className=" p-6 bg-black shadow-md">
+		<div className=" p-6 bg-black" style={{ backgroundColor: '#101010' }}>
 			<a
 				onClick={() => navigate(link)}
 				rel="noopener noreferrer"
