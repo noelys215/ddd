@@ -7,7 +7,7 @@ export const NotFound = () => {
 	const navigate = useNavigate();
 
 	return (
-		<Layout>
+		<Layout title="L0ST">
 			<MotionSection delay={0.2}>
 				<div className="max-w-3xl w-full p-6  shadow-md mx-auto text-center">
 					{/* Error Image */}

@@ -21,7 +21,7 @@ const skillsArray = [
 
 export const Experience = () => {
 	return (
-		<Layout>
+		<Layout title="experience">
 			<MotionSection delay={0.2}>
 				<Card
 					title="Experience"

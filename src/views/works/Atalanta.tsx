@@ -20,7 +20,7 @@ const imageArr = [
 
 const Atalanta = () => {
 	return (
-		<Layout>
+		<Layout title="atalanta">
 			<MotionSection delay={0.1}>
 				<div className="border border-white rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95 overflow-hidden">
 					{/* Title Section */}

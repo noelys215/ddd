@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { NotFound } from './views/NotFound.tsx';
 import { Works } from './views/Works.tsx';
 import Atalanta from './views/works/Atalanta.tsx';
+import { HelmetProvider } from 'react-helmet-async';
 
 const router = createBrowserRouter([
 	{
@@ -33,6 +34,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<HelmetProvider>
+			<RouterProvider router={router} />
+		</HelmetProvider>
 	</StrictMode>
 );

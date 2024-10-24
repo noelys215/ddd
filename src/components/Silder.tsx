@@ -41,10 +41,10 @@ export const Slider: React.FC<SliderProps> = ({ array }) => {
 				{/* Arrows */}
 				<div className="arrow-container absolute inset-0 flex justify-between items-center pointer-events-none">
 					<button className="embla__prev pointer-events-auto" onClick={scrollPrev}>
-						<CaretLeft size={40} weight="bold" className="text-pink-500" />
+						<CaretLeft size={50} weight="bold" className="text-pink-500" />
 					</button>
 					<button className="embla__next pointer-events-auto" onClick={scrollNext}>
-						<CaretRight size={40} weight="bold" className="text-pink-500" />
+						<CaretRight size={50} weight="bold" className="text-pink-500" />
 					</button>
 				</div>
 			</div>

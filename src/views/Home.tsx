@@ -6,7 +6,7 @@ import MotionSection from '../components/MotionSection';
 
 export const Home: React.FC = () => {
 	return (
-		<Layout>
+		<Layout title="home">
 			<MotionSection delay={0.2}>
 				<BioCard
 					imageUrl={whomImage}
