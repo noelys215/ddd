@@ -49,7 +49,7 @@ export const Works: React.FC = () => {
 							title="LiftLab"
 							description="A companion app for the Stronger by Science weightlifting program."
 							imageUrl={liftLabThumb}
-							link="#"
+							link="/works/liftlab"
 						/>
 
 						<WorkGridItem
