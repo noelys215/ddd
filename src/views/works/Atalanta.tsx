@@ -6,16 +6,16 @@ import { Meta } from '../../components/Meta';
 import { Slider } from '../../components/Silder';
 
 const imageArr = [
-	{ src: '/src/assets/works/atalanta/running.gif', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/createAccount.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/confirmEmail.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/emailVerified.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/login.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/shopping.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/addCart.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/payment.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/orderPaid.png', alt: 'atalanta' },
-	{ src: '/src/assets/works/atalanta/orderConfirm.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/running.gif', alt: 'atalanta' },
+	{ src: '/works/atalanta/createAccount.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/confirmEmail.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/emailVerified.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/login.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/shopping.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/addCart.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/payment.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/orderPaid.png', alt: 'atalanta' },
+	{ src: '/works/atalanta/orderConfirm.png', alt: 'atalanta' },
 ];
 
 const Atalanta = () => {
