@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 interface WorkGridItemProps {
 	title: string;
 	description: string;
-	imageUrl: string;
-	link: string;
+	imageUrl?: string;
+	link?: string;
+	href?: string;
 }
 
 export const WorkGridItem: React.FC<WorkGridItemProps> = ({
@@ -12,13 +13,15 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 	description,
 	imageUrl,
 	link,
+	href,
 }) => {
 	const navigate = useNavigate();
 
 	return (
 		<div className=" p-6 bg-black" style={{ backgroundColor: '#101010' }}>
 			<a
-				onClick={() => navigate(link)}
+				onClick={() => link && navigate(link)}
+				href={href}
 				rel="noopener noreferrer"
 				className="block text-center">
 				{/* Image */}

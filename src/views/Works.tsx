@@ -56,21 +56,21 @@ export const Works: React.FC = () => {
 							title="Gloria Fútbol"
 							description="Simple soccer/futbol app with live scores, charts and tables."
 							imageUrl={gloriaThumb}
-							link="#"
+							link="/works/gloria"
 						/>
 
 						<WorkGridItem
 							title="Ro-Sham-Bo"
 							description="A fun little rock-paper-scissor-spock game."
 							imageUrl={roshamboThumb}
-							link="https://spock-game.vercel.app/"
+							href="https://spock-game.vercel.app/"
 						/>
 
 						<WorkGridItem
 							title="Percentage Calculator"
 							description="Coupon Percentage Calculator."
 							imageUrl={calcThumb}
-							link="https://coupon-henna.vercel.app/"
+							href="https://coupon-henna.vercel.app/"
 						/>
 					</div>
 				</div>

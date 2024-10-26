@@ -42,7 +42,7 @@ export const LiftLab = () => {
 								target="_blank"
 								rel="noopener noreferrer"
 								className="text-pink-500 hover:underline">
-								GitHub - Atalanta A.C. | Frontend
+								GitHub - liftLab
 							</a>
 						</li>
 					</ul>
@@ -107,7 +107,6 @@ export const LiftLab = () => {
 						</p>
 					</MotionSection>
 
-					{/* Image Section */}
 					{/* Screenshots */}
 					<MotionSection delay={0.1}>
 						<h4 className="text-white text-lg font-bold text-center my-6">
