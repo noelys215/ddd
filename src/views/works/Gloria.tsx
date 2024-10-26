@@ -6,10 +6,10 @@ import { Slider } from '../../components/Silder';
 import { Title } from '../../components/Title';
 
 const imageArr = [
-	{ src: '/public/works/gloria/gloria1.png', alt: 'gloria' },
-	{ src: '/public/works/gloria/gloria2.png', alt: 'gloria' },
-	{ src: '/public/works/gloria/gloria3.png', alt: 'gloria' },
-	{ src: '/public/works/gloria/gloria4.png', alt: 'gloria' },
+	{ src: '/works/gloria/gloria1.png', alt: 'gloria' },
+	{ src: '/works/gloria/gloria2.png', alt: 'gloria' },
+	{ src: '/works/gloria/gloria3.png', alt: 'gloria' },
+	{ src: '/works/gloria/gloria4.png', alt: 'gloria' },
 ];
 
 export const Gloria = () => {
