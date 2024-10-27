@@ -97,14 +97,14 @@ const BioCard: React.FC<BioCardProps> = ({
 	const typewriterPart = name?.slice(-3); // Last 4 characters to animate
 
 	return (
-		<div
+		<article
 			className="border border-white rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
 			style={{ backgroundColor: '#101010' }}>
-			<div className="flex items-center justify-between mb-4">
+			<header className="flex items-center justify-between mb-4">
 				{/* Name/Title and Subtitle on the left */}
 				<div>
 					{/* Name/Title */}
-					<h2 className="text-white text-lg font-semibold">
+					<h1 id="bio-card-title" className="text-white text-lg font-semibold">
 						{/* Static part */}
 						<span>{staticPart}</span>
 						<span style={{ display: 'inline-block' }}>
@@ -119,7 +119,7 @@ const BioCard: React.FC<BioCardProps> = ({
 								}}
 							/>
 						</span>
-					</h2>
+					</h1>
 
 					{/* Subtitle */}
 					<p className="text-gray-400 text-sm">{subtitle}</p>
@@ -142,12 +142,13 @@ const BioCard: React.FC<BioCardProps> = ({
 					</p>
 
 					{/* Social Links (now under subtitle) */}
-					<div className="flex space-x-4 mt-2">
+					<nav aria-label="Social Links" className="flex space-x-4 mt-2">
 						{linkedinUrl && (
 							<a
 								href={linkedinUrl}
 								target="_blank"
 								rel="noopener noreferrer"
+								aria-label="LinkedIn Profile"
 								className="text-white hover:text-pink-400">
 								<LinkedinLogo size={24} weight="fill" />
 							</a>
@@ -157,28 +158,29 @@ const BioCard: React.FC<BioCardProps> = ({
 								href={githubUrl}
 								target="_blank"
 								rel="noopener noreferrer"
+								aria-label="GitHub Profile"
 								className="text-white hover:text-pink-400">
 								<GithubLogo size={24} weight="fill" />
 							</a>
 						)}
-					</div>
+					</nav>
 				</div>
 
 				{/* Image on the top right */}
-				<div className="relative ml-4">
+				<figure className="relative ml-4">
 					<img
 						src={imageUrl}
-						alt={name}
+						alt={`Photo of ${name}`}
 						className="object-cover rounded-full border border-gray-200"
 						style={{ width: '147px', height: '147px' }}
 						ref={glitch.ref}
 					/>
-				</div>
-			</div>
+				</figure>
+			</header>
 
 			{/* Horizontal Line */}
 			<div className="relative mb-4">
-				<hr className="border-gray-400 w-4/5 mx-auto" />
+				<hr className="border-gray-400 w-4/5 mx-auto" aria-hidden="true" />
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-6">
 					<SmileyMelting
 						fill="#FF69B4"
@@ -190,24 +192,24 @@ const BioCard: React.FC<BioCardProps> = ({
 			</div>
 
 			{/* Text Component */}
-			{text && <Text text={text} />}
+			<section aria-labelledby="bio-text">{text && <Text text={text} />}</section>
 
 			{/* Buttons (added Experience button) */}
-			<div className="flex justify-center space-x-4 mt-6">
+			<footer className="flex justify-center space-x-4 mt-6">
 				<button
 					onClick={() => navigate('/works')}
-					// className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300"
+					aria-label="Navigate to Works"
 					className="button-89">
 					Works
 				</button>
 				<button
 					onClick={() => navigate('/experience')}
-					// className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-pink-600 transition-colors duration-300"
+					aria-label="Navigate to Experience"
 					className="button-89">
 					Experience
 				</button>
-			</div>
-		</div>
+			</footer>
+		</article>
 	);
 };
 
