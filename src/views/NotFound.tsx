@@ -22,7 +22,6 @@ export const NotFound = () => {
 					{/* Back to Home Button */}
 					<button
 						onClick={() => navigate('/')}
-						// className="px-4 py-2 bg-black-500 text-white border border-white rounded-md hover:bg-gray-700 transition-colors duration-300"
 						className="button-89"
 						style={{ width: '10rem' }}>
 						Return Home

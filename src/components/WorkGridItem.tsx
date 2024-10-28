@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface WorkGridItemProps {
@@ -17,34 +18,52 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 }) => {
 	const navigate = useNavigate();
 
+	const handleNavigation = () => {
+		if (link) {
+			navigate(link);
+		}
+	};
+
 	return (
-		<div className=" p-6 bg-black" style={{ backgroundColor: '#101010' }}>
+		<article
+			className="p-6 bg-black rounded-lg shadow-lg"
+			style={{ backgroundColor: '#101010' }}
+			aria-labelledby={`${title}-title`}
+			role="button"
+			onClick={handleNavigation}
+			tabIndex={0}
+			onKeyDown={(e) => e.key === 'Enter' && handleNavigation()}>
 			<a
-				onClick={() => link && navigate(link)}
-				href={href}
+				href={href || '#'}
+				onClick={(e) => {
+					if (!href) e.preventDefault();
+				}}
 				rel="noopener noreferrer"
-				className="block text-center">
+				target={href ? '_blank' : '_self'}
+				className="block text-center"
+				aria-label={`Learn more about ${title}`}>
 				{/* Image */}
-				<img
-					src={imageUrl}
-					alt={title}
-					className="object-cover w-full h-48 rounded-lg mb-4"
-				/>
+				<figure>
+					<img
+						src={imageUrl}
+						alt={`Screenshot of ${title}`}
+						className="object-cover w-full h-48 rounded-lg mb-4"
+					/>
+				</figure>
 
 				{/* Title */}
-				<h2 className="text-white text-lg font-semibold mb-2">{title}</h2>
+				<h2 id={`${title}-title`} className="text-white text-lg font-semibold mb-2">
+					{title}
+				</h2>
 
 				{/* Horizontal Line */}
 				<div className="relative mb-4">
-					<hr className="border-gray-400 w-4/5 mx-auto" />
-					<div className="absolute inset-x-0 top-0 flex justify-center -mt-3.5">
-						{/* <HeartBreak fill="#FF69B4" weight="fill" size={26} /> */}
-					</div>
+					<hr className="border-gray-400 w-4/5 mx-auto" aria-hidden="true" />
 				</div>
 
 				{/* Description */}
 				<p className="text-gray-300 text-sm">{description}</p>
 			</a>
-		</div>
+		</article>
 	);
 };
