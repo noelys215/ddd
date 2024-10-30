@@ -18,10 +18,11 @@ export const Works: React.FC = () => {
 	return (
 		<Layout title="works">
 			<MotionSection delay={0.1}>
-				<div
+				<section
 					className="border border-white rounded-md max-w-5xl w-full p-6 bg-black shadow-md mx-auto opacity-95"
-					style={{ backgroundColor: '#101010' }}>
-					<div className="mb-5">
+					style={{ backgroundColor: '#101010' }}
+					aria-labelledby="works-heading">
+					<header className="mb-5">
 						<a
 							onClick={() => navigate('/')}
 							className="text-pink-500 hover:underline cursor-pointer">
@@ -31,12 +32,13 @@ export const Works: React.FC = () => {
 							size={14}
 							weight="bold"
 							className="mx-1 text-pink-500 inline-flex"
+							aria-hidden="true"
 						/>
-						<h3 className="inline-block text-white text-2xl font-medium">Works</h3>
-					</div>
+						<h1 className="inline-block text-white text-2xl font-medium">Works</h1>
+					</header>
 
 					{/* Grid Layout - 2 columns */}
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
 						{/* Work Items */}
 						<WorkGridItem
 							title="Atalanta A.C."
@@ -73,7 +75,7 @@ export const Works: React.FC = () => {
 							href="https://coupon-henna.vercel.app/"
 						/>
 					</div>
-				</div>
+				</section>
 			</MotionSection>
 		</Layout>
 	);
