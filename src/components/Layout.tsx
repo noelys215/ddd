@@ -9,7 +9,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, title }) => {
 	return (
-		<div
+		<section
 			className="flex flex-col justify-center items-center space-y-6 min-h-screen w-full bg-black p-6 font-custom"
 			style={{
 				backgroundImage: `url(${backgroundImage})`,
@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
 				{/* <meta name="description" content={`Page about ${title}`} /> */}
 			</Helmet>
 			{children}
-		</div>
+		</section>
 	);
 };
 
