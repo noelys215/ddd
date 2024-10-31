@@ -15,10 +15,11 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonAction }) => {
 	const navigate = useNavigate();
 	return (
-		<div
+		<article
 			className="border border-white rounded-lg max-w-4xl w-full p-6 md:p-12 bg-black shadow-md mx-auto opacity-95"
-			style={{ backgroundColor: '#101010' }}>
-			<div className="mb-5">
+			style={{ backgroundColor: '#101010' }}
+			aria-labelledby="card-title">
+			<header className="mb-5">
 				<a
 					onClick={() => navigate('/')}
 					className="text-pink-500 hover:underline cursor-pointer">
@@ -26,7 +27,7 @@ const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonA
 				</a>
 				<CaretRight size={14} weight="bold" className="mx-1 text-pink-500 inline-flex" />
 				<h3 className="inline-block text-white text-2xl font-medium">{title}</h3>
-			</div>
+			</header>
 			{/* Horizontal Line */}
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" />
@@ -51,7 +52,7 @@ const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonA
 					</button>
 				</div>
 			)}
-		</div>
+		</article>
 	);
 };
 
