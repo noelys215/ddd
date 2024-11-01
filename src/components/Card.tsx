@@ -6,13 +6,25 @@ import { useNavigate } from 'react-router-dom';
 
 interface CardProps {
 	title?: string;
+	subtitle?: string;
+	job?: string;
+	year?: string;
 	content: string;
 	skills?: string[];
 	buttonText?: string;
 	buttonAction?: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonAction }) => {
+const Card: React.FC<CardProps> = ({
+	title,
+	subtitle,
+	job,
+	year,
+	content,
+	skills,
+	buttonText,
+	buttonAction,
+}) => {
 	const navigate = useNavigate();
 	return (
 		<article
@@ -35,6 +47,18 @@ const Card: React.FC<CardProps> = ({ title, content, skills, buttonText, buttonA
 					<HeartBreak fill="#FF69B4" weight="fill" size={26} />
 				</div>
 			</div>
+
+			{subtitle && (
+				<section className="mb-2">
+					<h3 className="inline-block text-white text-xl font-medium mb-1">
+						{subtitle} | {job}
+					</h3>
+					<br />
+					<h3 className="inline-block text-white text-md font-medium mb-1 italic">
+						{year}
+					</h3>
+				</section>
+			)}
 
 			{/* Text Component */}
 			<Text text={content} />

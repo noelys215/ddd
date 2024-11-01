@@ -25,6 +25,9 @@ export const Experience = () => {
 			<MotionSection delay={0.2}>
 				<Card
 					title="Experience"
+					subtitle="TechnologyAdvice"
+					job="Software Engineer Intern"
+					year="May 2024 - Aug 2024"
 					content="During my Software Engineer Internship at TechnologyAdvice, I quickly adapted to the company's tech stack, delivering high-impact feature enhancements within the first two weeks. I was responsible for developing scalable full-stack web applications using PHP/Laravel for the backend and Vue.js for the frontend, leading to a 20% increase in user engagement. 
         
         I worked closely with product managers, UX/UI designers, and QA teams in bi-weekly Agile sprints to align with business goals and ensure efficient project progress.
