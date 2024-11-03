@@ -3,6 +3,7 @@ import React from 'react';
 import Text from './Text';
 import SkillsCard from './SkillsCard'; // Import the SkillsCard
 import { useNavigate } from 'react-router-dom';
+import { Container } from './Container';
 
 interface CardProps {
 	title?: string;
@@ -27,10 +28,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
 	const navigate = useNavigate();
 	return (
-		<article
-			className="border border-white rounded-lg max-w-4xl w-full p-6 md:p-12 bg-black shadow-md mx-auto opacity-95"
-			style={{ backgroundColor: '#101010' }}
-			aria-labelledby="card-title">
+		<Container>
 			<header className="mb-5">
 				<a
 					onClick={() => navigate('/')}
@@ -76,7 +74,7 @@ const Card: React.FC<CardProps> = ({
 					</button>
 				</div>
 			)}
-		</article>
+		</Container>
 	);
 };
 
