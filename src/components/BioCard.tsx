@@ -9,6 +9,7 @@ import {
 	CloudRain,
 	CloudSnow,
 	CloudFog,
+	Rabbit,
 } from '@phosphor-icons/react';
 
 import React, { useState, useEffect } from 'react';
@@ -209,6 +210,10 @@ const BioCard: React.FC<BioCardProps> = ({
 					Experience
 				</button>
 			</footer>
+			{/* Rabbit Icon fixed at bottom left */}
+			<div className="fixed bottom-0 left-0 md:bottom-4 md:left-4">
+				<Rabbit size={25} weight="duotone" color="#fff" aria-hidden />
+			</div>
 		</article>
 	);
 };
