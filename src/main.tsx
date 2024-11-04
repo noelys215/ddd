@@ -10,6 +10,7 @@ import Atalanta from './views/works/Atalanta.tsx';
 import { HelmetProvider } from 'react-helmet-async';
 import { LiftLab } from './views/works/LiftLab.tsx';
 import { Gloria } from './views/works/Gloria.tsx';
+import { Calling } from './views/novella/_01/calling.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
 	{
 		path: '/works/gloria',
 		element: <Gloria />,
+	},
+	{
+		path: '/novella/calling',
+		element: <Calling />,
 	},
 ]);
 

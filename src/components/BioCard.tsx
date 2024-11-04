@@ -212,7 +212,13 @@ const BioCard: React.FC<BioCardProps> = ({
 			</footer>
 			{/* Rabbit Icon fixed at bottom left */}
 			<div className="fixed bottom-0 left-0 md:bottom-4 md:left-4">
-				<Rabbit size={25} weight="duotone" color="#fff" aria-hidden />
+				<Rabbit
+					size={25}
+					weight="duotone"
+					color="#fff"
+					aria-hidden
+					onClick={() => navigate('/novella/calling')}
+				/>
 			</div>
 		</article>
 	);
