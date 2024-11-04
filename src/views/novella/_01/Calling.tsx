@@ -3,16 +3,18 @@ import Layout from '../../../components/Layout';
 import Typewriter from 'typewriter-effect';
 import { Rabbit } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
+import { useGlitch } from 'react-powerglitch';
 
 export const Calling = () => {
 	const navigate = useNavigate();
+	const glitch = useGlitch({});
 
 	const string = 'I am looking for myself… have you seen them?';
 
 	return (
 		<Layout title="_calling">
 			<Container>
-				<div className="flex justify-center text-center">
+				<div className="flex justify-center text-center" ref={glitch.ref}>
 					<Rabbit size={64} weight="fill" className="text-white mb-2" />
 				</div>
 				<h1 id="bio-card-title" className="text-white text-lg font-semibold text-center">
