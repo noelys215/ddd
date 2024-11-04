@@ -187,7 +187,7 @@ const BioCard: React.FC<BioCardProps> = ({
 						fill="#FF69B4"
 						size={32}
 						weight="fill"
-						onClick={() => navigate('/ERR0R')}
+						onClick={() => navigate('/novella/calling')}
 					/>
 				</div>
 			</div>
@@ -216,7 +216,6 @@ const BioCard: React.FC<BioCardProps> = ({
 					size={25}
 					weight="duotone"
 					color="#fff"
-					aria-hidden
 					onClick={() => navigate('/novella/calling')}
 				/>
 			</div>

@@ -1,5 +1,5 @@
-import { Container } from '../../../components/Container';
-import Layout from '../../../components/Layout';
+import { Container } from '../../../../components/Container';
+import Layout from '../../../../components/Layout';
 import Typewriter from 'typewriter-effect';
 import { Rabbit } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ export const Calling = () => {
 	const navigate = useNavigate();
 	const glitch = useGlitch({});
 
-	const string = 'I am looking for myself… have you seen them?';
+	const string = 'There’s something of mine out there… or perhaps it’s yours?';
 
 	return (
 		<Layout title="_calling">
@@ -38,8 +38,8 @@ export const Calling = () => {
 						Follow
 					</button>
 					<button
-						onClick={() => navigate('/experience')}
-						aria-label="Navigate to Experience"
+						onClick={() => navigate('/')}
+						aria-label="Navigate to Home"
 						className="button-89">
 						Retreat
 					</button>
