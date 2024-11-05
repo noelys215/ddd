@@ -10,7 +10,8 @@ import Atalanta from './views/works/Atalanta.tsx';
 import { HelmetProvider } from 'react-helmet-async';
 import { LiftLab } from './views/works/LiftLab.tsx';
 import { Gloria } from './views/works/Gloria.tsx';
-import { Calling } from './views/novella/Chapters/_01/Calling.tsx';
+import { Calling } from './views/novella/Chapters/_00/Calling.tsx';
+import { Descent } from './views/novella/Chapters/_01/Descent.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
 	{
 		path: '/novella/calling',
 		element: <Calling />,
+	},
+	{
+		path: '/novella/descent',
+		element: <Descent />,
 	},
 ]);
 
