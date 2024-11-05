@@ -53,7 +53,7 @@ export const Descent = () => {
 
 					<footer className="flex justify-center space-x-4 mt-6">
 						<button
-							onClick={() => navigate('/works')}
+							onClick={() => navigate('/novella/descent/redscene')}
 							aria-label="Navigate to Works"
 							className="button-89">
 							Proceed
