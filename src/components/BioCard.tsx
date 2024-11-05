@@ -1,7 +1,7 @@
 import {
 	GithubLogo,
 	LinkedinLogo,
-	SmileyMelting,
+	// SmileyMelting,
 	SmileySad,
 	Sun,
 	Cloud,
@@ -183,8 +183,9 @@ const BioCard: React.FC<BioCardProps> = ({
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" aria-hidden="true" />
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-6">
-					<SmileyMelting
-						fill="#FF69B4"
+					<Rabbit
+						fill="#FFF"
+						// fill="#FF69B4"
 						size={32}
 						weight="fill"
 						onClick={() => navigate('/novella/calling')}
@@ -211,14 +212,14 @@ const BioCard: React.FC<BioCardProps> = ({
 				</button>
 			</footer>
 			{/* Rabbit Icon fixed at bottom left */}
-			<div className="fixed bottom-0 left-0 md:bottom-4 md:left-4">
+			{/* <div className="fixed bottom-0 left-0 md:bottom-4 md:left-4">
 				<Rabbit
 					size={25}
 					weight="duotone"
 					color="#fff"
 					onClick={() => navigate('/novella/calling')}
 				/>
-			</div>
+			</div> */}
 		</article>
 	);
 };

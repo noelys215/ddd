@@ -9,7 +9,7 @@ export const Calling = () => {
 	const navigate = useNavigate();
 	const glitch = useGlitch({});
 
-	const string = 'There’s something of mine out there… or perhaps it’s yours?';
+	const string = 'There’s something of mine out there… or perhaps it’s you(rs)?';
 
 	return (
 		<Layout title="_calling">
@@ -17,7 +17,7 @@ export const Calling = () => {
 				<div className="flex justify-center text-center" ref={glitch.ref}>
 					<Rabbit size={64} weight="fill" className="text-white mb-2" />
 				</div>
-				<h1 id="bio-card-title" className="text-white text-lg font-semibold text-center">
+				<p id="bio-card-title" className="text-white text-md font-semibold text-center">
 					<span style={{ display: 'inline-block' }}>
 						<Typewriter
 							options={{
@@ -29,7 +29,7 @@ export const Calling = () => {
 							}}
 						/>
 					</span>
-				</h1>
+				</p>
 				<footer className="flex justify-center space-x-4 mt-6">
 					<button
 						onClick={() => navigate('/works')}
