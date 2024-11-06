@@ -109,7 +109,7 @@ export const Watcher = () => {
 						<footer className="flex justify-center space-x-4 mt-6">
 							<button
 								style={{ opacity: showProceedButton ? 1 : 0 }}
-								onClick={() => navigate('/novella/descent/redscene')}
+								onClick={() => navigate('/novella/descent/watcherSpeaks')}
 								aria-label="Proceed to the next scene"
 								className="button-89">
 								Proceed

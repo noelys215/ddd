@@ -14,6 +14,7 @@ import { Calling } from './views/novella/Chapters/_00/Calling.tsx';
 import { Descent } from './views/novella/Chapters/_01/Descent.tsx';
 import { RedScene } from './views/novella/Chapters/_01/RedScene.tsx';
 import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
+import { WatcherSpeaks } from './views/novella/Chapters/_01/WatcherSpeaks.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
 	{
 		path: '/novella/descent/watcher',
 		element: <Watcher />,
+	},
+	{
+		path: '/novella/descent/watcherSpeaks',
+		element: <WatcherSpeaks />,
 	},
 ]);
 
