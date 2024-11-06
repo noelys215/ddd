@@ -108,10 +108,7 @@ export const Watcher = () => {
 					<MotionSection delay={0.2}>
 						<footer className="flex justify-center space-x-4 mt-6">
 							<button
-								style={{
-									opacity: showProceedButton ? 1 : 0,
-									transition: 'opacity 1s ease',
-								}}
+								style={{ opacity: showProceedButton ? 1 : 0 }}
 								onClick={() => navigate('/novella/descent/redscene')}
 								aria-label="Proceed to the next scene"
 								className="button-89">

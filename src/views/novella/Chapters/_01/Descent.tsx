@@ -24,10 +24,9 @@ export const Descent = () => {
 						<img
 							src={wonder}
 							alt="Photo of oneself"
-							className="object-cover rounded-full opacity-90"
+							className="object-cover rounded-full opacity-70"
 							style={{
 								width: '400px',
-								height: '400px',
 								maskImage:
 									'radial-gradient(circle, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%)',
 								WebkitMaskImage:
