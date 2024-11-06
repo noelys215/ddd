@@ -13,6 +13,7 @@ import { Gloria } from './views/works/Gloria.tsx';
 import { Calling } from './views/novella/Chapters/_00/Calling.tsx';
 import { Descent } from './views/novella/Chapters/_01/Descent.tsx';
 import { RedScene } from './views/novella/Chapters/_01/RedScene.tsx';
+import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
 	{
 		path: '/novella/descent/redscene',
 		element: <RedScene />,
+	},
+	{
+		path: '/novella/descent/watcher',
+		element: <Watcher />,
 	},
 ]);
 
