@@ -8,7 +8,12 @@ import MotionSection from '../../../../components/MotionSection';
 
 export const Calling = () => {
 	const navigate = useNavigate();
-	const glitch = useGlitch({});
+	const glitch = useGlitch({
+		hideOverflow: true,
+		timing: {
+			duration: 3150,
+		},
+	});
 
 	const string = 'There’s something of mine out there… or perhaps it’s you(rs)?';
 

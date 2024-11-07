@@ -1,22 +1,32 @@
 import { useEffect, useMemo, useState } from 'react';
-import watcher from '../../../../assets/watcher.gif';
-import MotionSection from '../../../../components/MotionSection';
-import Typewriter from 'typewriter-effect';
 import { Container } from '../../../../components/Container';
 import Layout from '../../../../components/Layout';
-import { useGlitch } from 'react-powerglitch';
+import Typewriter from 'typewriter-effect';
 import { Rabbit } from '@phosphor-icons/react';
+import MotionSection from '../../../../components/MotionSection';
 import { ColorScene } from '../../../../components/novella/ColorScene';
+import { useGlitch } from 'react-powerglitch';
 
-export const WatcherSpeaks = () => {
+export const Obedience = () => {
+	const glitch = useGlitch({
+		timing: {
+			duration: 3000,
+		},
+		shake: {
+			velocity: 8,
+		},
+		slice: {
+			count: 4,
+		},
+	});
+	// State to control whether to show the RedScene
+	const [showRedScene, setShowRedScene] = useState(false);
+	const typingSpeed = 30;
+
 	const [startSecond, setStartSecond] = useState(false);
 	const [startThird, setStartThird] = useState(false);
 	const [showProceedButton, setShowProceedButton] = useState(false);
 
-	const glitch = useGlitch();
-	const typingSpeed = 30;
-
-	// Define each sentence and calculate the display delay based on typing speed
 	const sentences = useMemo(
 		() => [
 			{
@@ -52,57 +62,27 @@ export const WatcherSpeaks = () => {
 		};
 	}, [sentences]);
 
-	// State to control whether to show the RedScene
-	const [showBlueScene, setShowBlueScene] = useState(false);
-	const [showYellowScene, setShowYellowScene] = useState(false);
-	// Handler to show the RedScene component
-	const handleObedience = () => setShowBlueScene(true);
-	const handleKnowledge = () => setShowYellowScene(true);
-
-	// If showBlueScene is true, render the RedScene component instead of the current content
-	if (showBlueScene) {
+	// If showRedScene is true, render the RedScene component instead of the current content
+	if (showRedScene) {
 		return (
 			<ColorScene
 				chapter="_chapterOne"
-				title="Obedience"
-				scene="Scene no. 102"
-				color="#1dafa1"
-				navigateTo="/novella/descent/obedience"
+				title="Watcher.exe"
+				scene="Scene no. 101"
+				color="#739BD0"
+				navigateTo="/novella/descent/watcher"
 			/>
 		);
 	}
 
-	if (showYellowScene) {
-		return (
-			<ColorScene
-				chapter="_chapterOne"
-				title="Knowledge"
-				scene="Scene no. 102"
-				color="#ffcc00"
-				navigateTo="/novella/descent/obedience"
-			/>
-		);
-	}
-
+	// Otherwise, render the Descent content
 	return (
-		<Layout title="Watcher.exe">
-			<Container color="#000000">
+		<Layout title="descent">
+			<Container opacity={90} color="#000000">
 				<MotionSection delay={0.2}>
-					<figure className="relative flex justify-center">
-						<img
-							src={watcher}
-							alt="Photo of oneself"
-							className="object-cover rounded-full opacity-90"
-							style={{
-								width: '400px',
-								maskImage:
-									'radial-gradient(circle, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 100%)',
-								WebkitMaskImage:
-									'radial-gradient(circle, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 100%)',
-							}}
-						/>
-					</figure>
-					<hr />
+					<div className="flex justify-center text-center" ref={glitch.ref}>
+						<Rabbit size={64} weight="fill" className="text-white mb-2" />
+					</div>
 
 					{/* First Sentence */}
 					<p
@@ -153,34 +133,15 @@ export const WatcherSpeaks = () => {
 						)}
 					</p>
 
-					<MotionSection delay={0.2}>
-						{/* Proceed Button */}
-						<div className="flex justify-center text-center" ref={glitch.ref}>
-							<Rabbit size={64} weight="fill" className="text-white mb-2 mt-2" />
-						</div>
-						<p
-							id="scripture"
+					<footer className="flex justify-center space-x-4 mt-0">
+						<button
 							style={{ opacity: showProceedButton ? 1 : 0 }}
-							className="text-white text-lg mb-2 text-center transition-opacity duration-1000">
-							What should we choose?
-						</p>
-						<footer className="flex justify-center space-x-4 mt-0">
-							<button
-								style={{ opacity: showProceedButton ? 1 : 0 }}
-								onClick={handleObedience}
-								aria-label="Proceed to the next scene"
-								className="button-89">
-								Obedience
-							</button>
-							<button
-								style={{ opacity: showProceedButton ? 1 : 0 }}
-								onClick={handleKnowledge}
-								aria-label="Proceed to the next scene"
-								className="button-89">
-								Knowledge
-							</button>
-						</footer>
-					</MotionSection>
+							// onClick={handleKnowledge}
+							aria-label="Proceed to the next scene"
+							className="button-89">
+							Proceed
+						</button>
+					</footer>
 				</MotionSection>
 			</Container>
 		</Layout>
