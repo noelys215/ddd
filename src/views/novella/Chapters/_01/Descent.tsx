@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import { Container } from '../../../../components/Container';
 import Layout from '../../../../components/Layout';
 import Typewriter from 'typewriter-effect';
-import { useNavigate } from 'react-router-dom';
 import wonder from '../../../../assets/wonder.gif';
 import MotionSection from '../../../../components/MotionSection';
+import { ColorScene } from '../../../../components/novella/ColorScene';
 
 export const Descent = () => {
-	const navigate = useNavigate();
+	// State to control whether to show the RedScene
+	const [showRedScene, setShowRedScene] = useState(false);
 
 	const strings = [
 		'For I have seen… but not yet known…',
@@ -16,11 +18,28 @@ export const Descent = () => {
 		'To follow is to yield; to stray is to question.',
 	];
 
+	// Handler to show the RedScene component
+	const handleProceed = () => setShowRedScene(true);
+
+	// If showRedScene is true, render the RedScene component instead of the current content
+	if (showRedScene) {
+		return (
+			<ColorScene
+				chapter="_chapterOne"
+				title="Watcher.exe"
+				scene="Scene no. 101"
+				color="#739BD0"
+				navigateTo="/novella/descent/watcher" // Optional if you want another nested scene
+			/>
+		);
+	}
+
+	// Otherwise, render the Descent content
 	return (
 		<Layout title="descent">
 			<Container opacity={90} color="#000000">
 				<MotionSection delay={0.2}>
-					<figure className="relative  flex justify-center">
+					<figure className="relative flex justify-center">
 						<img
 							src={wonder}
 							alt="Photo of oneself"
@@ -52,8 +71,8 @@ export const Descent = () => {
 
 					<footer className="flex justify-center space-x-4 mt-6">
 						<button
-							onClick={() => navigate('/novella/descent/redscene')}
-							aria-label="Navigate to Works"
+							onClick={handleProceed}
+							aria-label="Proceed to Red Scene"
 							className="button-89">
 							Proceed
 						</button>
