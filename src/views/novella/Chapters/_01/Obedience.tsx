@@ -62,6 +62,9 @@ export const Obedience = () => {
 		};
 	}, [sentences]);
 
+	// Handler to show the RedScene component
+	const handleProceed = () => setShowRedScene(true);
+
 	// If showRedScene is true, render the RedScene component instead of the current content
 	if (showRedScene) {
 		return (
@@ -136,7 +139,7 @@ export const Obedience = () => {
 					<footer className="flex justify-center space-x-4 mt-0">
 						<button
 							style={{ opacity: showProceedButton ? 1 : 0 }}
-							// onClick={handleKnowledge}
+							onClick={handleProceed}
 							aria-label="Proceed to the next scene"
 							className="button-89">
 							Proceed

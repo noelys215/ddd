@@ -185,7 +185,7 @@ const BioCard: React.FC<BioCardProps> = ({
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-5">
 					<Rabbit
 						fill="#FFF"
-						size={34}
+						size={38}
 						weight="fill"
 						onClick={() => navigate('/novella/calling')}
 						className="rotate"
