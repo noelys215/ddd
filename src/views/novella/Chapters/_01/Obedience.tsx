@@ -4,81 +4,96 @@ import Layout from '../../../../components/Layout';
 import Typewriter from 'typewriter-effect';
 import { Rabbit } from '@phosphor-icons/react';
 import MotionSection from '../../../../components/MotionSection';
-import { ColorScene } from '../../../../components/novella/ColorScene';
 import { useGlitch } from 'react-powerglitch';
 
 export const Obedience = () => {
 	const glitch = useGlitch({
-		timing: {
-			duration: 3000,
-		},
-		shake: {
-			velocity: 8,
-		},
-		slice: {
-			count: 4,
-		},
+		timing: { duration: 3000 },
+		shake: { velocity: 8 },
+		slice: { count: 4 },
 	});
-	// State to control whether to show the RedScene
-	const [showRedScene, setShowRedScene] = useState(false);
-	const typingSpeed = 30;
 
-	const [startSecond, setStartSecond] = useState(false);
-	const [startThird, setStartThird] = useState(false);
-	const [showProceedButton, setShowProceedButton] = useState(false);
+	const typingSpeed = 25; // The speed of each character typing
+	const narrativePause = 2000; // Pause after each sentence to show narrative
+	const [startSentence, setStartSentence] = useState([true, false, false, false, false, false]);
+	const [showNarrative, setShowNarrative] = useState([false, false, false, false, false]);
+	const [showProceedButton, setShowProceedButton] = useState(false); // For showing the "Proceed" button
 
 	const sentences = useMemo(
 		() => [
 			{
-				text: 'Watcher.exe: “I am one who sees… but cannot act. What is it that you seek? Understanding, or the safety of ignorance?”',
-				delay: 0, // Start immediately
+				text: '“Oh dear, oh dear… it feels quieter, doesn’t it? Calmer, perhaps. Not sure I like it—it’s as if the shadows are sleeping now, yes? But… but isn’t that what we wanted? Oh, so very strange…”',
+				narrative:
+					'The rabbit pauses, glancing around, as though searching for something familiar yet just out of reach.',
 			},
 			{
-				text: 'Watcher.exe: “In obedience lies simplicity, the way is guided, clean, and bright… yet obscured. In knowledge lies depth… but it fractures and distorts.”',
-				delay: typingSpeed * 104 + 2000, // Delay after first sentence completes (length * typingSpeed + delayBetweenSentences)
+				text: '“You—you there, guiding me through all this! Do you… do you think it’s better this way? Like drifting, ever so gently, isn’t it, or slipping into water that’s neither cold nor warm. Hm, not frightening exactly, but… still a little peculiar, don’t you think?”',
+				narrative:
+					'It glances back, its eyes bright but less anxious, as if reassured by the sense of stability that obedience has granted them both.',
 			},
 			{
-				text: 'Watcher.exe: “Choose, but know… the price is heavy on both paths. One binds, the other blinds… but only one knows.”',
-				delay: typingSpeed * 104 + typingSpeed * 104 + 4000, // Delay after second sentence completes
+				text: '“It’s funny, isn’t it? Following a path already laid, even if it’s hidden in shadows. There’s comfort, yes—comfort in letting things remain as they are, in knowing something out there is holding the strings.”',
+				narrative:
+					'The rabbit ponders this, ears twitching as if listening for something only it can hear.',
+			},
+			{
+				text: '“Oh, but listen to me ramble! It’s just that—well, something in me feels whole-er than before, almost… secure.”',
+				narrative:
+					'It fidgets slightly, then lets out a soft sigh, sounding almost comforted by the realization.',
+			},
+			{
+				text: 'I wonder… perhaps I’m not so lost after all! Not if there’s a hand guiding me, a voice telling me which way to turn. But then, does that mean I am just… oh dear, I shudder to think it! Just a shadow, a reflection! Only what you make of me.',
+			},
+			{
+				text: '“But oh, maybe that’s alright. To be a shadow is still to be something, yes? A purpose of sorts. And if I follow… then I am not alone in this. No, no—not alone at all.”',
 			},
 		],
-		[typingSpeed]
+		[]
 	);
 
 	useEffect(() => {
-		const timer1 = setTimeout(() => setStartSecond(true), sentences[1].delay);
-		const timer2 = setTimeout(() => setStartThird(true), sentences[2].delay);
+		const timers: (number | undefined)[] = [];
+		let cumulativeDelay = 0;
 
-		// Calculate button delay after the last sentence completes
-		const lastSentenceDuration = sentences[2].text.length * typingSpeed;
-		const buttonDelay = sentences[2].delay + lastSentenceDuration + 2000;
+		sentences.forEach((sentence, index) => {
+			const sentenceTypingDuration = sentence.text.length * typingSpeed;
+			const totalDelayForSentence = cumulativeDelay;
 
-		const timer3 = setTimeout(() => setShowProceedButton(true), buttonDelay);
+			// Show each sentence sequentially
+			const sentenceTimer = setTimeout(() => {
+				setStartSentence((prev) => {
+					const updated = [...prev];
+					updated[index] = true;
+					return updated;
+				});
+			}, totalDelayForSentence);
 
-		return () => {
-			clearTimeout(timer1);
-			clearTimeout(timer2);
-			clearTimeout(timer3);
-		};
-	}, [sentences]);
+			timers.push(sentenceTimer);
 
-	// Handler to show the RedScene component
-	const handleProceed = () => setShowRedScene(true);
+			// Show narrative after the sentence is finished typing
+			if (sentence.narrative) {
+				const narrativeTimer = setTimeout(() => {
+					setShowNarrative((prev) => {
+						const updated = [...prev];
+						updated[index] = true;
+						return updated;
+					});
+				}, totalDelayForSentence + sentenceTypingDuration + narrativePause);
 
-	// If showRedScene is true, render the RedScene component instead of the current content
-	if (showRedScene) {
-		return (
-			<ColorScene
-				chapter="_chapterOne"
-				title="Watcher.exe"
-				scene="Scene no. 101"
-				color="#739BD0"
-				navigateTo="/novella/descent/watcher"
-			/>
-		);
-	}
+				timers.push(narrativeTimer);
+			}
 
-	// Otherwise, render the Descent content
+			// Update cumulative delay to account for the current sentence and narrative
+			cumulativeDelay += sentenceTypingDuration + narrativePause * 2;
+		});
+
+		// Set up a timer to show the Proceed button after the last sentence and narrative have been displayed
+		const proceedTimer = setTimeout(() => setShowProceedButton(true), cumulativeDelay);
+		timers.push(proceedTimer);
+
+		return () => timers.forEach(clearTimeout);
+	}, [sentences, typingSpeed, narrativePause]);
+
 	return (
 		<Layout title="descent">
 			<Container opacity={90} color="#000000">
@@ -87,59 +102,43 @@ export const Obedience = () => {
 						<Rabbit size={64} weight="fill" className="text-white mb-2" />
 					</div>
 
-					{/* First Sentence */}
-					<p
-						id="scripture"
-						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000"
-						style={{ minHeight: '1.5em' }}>
-						<Typewriter
-							options={{
-								strings: sentences[0].text,
-								autoStart: true,
-								cursor: '',
-								delay: typingSpeed,
-							}}
-						/>
-					</p>
+					{/* Sentences with Fading Narratives */}
+					{sentences.map((sentence, index) => (
+						<div key={index}>
+							<p
+								id="scripture"
+								className={`text-white mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
+									startSentence[index] ? 'opacity-100' : 'opacity-0'
+								}`}
+								style={{ minHeight: '1.5em' }}>
+								{startSentence[index] && (
+									<Typewriter
+										options={{
+											strings: sentence.text,
+											autoStart: true,
+											cursor: index === sentences.length - 1 ? '_' : '',
+											delay: typingSpeed,
+										}}
+									/>
+								)}
+							</p>
 
-					{/* Second Sentence */}
-					<p
-						id="scripture"
-						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000"
-						style={{ minHeight: '1.5em', opacity: startSecond ? 1 : 0 }}>
-						{startSecond && (
-							<Typewriter
-								options={{
-									strings: sentences[1].text,
-									autoStart: true,
-									cursor: '',
-									delay: typingSpeed,
-								}}
-							/>
-						)}
-					</p>
-
-					{/* Third Sentence */}
-					<p
-						id="scripture"
-						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000"
-						style={{ minHeight: '1.5em', opacity: startThird ? 1 : 0 }}>
-						{startThird && (
-							<Typewriter
-								options={{
-									strings: sentences[2].text,
-									autoStart: true,
-									cursor: '_',
-									delay: typingSpeed,
-								}}
-							/>
-						)}
-					</p>
+							{/* Fading Narrative Text */}
+							{sentence.narrative && (
+								<p
+									className={`text-white mb-2 text-md font-normal text-left italic transition-opacity duration-1000 ${
+										showNarrative[index] ? 'opacity-100' : 'opacity-0'
+									}`}
+									style={{ minHeight: '1.5em' }}>
+									{sentence.narrative}
+								</p>
+							)}
+						</div>
+					))}
 
 					<footer className="flex justify-center space-x-4 mt-0">
 						<button
 							style={{ opacity: showProceedButton ? 1 : 0 }}
-							onClick={handleProceed}
 							aria-label="Proceed to the next scene"
 							className="button-89">
 							Proceed
