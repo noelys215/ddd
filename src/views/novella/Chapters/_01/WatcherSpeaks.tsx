@@ -63,9 +63,12 @@ export const WatcherSpeaks = () => {
 	if (showBlueScene) {
 		return (
 			<ColorScene
+				initialTimer={7}
 				chapter="_chapterOne"
 				title="Obedience"
 				scene="Scene no. 102"
+				subtitle="The rabbit grows calmer, adopting a slightly more composed and reflective tone, 
+        though hints of doubt still linger as it tries to understand its own role in the journey."
 				color="#1dafa1"
 				navigateTo="/novella/descent/obedience"
 			/>

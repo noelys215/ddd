@@ -49,7 +49,9 @@ export const ColorScene: React.FC<ColorSceneProps> = ({
 							<h2 className="text-3xl md:text-6xl mb-6">{title}</h2>
 							<p className="text-sm md:text-lg mt-6">{scene}</p>
 							<p className="text-xl mt-6">{timer}</p> {/* Display timer */}
-							{subtitle && <p className="text-xs md:text-sm mt-1">{subtitle}</p>}
+							{subtitle && (
+								<p className="text-sm mt-1 text-wrap w-7/12">{subtitle}</p>
+							)}
 						</div>
 					</div>
 				</MotionSection>
