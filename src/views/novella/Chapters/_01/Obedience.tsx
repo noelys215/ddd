@@ -107,7 +107,7 @@ export const Obedience = () => {
 						<div key={index}>
 							<p
 								id="scripture"
-								className={`text-white mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
+								className={`text-white border-l-2 border-gray-500 pl-2 mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
 									startSentence[index] ? 'opacity-100' : 'opacity-0'
 								}`}
 								style={{ minHeight: '1.5em' }}>
