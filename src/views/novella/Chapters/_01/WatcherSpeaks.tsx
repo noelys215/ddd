@@ -16,50 +16,55 @@ export const WatcherSpeaks = () => {
 	const glitch = useGlitch();
 	const typingSpeed = 30;
 
-	// Define each sentence and calculate the display delay based on typing speed
-	const sentences = useMemo(
-		() => [
+	// Define each sentence with calculated delays based on sentence length
+	const sentences = useMemo(() => {
+		const baseDelay = 2000;
+		const sentencesData = [
 			{
 				text: 'Watcher.exe: “I am one who sees… but cannot act. What is it that you seek? Understanding, or the safety of ignorance?”',
-				delay: 0, // Start immediately
 			},
 			{
 				text: 'Watcher.exe: “In obedience lies simplicity, the way is guided, clean, and bright… yet obscured. In knowledge lies depth… but it fractures and distorts.”',
-				delay: typingSpeed * 104 + 2000, // Delay after first sentence completes (length * typingSpeed + delayBetweenSentences)
+				showSetter: setStartSecond,
 			},
 			{
 				text: 'Watcher.exe: “Choose, but know… the price is heavy on both paths. One binds, the other blinds… but only one knows.”',
-				delay: typingSpeed * 104 + typingSpeed * 104 + 4000, // Delay after second sentence completes
+				showSetter: setStartThird,
 			},
-		],
-		[typingSpeed]
-	);
+		];
+
+		// Calculate cumulative delay for each sentence
+		let cumulativeDelay = 0;
+		return sentencesData.map((sentence) => {
+			const duration = sentence.text.length * typingSpeed;
+			const delay = cumulativeDelay;
+			cumulativeDelay += duration + baseDelay;
+			return { ...sentence, delay, duration };
+		});
+	}, [typingSpeed]);
 
 	useEffect(() => {
-		const timer1 = setTimeout(() => setStartSecond(true), sentences[1].delay);
-		const timer2 = setTimeout(() => setStartThird(true), sentences[2].delay);
+		// Set timers based on calculated delays for each sentence
+		const timers = sentences.map((sentence, index) => {
+			return setTimeout(() => {
+				if (sentence.showSetter) sentence.showSetter(true);
 
-		// Calculate button delay after the last sentence completes
-		const lastSentenceDuration = sentences[2].text.length * typingSpeed;
-		const buttonDelay = sentences[2].delay + lastSentenceDuration + 2000;
+				// Show proceed button after the third sentence
+				if (index === sentences.length - 1) setShowProceedButton(true);
+			}, sentence.delay);
+		});
 
-		const timer3 = setTimeout(() => setShowProceedButton(true), buttonDelay);
-
-		return () => {
-			clearTimeout(timer1);
-			clearTimeout(timer2);
-			clearTimeout(timer3);
-		};
+		// Cleanup timers on component unmount
+		return () => timers.forEach((timer) => clearTimeout(timer));
 	}, [sentences]);
 
-	// State to control whether to show the RedScene
+	// State to control whether to show the next scenes
 	const [showBlueScene, setShowBlueScene] = useState(false);
 	const [showYellowScene, setShowYellowScene] = useState(false);
-	// Handler to show the RedScene component
 	const handleObedience = () => setShowBlueScene(true);
 	const handleKnowledge = () => setShowYellowScene(true);
 
-	// If showBlueScene is true, render the RedScene component instead of the current content
+	// If showBlueScene or showYellowScene is true, render the corresponding ColorScene component
 	if (showBlueScene) {
 		return (
 			<ColorScene
