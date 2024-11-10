@@ -21,14 +21,14 @@ export const WatcherSpeaks = () => {
 		const baseDelay = 2000;
 		const sentencesData = [
 			{
-				text: 'Watcher.exe: “I am one who sees… but cannot act. What is it that you seek? Understanding, or the safety of ignorance?”',
+				text: '“I am one who sees… but cannot act. What is it that you seek? Understanding, or the safety of ignorance?”',
 			},
 			{
-				text: 'Watcher.exe: “In obedience lies simplicity, the way is guided, clean, and bright… yet obscured. In knowledge lies depth… but it fractures and distorts.”',
+				text: '“In obedience lies simplicity, the way is guided, clean, and bright… yet obscured. In knowledge lies depth… but it fractures and distorts.”',
 				showSetter: setStartSecond,
 			},
 			{
-				text: 'Watcher.exe: “Choose, but know… the price is heavy on both paths. One binds, the other blinds… but only one knows.”',
+				text: '“Choose, but know… the price is heavy on both paths. One binds, the other blinds… but only one knows.”',
 				showSetter: setStartThird,
 			},
 		];
@@ -115,7 +115,13 @@ export const WatcherSpeaks = () => {
 					{/* First Sentence */}
 					<p
 						id="scripture"
-						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000"
+						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000 "
+						style={{ minHeight: '1.5em' }}>
+						Watcher.exe:
+					</p>
+					<p
+						id="scripture"
+						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000 border-l-2 border-gray-500 pl-2"
 						style={{ minHeight: '1.5em' }}>
 						<Typewriter
 							options={{
@@ -130,7 +136,7 @@ export const WatcherSpeaks = () => {
 					{/* Second Sentence */}
 					<p
 						id="scripture"
-						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000"
+						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000 border-l-2 border-gray-500 pl-2"
 						style={{ minHeight: '1.5em', opacity: startSecond ? 1 : 0 }}>
 						{startSecond && (
 							<Typewriter
@@ -147,7 +153,7 @@ export const WatcherSpeaks = () => {
 					{/* Third Sentence */}
 					<p
 						id="scripture"
-						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000"
+						className="text-white mb-2 text-md font-normal text-left transition-opacity duration-1000 border-l-2 border-gray-500 pl-2"
 						style={{ minHeight: '1.5em', opacity: startThird ? 1 : 0 }}>
 						{startThird && (
 							<Typewriter
