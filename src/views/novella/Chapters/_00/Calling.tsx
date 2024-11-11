@@ -5,6 +5,7 @@ import { Rabbit } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
 import { useGlitch } from 'react-powerglitch';
 import MotionSection from '../../../../components/MotionSection';
+import { useEffect, useMemo, useState } from 'react';
 
 export const Calling = () => {
 	const navigate = useNavigate();
@@ -15,7 +16,75 @@ export const Calling = () => {
 		},
 	});
 
-	const string = 'There’s something of mine out there… or perhaps it’s you(rs)?';
+	const typingSpeed = 25; // The speed of each character typing
+	const narrativePause = 2000; // Pause after each sentence to show narrative
+	const [startSentence, setStartSentence] = useState([true, false, false, false, false, false]);
+	const [showNarrative, setShowNarrative] = useState([false, false, false, false, false]);
+	const [showProceedButton, setShowProceedButton] = useState(false); // For showing the "Proceed" button
+
+	const sentences = useMemo(
+		() => [
+			{
+				text: '“There’s something of mine out there… or perhaps it’s you....yours? I can’t quite remember……”',
+				narrative:
+					'The rabbit’s voice is soft, carrying a sense of confusion mixed with a strange longing, as if it’s looking for something it has lost but cannot name.',
+			},
+			{
+				text: '“Oh, but it must be out there! I can feel it, a little piece of myself… just waiting. Waiting to be found! Would you… help me look for it?”',
+				narrative:
+					'A moment of silence stretches between you and the rabbit, broken only by faint whispers and soft echoes in the background, as if the shadows themselves are alive, murmuring secrets.',
+			},
+			{
+				text: '“Please… I don’t think I can do this alone. But together—yes, yes, together we might find it. Or find me, rather. Or… is it you I’m looking for?',
+				narrative:
+					'The rabbit’s head tilts in sudden thought, and it peers at you closely, its bright eyes searching yours, as if trying to recognize a reflection.',
+			},
+		],
+		[]
+	);
+
+	useEffect(() => {
+		const timers: (number | undefined)[] = [];
+		let cumulativeDelay = 0;
+
+		sentences.forEach((sentence, index) => {
+			const sentenceTypingDuration = sentence.text.length * typingSpeed;
+			const totalDelayForSentence = cumulativeDelay;
+
+			// Show each sentence sequentially
+			const sentenceTimer = setTimeout(() => {
+				setStartSentence((prev) => {
+					const updated = [...prev];
+					updated[index] = true;
+					return updated;
+				});
+			}, totalDelayForSentence);
+
+			timers.push(sentenceTimer);
+
+			// Show narrative after the sentence is finished typing
+			if (sentence.narrative) {
+				const narrativeTimer = setTimeout(() => {
+					setShowNarrative((prev) => {
+						const updated = [...prev];
+						updated[index] = true;
+						return updated;
+					});
+				}, totalDelayForSentence + sentenceTypingDuration + narrativePause);
+
+				timers.push(narrativeTimer);
+			}
+
+			// Update cumulative delay to account for the current sentence and narrative
+			cumulativeDelay += sentenceTypingDuration + narrativePause * 2;
+		});
+
+		// Set up a timer to show the Proceed button after the last sentence and narrative have been displayed
+		const proceedTimer = setTimeout(() => setShowProceedButton(true), cumulativeDelay);
+		timers.push(proceedTimer);
+
+		return () => timers.forEach(clearTimeout);
+	}, [sentences, typingSpeed, narrativePause]);
 
 	return (
 		<Layout title="_calling">
@@ -24,27 +93,51 @@ export const Calling = () => {
 					<div className="flex justify-center text-center" ref={glitch.ref}>
 						<Rabbit size={64} weight="fill" className="text-white mb-2" />
 					</div>
-					<p id="bio-card-title" className="text-white text-md font-semibold text-center">
-						<span style={{ display: 'inline-block' }}>
-							<Typewriter
-								options={{
-									strings: string,
-									autoStart: true,
-									cursor: '_',
-									delay: 60,
-									deleteSpeed: 250,
-								}}
-							/>
-						</span>
-					</p>
+
+					{/* Sentences with Fading Narratives */}
+					{sentences.map((sentence, index) => (
+						<div key={index}>
+							<p
+								id="scripture"
+								className={`text-white border-l-2 border-gray-500 pl-2 mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
+									startSentence[index] ? 'opacity-100' : 'opacity-0'
+								}`}
+								style={{ minHeight: '1.5em' }}>
+								{startSentence[index] && (
+									<Typewriter
+										options={{
+											strings: sentence.text,
+											autoStart: true,
+											cursor: index === sentences.length - 1 ? '_' : '',
+											delay: typingSpeed,
+										}}
+									/>
+								)}
+							</p>
+
+							{/* Fading Narrative Text */}
+							{sentence.narrative && (
+								<p
+									className={`text-white mb-2 text-md font-normal text-left italic transition-opacity duration-1000 ${
+										showNarrative[index] ? 'opacity-100' : 'opacity-0'
+									}`}
+									style={{ minHeight: '1.5em' }}>
+									{sentence.narrative}
+								</p>
+							)}
+						</div>
+					))}
+
 					<footer className="flex justify-center space-x-4 mt-6">
 						<button
+							style={{ opacity: showProceedButton ? 1 : 0 }}
 							onClick={() => navigate('/novella/descent')}
 							aria-label="Descend into the unknown"
 							className="button-89">
 							Follow
 						</button>
 						<button
+							style={{ opacity: showProceedButton ? 1 : 0 }}
 							onClick={() => navigate('/')}
 							aria-label="Navigate to Home"
 							className="button-89">
