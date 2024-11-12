@@ -24,11 +24,11 @@ export const Watcher = () => {
 				text: '"For what is seen is fleeting, but what is unseen is eternal…"',
 			},
 			{
-				narrative: 'Watcher.exe appears:',
+				narrative: 'Watcher.sys appears:',
 			},
 			{
 				narrative:
-					'Almost formless at first, flickering in and out of focus. It coalesces into a digital being—Watcher.exe—with piercing eyes that seem to stare right through you, as though seeing something deeper, hidden within.',
+					'Almost formless at first, flickering in and out of focus. It coalesces into a digital being—Watcher.sys—with piercing eyes that seem to stare right through you, as though seeing something deeper, hidden within.',
 			},
 			{
 				narrative:
@@ -84,7 +84,7 @@ export const Watcher = () => {
 	}, [sentences, typingSpeed, narrativePause]);
 
 	return (
-		<Layout title="Watcher.exe">
+		<Layout title=" _contact">
 			<Container color="#000000">
 				<MotionSection delay={0.2}>
 					<figure className="relative flex justify-center">

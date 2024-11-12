@@ -95,7 +95,7 @@ export const Obedience = () => {
 	}, [sentences, typingSpeed, narrativePause]);
 
 	return (
-		<Layout title="descent">
+		<Layout title="_obedience">
 			<Container opacity={90} color="#000000">
 				<MotionSection delay={0.2}>
 					<div className="flex justify-center text-center" ref={glitch.ref}>

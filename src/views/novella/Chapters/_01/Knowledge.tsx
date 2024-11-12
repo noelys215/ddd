@@ -20,7 +20,7 @@ export const Knowledge = () => {
 		return (
 			<ColorScene
 				chapter="_chapterOne"
-				title="Watcher.exe"
+				title="Watcher.sys"
 				scene="Scene no. 101"
 				color="#739BD0"
 				navigateTo="/novella/descent/watcher"
