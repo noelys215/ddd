@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import watcher from '../../../../assets/watcher.gif';
 import MotionSection from '../../../../components/MotionSection';
@@ -8,30 +8,80 @@ import Layout from '../../../../components/Layout';
 
 export const Watcher = () => {
 	const navigate = useNavigate();
-	const [startSecond, setStartSecond] = useState(false);
-	const [startThird, setStartThird] = useState(false);
-	const [showProceedButton, setShowProceedButton] = useState(false);
+	const typingSpeed = 25; // The speed of each character typing
+	const narrativePause = 1500; // Pause after each sentence to show narrative
+	const [startSentence, setStartSentence] = useState([true, false, false, false, false]);
+	const [showNarrative, setShowNarrative] = useState([false, false, false, false, false]);
+	const [showProceedButton, setShowProceedButton] = useState(false); // For showing the "Proceed" button
 
-	const delayBetweenSentences = 2000;
-	const typingSpeed = 30;
+	const sentences = useMemo(
+		() => [
+			{
+				narrative:
+					'At the heart of the maze, you reach an open area where the shadows seem darker, heavier, as though something immense and invisible were looming above. The fragments of scripture give way to a single, glowing phrase, flickering erratically:',
+			},
+			{
+				text: '"For what is seen is fleeting, but what is unseen is eternal…"',
+			},
+			{
+				narrative: 'Watcher.exe appears:',
+			},
+			{
+				narrative:
+					'Almost formless at first, flickering in and out of focus. It coalesces into a digital being—Watcher.exe—with piercing eyes that seem to stare right through you, as though seeing something deeper, hidden within.',
+			},
+			{
+				narrative:
+					'Its words echo and distort, creating an aura of ancient knowledge shrouded in mystery.',
+			},
+		],
+		[]
+	);
 
 	useEffect(() => {
-		const timer1 = setTimeout(() => setStartSecond(true), delayBetweenSentences);
-		const timer2 = setTimeout(() => setStartThird(true), delayBetweenSentences * 2.5);
+		const timers: (number | undefined)[] = [];
+		let cumulativeDelay = 0;
 
-		const lastSentenceDuration =
-			'Its words echo and distort, creating an aura of ancient knowledge shrouded in mystery.'
-				.length * typingSpeed;
-		const buttonDelay = delayBetweenSentences * 3 + lastSentenceDuration;
+		sentences.forEach((sentence, index) => {
+			const sentenceTypingDuration = sentence.text ? sentence.text.length * typingSpeed : 0;
+			const totalDelayForSentence = cumulativeDelay;
 
-		const timer3 = setTimeout(() => setShowProceedButton(true), buttonDelay);
+			// Show each sentence (if it has text) sequentially
+			if (sentence.text) {
+				const sentenceTimer = setTimeout(() => {
+					setStartSentence((prev) => {
+						const updated = [...prev];
+						updated[index] = true;
+						return updated;
+					});
+				}, totalDelayForSentence);
 
-		return () => {
-			clearTimeout(timer1);
-			clearTimeout(timer2);
-			clearTimeout(timer3);
-		};
-	}, []);
+				timers.push(sentenceTimer);
+			}
+
+			// Show narrative after the sentence is finished typing
+			if (sentence.narrative) {
+				const narrativeTimer = setTimeout(() => {
+					setShowNarrative((prev) => {
+						const updated = [...prev];
+						updated[index] = true;
+						return updated;
+					});
+				}, totalDelayForSentence + sentenceTypingDuration + narrativePause);
+
+				timers.push(narrativeTimer);
+			}
+
+			// Update cumulative delay to account for the current sentence and narrative
+			cumulativeDelay += sentenceTypingDuration + narrativePause * 2;
+		});
+
+		// Set up a timer to show the Proceed button after the last sentence and narrative have been displayed
+		const proceedTimer = setTimeout(() => setShowProceedButton(true), cumulativeDelay);
+		timers.push(proceedTimer);
+
+		return () => timers.forEach(clearTimeout);
+	}, [sentences, typingSpeed, narrativePause]);
 
 	return (
 		<Layout title="Watcher.exe">
@@ -40,10 +90,10 @@ export const Watcher = () => {
 					<figure className="relative flex justify-center">
 						<img
 							src={watcher}
-							alt="Photo of oneself"
+							alt="Watcher image"
 							className="object-cover rounded-full opacity-90"
 							style={{
-								width: '400px',
+								width: '300px',
 								maskImage:
 									'radial-gradient(circle, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 100%)',
 								WebkitMaskImage:
@@ -53,56 +103,42 @@ export const Watcher = () => {
 					</figure>
 					<hr />
 
-					{/* First Sentence */}
-					<p
-						id="scripture"
-						className="text-white text-md font-normal text-left transition-opacity duration-1000"
-						style={{ minHeight: '1.5em' }}>
-						<Typewriter
-							options={{
-								strings: 'Watcher.exe appears:',
-								autoStart: true,
-								cursor: '',
-								delay: typingSpeed,
-							}}
-						/>
-					</p>
+					{/* Sentences with Fading Narratives */}
+					{sentences.map((sentence, index) => (
+						<div key={index}>
+							{/* Display dialogue if it exists */}
+							{sentence.text && (
+								<p
+									id="scripture"
+									className={`text-white border-l-2 border-gray-500 pl-2 mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
+										startSentence[index] ? 'opacity-100' : 'opacity-0'
+									}`}
+									style={{ minHeight: '1.5em' }}>
+									{startSentence[index] && (
+										<Typewriter
+											options={{
+												strings: sentence.text,
+												autoStart: true,
+												cursor: index === sentences.length - 1 ? '_' : '',
+												delay: typingSpeed,
+											}}
+										/>
+									)}
+								</p>
+							)}
 
-					{/* Second Sentence */}
-					<p
-						id="scripture"
-						className="text-white text-md font-normal text-left transition-opacity duration-1000"
-						style={{ minHeight: '1.5em', opacity: startSecond ? 1 : 0 }}>
-						{startSecond && (
-							<Typewriter
-								options={{
-									strings:
-										'A piercing eye that scans you with an unfeeling, almost divine authority.',
-									autoStart: true,
-									cursor: '',
-									delay: typingSpeed,
-								}}
-							/>
-						)}
-					</p>
-
-					{/* Third Sentence */}
-					<p
-						id="scripture"
-						className="text-white text-md font-normal text-left transition-opacity duration-1000"
-						style={{ minHeight: '1.5em', opacity: startThird ? 1 : 0 }}>
-						{startThird && (
-							<Typewriter
-								options={{
-									strings:
-										'Its words echo and distort, creating an aura of ancient knowledge shrouded in mystery.',
-									autoStart: true,
-									cursor: '_',
-									delay: typingSpeed,
-								}}
-							/>
-						)}
-					</p>
+							{/* Fading Narrative Text */}
+							{sentence.narrative && (
+								<p
+									className={`text-white mb-2 text-md font-normal text-left italic transition-opacity duration-1000 ${
+										showNarrative[index] ? 'opacity-100' : 'opacity-0'
+									}`}
+									style={{ minHeight: '1.5em' }}>
+									{sentence.narrative}
+								</p>
+							)}
+						</div>
+					))}
 
 					{/* Proceed Button */}
 					<MotionSection delay={0.2}>
