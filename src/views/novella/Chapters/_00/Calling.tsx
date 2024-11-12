@@ -94,6 +94,13 @@ export const Calling = () => {
 						<Rabbit size={64} weight="fill" className="text-white mb-2" />
 					</div>
 
+					<h1
+						id="scripture"
+						className="text-white mb-2 text-lg font-normal text-left transition-opacity duration-1000 "
+						style={{ minHeight: '1.5em' }}>
+						Whte_rbt.obj:&nbsp;
+					</h1>
+
 					{/* Sentences with Fading Narratives */}
 					{sentences.map((sentence, index) => (
 						<div key={index}>
