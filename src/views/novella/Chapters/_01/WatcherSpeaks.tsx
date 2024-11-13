@@ -113,7 +113,7 @@ export const WatcherSpeaks = () => {
 	}
 
 	return (
-		<Layout title=" _Watcher.sys">
+		<Layout title="_Watcher.sys">
 			<Container color="#000000">
 				<MotionSection delay={0.2}>
 					<figure className="relative flex justify-center">

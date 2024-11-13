@@ -21,6 +21,8 @@ export const Descent = () => {
 		'He was made in the image… yet cast in shadow.',
 		'What you seek is forbidden… but to remain is emptiness.',
 		'To follow is to yield; to stray is to question.',
+		'And He saw that it was… empty.',
+		'What is found… may still be lost…',
 	];
 
 	const sentences = useMemo(
@@ -113,7 +115,7 @@ export const Descent = () => {
 
 	// Otherwise, render the Descent content
 	return (
-		<Layout title="descent">
+		<Layout title="_descent">
 			<Container opacity={90} color="#000000">
 				<MotionSection delay={0.2}>
 					<div className="flex justify-center text-center" ref={glitch.ref}>
