@@ -35,7 +35,7 @@ export const ColorScene: React.FC<ColorSceneProps> = ({
 	}, [timer, navigate, navigateTo]);
 
 	return (
-		<Layout title="descent">
+		<Layout title=" _scene">
 			<article
 				className="border border-white rounded-lg max-w-4xl w-full mx-auto pt-6 pb-6 md:pt-12 md:pb-12 bg-black shadow-md opacity-95"
 				style={{ backgroundColor: '#000' }}

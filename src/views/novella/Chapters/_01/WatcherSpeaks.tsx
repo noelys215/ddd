@@ -107,7 +107,7 @@ export const WatcherSpeaks = () => {
 				title="Knowledge"
 				scene="Scene no. 102"
 				color="#ffcc00"
-				navigateTo="/novella/descent/obedience"
+				navigateTo="/novella/descent/knowledge"
 			/>
 		);
 	}

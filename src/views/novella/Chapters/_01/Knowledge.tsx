@@ -1,71 +1,150 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Container } from '../../../../components/Container';
 import Layout from '../../../../components/Layout';
 import Typewriter from 'typewriter-effect';
-import wonder from '../../../../assets/wonder.gif';
 import MotionSection from '../../../../components/MotionSection';
-import { ColorScene } from '../../../../components/novella/ColorScene';
+import { useGlitch } from 'react-powerglitch';
+import { Rabbit } from '@phosphor-icons/react';
 
 export const Knowledge = () => {
-	// State to control whether to show the RedScene
-	const [showRedScene, setShowRedScene] = useState(false);
+	const glitch = useGlitch({
+		timing: { duration: 3000 },
+		shake: { velocity: 12 },
+		slice: { count: 6 },
+	});
 
-	const strings = ['For I have seen… but not yet known…'];
+	const typingSpeed = 25;
+	const narrativePause = 2000;
+	const [startSentence, setStartSentence] = useState([true, false, false, false, false, false]);
+	const [showNarrative, setShowNarrative] = useState([false, false, false, false, false]);
+	const [showProceedButton, setShowProceedButton] = useState(false);
 
-	// Handler to show the RedScene component
-	const handleProceed = () => setShowRedScene(true);
+	const sentences = useMemo(
+		() => [
+			{
+				text: 'Oh no, no, no! This feels… unsteady, doesn’t it? Like grasping at something slippery—like sand slipping through your fingers! There’s more here, I think—oh yes, I feel it… but what is it? Do you feel it too? Or is it only me?',
+				narrative:
+					'It glances around, eyes darting as if trying to catch glimpses of something hidden.',
+			},
+			{
+				text: '“Oh, to see everything, yes! But it’s like—oh dear! It’s like staring into water and seeing only ripples, nothing beneath! Do you think… maybe there’s something wrong with me? Am I—am I broken?”',
+				narrative:
+					'It clutches its head, shaking slightly, as if burdened by thoughts that have no clear answers.',
+			},
+			{
+				text: '“You’re guiding me… but I feel like I’m pulling away, like I’m slipping from your grasp, bit by bit! And yet… I want to know—must know! Every fragment, every piece of this… place. But, oh dear… it’s like the more I know, the less of me there is! Isn’t that funny? Isn’t that… terrifying?”',
+				narrative:
+					'The rabbit stares ahead, eyes wide, filled with a strange mix of dread and curiosity.',
+			},
+			{
+				text: '“Have you ever felt like… you’re not really here? Like you’re fading with each answer? I—I don’t know what’s left of me anymore, not really. Just questions and echoes and… and more questions! Do you know what I mean? Do you?”',
+				narrative:
+					'The rabbit becomes more erratic, overwhelmed by fragments of thought and questions that refuse to settle.',
+			},
+			{
+				text: '“I feel like a puzzle that’s missing pieces… or maybe there are just too many pieces, and none of them fit quite right! It’s maddening, yes, but… maybe it’s better than the silence. Better than being still.”',
+			},
+			{
+				narrative: 'The rabbit laughs, a nervous, jittery sound.”',
+			},
+		],
+		[]
+	);
 
-	// If showRedScene is true, render the RedScene component instead of the current content
-	if (showRedScene) {
-		return (
-			<ColorScene
-				chapter="_chapterOne"
-				title="Watcher.sys"
-				scene="Scene no. 101"
-				color="#739BD0"
-				navigateTo="/novella/descent/watcher"
-			/>
-		);
-	}
+	useEffect(() => {
+		const timers: (number | undefined)[] = [];
+		let cumulativeDelay = 0;
+
+		sentences.forEach((sentence, index) => {
+			const sentenceTypingDuration = sentence.text ? sentence.text.length * typingSpeed : 0;
+			const totalDelayForSentence = cumulativeDelay;
+
+			// Show each sentence (if it has text) sequentially
+			if (sentence.text) {
+				const sentenceTimer = setTimeout(() => {
+					setStartSentence((prev) => {
+						const updated = [...prev];
+						updated[index] = true;
+						return updated;
+					});
+				}, totalDelayForSentence);
+				timers.push(sentenceTimer);
+			}
+
+			// Show narrative after the sentence is finished typing (or immediately if no text)
+			if (sentence.narrative) {
+				const narrativeDelay =
+					totalDelayForSentence + sentenceTypingDuration + narrativePause;
+				const narrativeTimer = setTimeout(() => {
+					setShowNarrative((prev) => {
+						const updated = [...prev];
+						updated[index] = true;
+						return updated;
+					});
+				}, narrativeDelay);
+				timers.push(narrativeTimer);
+			}
+
+			// Update cumulative delay to account for the current sentence and narrative
+			cumulativeDelay += sentenceTypingDuration + narrativePause * 2;
+		});
+
+		// Set up a timer to show the Proceed button after the last sentence and narrative have been displayed
+		const proceedTimer = setTimeout(() => setShowProceedButton(true), cumulativeDelay);
+		timers.push(proceedTimer);
+
+		return () => timers.forEach(clearTimeout);
+	}, [sentences, typingSpeed, narrativePause]);
 
 	return (
-		<Layout title="descent">
+		<Layout title="_knowledge">
 			<Container opacity={90} color="#000000">
 				<MotionSection delay={0.2}>
-					<figure className="relative flex justify-center">
-						<img
-							src={wonder}
-							alt="Photo of oneself"
-							className="object-cover rounded-full opacity-70"
-							style={{
-								width: '400px',
-								maskImage:
-									'radial-gradient(circle, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%)',
-								WebkitMaskImage:
-									'radial-gradient(circle, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%)',
-							}}
-						/>
-					</figure>
+					<div className="flex justify-center text-center" ref={glitch.ref}>
+						<Rabbit size={64} weight="fill" className="text-white mb-2" />
+					</div>
 
-					<p id="scripture" className="text-white text-md font-semibold text-center">
-						<span style={{ display: 'inline-block' }}>
-							<Typewriter
-								options={{
-									strings: strings,
-									autoStart: true,
-									cursor: '_',
-									delay: 50,
-									deleteSpeed: 13,
-									loop: true,
-								}}
-							/>
-						</span>
-					</p>
+					{/* Sentences with Fading Narratives */}
+					{sentences.map((sentence, index) => (
+						<div key={index}>
+							{/* Display dialogue if it exists */}
+							{sentence.text && (
+								<p
+									id="scripture"
+									className={`text-white border-l-2 border-gray-500 pl-2 mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
+										startSentence[index] ? 'opacity-100' : 'opacity-0'
+									}`}
+									style={{ minHeight: '1.5em' }}>
+									{startSentence[index] && (
+										<Typewriter
+											options={{
+												strings: sentence.text,
+												autoStart: true,
+												cursor: index === sentences.length - 1 ? '_' : '',
+												delay: typingSpeed,
+											}}
+										/>
+									)}
+								</p>
+							)}
 
-					<footer className="flex justify-center space-x-4 mt-6">
+							{/* Fading Narrative Text */}
+							{sentence.narrative && (
+								<p
+									className={`text-white mb-2 text-md font-normal text-left italic transition-opacity duration-1000 ${
+										showNarrative[index] ? 'opacity-100' : 'opacity-0'
+									}`}
+									style={{ minHeight: '1.5em' }}>
+									{sentence.narrative}
+								</p>
+							)}
+						</div>
+					))}
+
+					<footer className="flex justify-center space-x-4 mt-0">
 						<button
-							onClick={handleProceed}
-							aria-label="Proceed to Red Scene"
+							style={{ opacity: showProceedButton ? 1 : 0 }}
+							aria-label="Proceed to the next scene"
 							className="button-89">
 							Proceed
 						</button>
