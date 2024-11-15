@@ -123,7 +123,7 @@ export const Descent = () => {
 					</div>
 
 					{/* Ambient Typing Effect at the Top */}
-					<div className="text-center mb-4 text-gray-400 text-sm italic">
+					<div className="text-center mb-4 text-gray-400 text-md italic">
 						<Typewriter
 							options={{
 								strings: strings,

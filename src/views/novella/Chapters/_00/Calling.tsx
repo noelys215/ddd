@@ -9,12 +9,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 export const Calling = () => {
 	const navigate = useNavigate();
-	const glitch = useGlitch({
-		hideOverflow: true,
-		timing: {
-			duration: 3150,
-		},
-	});
+	const glitch = useGlitch({ hideOverflow: true, timing: { duration: 3150 } });
 
 	const typingSpeed = 25; // The speed of each character typing
 	const narrativePause = 2000; // Pause after each sentence to show narrative
