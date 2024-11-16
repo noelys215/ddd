@@ -5,6 +5,7 @@ import Typewriter from 'typewriter-effect';
 import MotionSection from '../../../../components/MotionSection';
 import { useGlitch } from 'react-powerglitch';
 import { Rabbit } from '@phosphor-icons/react';
+import { useNavigate } from 'react-router-dom';
 
 export const Knowledge = () => {
 	const glitch = useGlitch({
@@ -12,6 +13,8 @@ export const Knowledge = () => {
 		shake: { velocity: 12 },
 		slice: { count: 6 },
 	});
+
+	const navigate = useNavigate();
 
 	const typingSpeed = 25;
 	const narrativePause = 2000;
@@ -101,7 +104,12 @@ export const Knowledge = () => {
 			<Container opacity={90} color="#000000">
 				<MotionSection delay={0.2}>
 					<div className="flex justify-center text-center" ref={glitch.ref}>
-						<Rabbit size={64} weight="fill" className="text-white mb-2" />
+						<Rabbit
+							size={64}
+							weight="fill"
+							className="text-white mb-2"
+							onClick={() => navigate('/')} //remove after testing
+						/>
 					</div>
 
 					{/* Sentences with Fading Narratives */}
