@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
 	GithubLogo,
 	LinkedinLogo,
@@ -13,12 +14,14 @@ import {
 } from '@phosphor-icons/react';
 
 import React, { useState, useEffect } from 'react';
+
+// Declare the gtag property on the Window interface
+
 import { useGlitch } from 'react-powerglitch';
 import Text from './Text';
 import { useNavigate } from 'react-router-dom';
 import { useGetWeather } from '../hooks/useGetWeather';
 import Typewriter from 'typewriter-effect';
-import ReactGA from 'react-ga4';
 
 interface BioCardProps {
 	imageUrl?: string;
@@ -100,11 +103,16 @@ const BioCard: React.FC<BioCardProps> = ({
 
 	// Track clicks with react-ga4
 	const trackButtonClick = (buttonName: string) => {
-		ReactGA.event({
-			category: 'Button',
-			action: 'click',
-			label: buttonName,
-		});
+		/* @ts-ignore */
+		if (typeof window.gtag === 'function') {
+			/* @ts-expect-error */
+			window.gtag('event', 'click', {
+				event_category: 'Button',
+				event_label: buttonName,
+			});
+		} else {
+			console.warn('Google Analytics is not initialized.');
+		}
 	};
 
 	return (

@@ -16,9 +16,6 @@ import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
 import { WatcherSpeaks } from './views/novella/Chapters/_01/WatcherSpeaks.tsx';
 import { Obedience } from './views/novella/Chapters/_01/Obedience.tsx';
 import { Knowledge } from './views/novella/Chapters/_01/Knowledge.tsx';
-import ReactGA from 'react-ga4';
-
-ReactGA.initialize(import.meta.env.VITE_GA_TRACKING_ID);
 
 const router = createBrowserRouter([
 	{
