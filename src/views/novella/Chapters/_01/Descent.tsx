@@ -50,7 +50,7 @@ export const Descent = () => {
 	);
 
 	useEffect(() => {
-		const timers: (number | undefined)[] = [];
+		const timers: ReturnType<typeof setTimeout>[] = [];
 		let cumulativeDelay = 0;
 
 		sentences.forEach((sentence, index) => {
