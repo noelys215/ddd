@@ -18,6 +18,7 @@ import Text from './Text';
 import { useNavigate } from 'react-router-dom';
 import { useGetWeather } from '../hooks/useGetWeather';
 import Typewriter from 'typewriter-effect';
+import ReactGA from 'react-ga4';
 
 interface BioCardProps {
 	imageUrl?: string;
@@ -96,6 +97,15 @@ const BioCard: React.FC<BioCardProps> = ({
 	// Split the name into two parts
 	const staticPart = name?.slice(0, -3); // First part of the name (excluding the last 4 characters)
 	const typewriterPart = name?.slice(-3); // Last 4 characters to animate
+
+	// Track clicks with react-ga4
+	const trackButtonClick = (buttonName: string) => {
+		ReactGA.event({
+			category: 'Button',
+			action: 'click',
+			label: buttonName,
+		});
+	};
 
 	return (
 		<article
@@ -199,13 +209,19 @@ const BioCard: React.FC<BioCardProps> = ({
 			{/* Buttons (added Experience button) */}
 			<footer className="flex justify-center space-x-4 mt-6">
 				<button
-					onClick={() => navigate('/works')}
+					onClick={() => {
+						trackButtonClick('Works');
+						navigate('/works');
+					}}
 					aria-label="Navigate to Works"
 					className="button-89">
 					Works
 				</button>
 				<button
-					onClick={() => navigate('/experience')}
+					onClick={() => {
+						trackButtonClick('Experience');
+						navigate('/experience');
+					}}
 					aria-label="Navigate to Experience"
 					className="button-89">
 					Experience
