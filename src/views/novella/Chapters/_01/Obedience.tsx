@@ -147,7 +147,8 @@ export const Obedience = () => {
 						<button
 							style={{ opacity: showProceedButton ? 1 : 0 }}
 							aria-label="Proceed to the next scene"
-							className="button-89">
+							className="button-89"
+							onClick={() => navigate('/error')}>
 							Proceed
 						</button>
 					</footer>
