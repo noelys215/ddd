@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
-// import backgroundImage from '../assets/static.gif';
-import backgroundImage from '../assets/noise4.gif';
+import backgroundImage from '../assets/static.gif';
 import { Helmet } from 'react-helmet-async';
 
 interface LayoutProps {
