@@ -6,19 +6,21 @@ import { useNavigate } from 'react-router-dom';
 import { useGlitch } from 'react-powerglitch';
 import MotionSection from '../../../../components/MotionSection';
 import { useEffect, useMemo, useState } from 'react';
+import { setBionicReading } from '../../../../hooks/setBionicReading';
 
 export const Calling = () => {
 	const navigate = useNavigate();
 	const glitch = useGlitch({ hideOverflow: true, timing: { duration: 3150 } });
 
 	const typingSpeed = 25; // The speed of each character typing
-	const narrativePause = 2000; // Pause after each sentence to show narrative
+	const narrativePause = 2200; // Pause after each sentence to show narrative
 	const [startSentence, setStartSentence] = useState([true, false, false, false, false, false]);
 	const [showNarrative, setShowNarrative] = useState([false, false, false, false, false]);
 	const [showProceedButton, setShowProceedButton] = useState(false); // For showing the "Proceed" button
 
-	const sentences = useMemo(
-		() => [
+	// Preprocess sentences for Bionic Reading
+	const sentences = useMemo(() => {
+		return [
 			{
 				text: '“There’s something of mine out there… or perhaps it’s you....yours? I can’t quite remember……”',
 				narrative:
@@ -34,16 +36,19 @@ export const Calling = () => {
 				narrative:
 					'The rabbit’s head tilts in sudden thought, and it peers at you closely, its bright eyes searching yours, as if trying to recognize a reflection.',
 			},
-		],
-		[]
-	);
+		].map((sentence) => ({
+			...sentence,
+			bionicText: setBionicReading(sentence.text), // Preprocess the text for Bionic Reading
+			bionicNarrative: setBionicReading(sentence.narrative), // Preprocess the narrative for Bionic Reading
+		}));
+	}, []);
 
 	useEffect(() => {
 		const timers: ReturnType<typeof setTimeout>[] = [];
 		let cumulativeDelay = 0;
 
-		sentences.forEach((sentence, index) => {
-			const sentenceTypingDuration = sentence.text.length * typingSpeed;
+		sentences.forEach((_, index) => {
+			const sentenceTypingDuration = sentences[index].text.length * typingSpeed;
 			const totalDelayForSentence = cumulativeDelay;
 
 			// Show each sentence sequentially
@@ -58,7 +63,7 @@ export const Calling = () => {
 			timers.push(sentenceTimer);
 
 			// Show narrative after the sentence is finished typing
-			if (sentence.narrative) {
+			if (sentences[index].narrative) {
 				const narrativeTimer = setTimeout(() => {
 					setShowNarrative((prev) => {
 						const updated = [...prev];
@@ -91,7 +96,7 @@ export const Calling = () => {
 
 					<h1
 						id="scripture"
-						className="text-white mb-2 text-lg font-normal text-left transition-opacity duration-1000 "
+						className="text-white mb-2 text-lg font-normal text-left transition-opacity duration-1000"
 						style={{ minHeight: '1.5em' }}>
 						Whte_rbt.obj:&nbsp;
 					</h1>
@@ -104,11 +109,11 @@ export const Calling = () => {
 								className={`text-white border-l-2 border-gray-500 pl-2 mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
 									startSentence[index] ? 'opacity-100' : 'opacity-0'
 								}`}
-								style={{ minHeight: '1.5em' }}>
+								style={{ minHeight: '1.5em', wordWrap: 'break-word' }}>
 								{startSentence[index] && (
 									<Typewriter
 										options={{
-											strings: sentence.text,
+											strings: sentence.bionicText,
 											autoStart: true,
 											cursor: index === sentences.length - 1 ? '_' : '',
 											delay: typingSpeed,
@@ -120,12 +125,13 @@ export const Calling = () => {
 							{/* Fading Narrative Text */}
 							{sentence.narrative && (
 								<p
-									className={`text-white mb-2 text-md font-normal text-left italic transition-opacity duration-1000 ${
+									className={`text-white break-words mb-2 text-md font-normal text-left italic transition-opacity duration-1000 ${
 										showNarrative[index] ? 'opacity-100' : 'opacity-0'
 									}`}
-									style={{ minHeight: '1.5em' }}>
-									{sentence.narrative}
-								</p>
+									style={{ minHeight: '1.5em' }}
+									dangerouslySetInnerHTML={{
+										__html: sentence.bionicNarrative,
+									}}></p>
 							)}
 						</div>
 					))}
