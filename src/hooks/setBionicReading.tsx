@@ -1,10 +1,10 @@
 export const setBionicReading = (text: string): string => {
-	// Transform each word into a bionic reading HTML string
 	const transformToBionic = (word: string): string => {
-		const splitIndex = Math.ceil(word.length / 2); // Bionic reading bolds about half the word
-		return `<b>${word.slice(0, splitIndex)}</b>${word.slice(splitIndex)}`;
+		const splitIndex = Math.ceil(word.length / 2); // Bold the first half
+		return `<b style="font-weight: 700; color: #ffffff;">${word.slice(
+			0,
+			splitIndex
+		)}</b><span style="color: rgba(255, 255, 255, 0.8);">${word.slice(splitIndex)}</span>`;
 	};
-
-	// Split text into words, apply the transformation, and join with spaces
 	return text.split(' ').map(transformToBionic).join(' ');
 };

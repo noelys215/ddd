@@ -13,7 +13,7 @@ export const Calling = () => {
 	const glitch = useGlitch({ hideOverflow: true, timing: { duration: 3150 } });
 
 	const typingSpeed = 25; // The speed of each character typing
-	const narrativePause = 2200; // Pause after each sentence to show narrative
+	const narrativePause = 2500; // Pause after each sentence to show narrative
 	const [startSentence, setStartSentence] = useState([true, false, false, false, false, false]);
 	const [showNarrative, setShowNarrative] = useState([false, false, false, false, false]);
 	const [showProceedButton, setShowProceedButton] = useState(false); // For showing the "Proceed" button
@@ -38,8 +38,8 @@ export const Calling = () => {
 			},
 		].map((sentence) => ({
 			...sentence,
-			bionicText: setBionicReading(sentence.text), // Preprocess the text for Bionic Reading
-			bionicNarrative: setBionicReading(sentence.narrative), // Preprocess the narrative for Bionic Reading
+			bionicText: setBionicReading(sentence.text), // Preprocess dialogue
+			bionicNarrative: setBionicReading(sentence.narrative), // Preprocess narrative
 		}));
 	}, []);
 
@@ -88,7 +88,7 @@ export const Calling = () => {
 
 	return (
 		<Layout title="_calling">
-			<Container>
+			<Container opacity={96}>
 				<MotionSection delay={0.2}>
 					<div className="flex justify-center text-center" ref={glitch.ref}>
 						<Rabbit size={64} weight="fill" className="text-white mb-2" />
@@ -106,10 +106,17 @@ export const Calling = () => {
 						<div key={index}>
 							<p
 								id="scripture"
-								className={`text-white border-l-2 border-gray-500 pl-2 mb-3 text-md font-normal text-left transition-opacity duration-1000 ${
+								className={`text-white border-l-2 border-gray-500 pl-2 mb-3 text-md text-left transition-opacity duration-1000 ${
 									startSentence[index] ? 'opacity-100' : 'opacity-0'
 								}`}
-								style={{ minHeight: '1.5em', wordWrap: 'break-word' }}>
+								style={{
+									minHeight: '1.5em',
+									wordWrap: 'break-word',
+									fontFamily: 'PT Sans',
+									letterSpacing: '0.03em',
+									fontSize: '1.1rem',
+									lineHeight: '1.75rem',
+								}}>
 								{startSentence[index] && (
 									<Typewriter
 										options={{
@@ -125,10 +132,16 @@ export const Calling = () => {
 							{/* Fading Narrative Text */}
 							{sentence.narrative && (
 								<p
-									className={`text-white break-words mb-2 text-md font-normal text-left italic transition-opacity duration-1000 ${
+									className={`text-white break-words mb-2 text-md text-left italic transition-opacity duration-1000 ${
 										showNarrative[index] ? 'opacity-100' : 'opacity-0'
 									}`}
-									style={{ minHeight: '1.5em' }}
+									style={{
+										minHeight: '1.5em',
+										fontFamily: 'PT Sans',
+										letterSpacing: '0.03em',
+										fontSize: '1.1rem',
+										lineHeight: '1.75rem',
+									}}
 									dangerouslySetInnerHTML={{
 										__html: sentence.bionicNarrative,
 									}}></p>
