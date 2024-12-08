@@ -141,14 +141,18 @@ hr:after {
 	}
 }
 
+/* Experimental/Can be Deleted */
 .bionic-highlight {
 	background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
 	padding: 2px 4px;
 }
 
-b {
-	color: #ffffff; /* Bright white */
+strong {
+	font-weight: 700;
+	color: #ffffff; /* Bright white for bolded text */
+	font-size: 1.05em;
 }
+
 span {
 	color: rgba(255, 255, 255, 0.8); /* Slightly dimmer for contrast */
 }
