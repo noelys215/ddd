@@ -28,11 +28,13 @@ export const Experience = () => {
 					subtitle="TechnologyAdvice"
 					job="Software Engineer Intern"
 					year="May 2024 - Aug 2024"
-					content="During my Software Engineer Internship at TechnologyAdvice, I quickly adapted to the company's tech stack, delivering high-impact feature enhancements within the first two weeks. I was responsible for developing scalable full-stack web applications using PHP/Laravel for the backend and Vue.js for the frontend, leading to a 20% increase in user engagement. 
-        
-        I worked closely with product managers, UX/UI designers, and QA teams in bi-weekly Agile sprints to align with business goals and ensure efficient project progress.
-        
-        I actively contributed to troubleshooting and testing, enhancing product reliability, while documenting technical workflows and API endpoints for future reference. This experience solidified my ability to deliver high-quality solutions in collaborative environments and tackle blockers effectively in daily standups."
+					content="During my Software Engineer Internship at TechnologyAdvice, I hit the ground running, quickly adapting to the tech stack and delivering impactful feature updates within two weeks. I built scalable full-stack web applications using PHP/Laravel and Vue.js, boosting user engagement by 20%. 
+					
+					Collaborating with product managers, designers, and QA in Agile sprints, I ensured smooth project progress while documenting workflows and API endpoints. 
+					
+					I also tackled testing and troubleshooting head-on, enhancing reliability and refining my problem-solving skills during daily standups. 
+					
+					This hands-on experience sharpened my ability to deliver quality solutions in a dynamic, team-driven environment."
 					skills={skillsArray}
 				/>
 			</MotionSection>
