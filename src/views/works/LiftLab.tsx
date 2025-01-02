@@ -127,7 +127,7 @@ export const LiftLab = () => {
 							<h4 className="text-white text-lg font-bold text-center my-6">
 								Screenshots
 							</h4>
-							<Slider array={imageArr} />
+							<Slider array={imageArr} width={'65%'} />
 						</MotionSection>
 					</section>
 				</article>

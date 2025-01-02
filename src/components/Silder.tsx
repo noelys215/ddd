@@ -9,9 +9,11 @@ import 'react-medium-image-zoom/dist/styles.css';
 interface SliderProps {
 	array: { src: string; alt: string }[];
 	options?: EmblaOptionsType;
+	width?: string; // Optional width for the image
+	height?: string; // Optional height for the image
 }
 
-export const Slider: React.FC<SliderProps> = ({ array }) => {
+export const Slider: React.FC<SliderProps> = ({ array, width = '100%' }) => {
 	const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [Fade()]);
 
 	const scrollPrev = useCallback(() => {
@@ -33,6 +35,7 @@ export const Slider: React.FC<SliderProps> = ({ array }) => {
 									src={item.src}
 									alt={item.alt}
 									className="w-full h-auto object-contain rounded-lg"
+									style={{ width: width, margin: 'auto' }}
 								/>
 							</Zoom>
 						</div>
