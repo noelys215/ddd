@@ -157,7 +157,7 @@ const MazeComponent = () => {
 				className={`flex justify-center text-xl font-bold text-green-400 transition-opacity duration-300 ${
 					status === 'playing' ? 'opacity-0' : 'opacity-100'
 				}`}>
-				You have conquered the labyrinth!
+				Zoom zoom! Labyrinth conquered, hero human!
 			</p>
 
 			<div className="dpad-container">

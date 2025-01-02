@@ -8,7 +8,7 @@ import { useGetLocation } from '../hooks/useGetLocation';
 export const Home: React.FC = () => {
 	const { city } = useGetLocation();
 
-	const locationMessage = city ? `Hey human in ${city}!` : 'Hey, hey!';
+	const locationMessage = city ? `Hey human in ${city}, nice to meet you!` : 'Hey, hey!';
 
 	return (
 		<Layout title="home">

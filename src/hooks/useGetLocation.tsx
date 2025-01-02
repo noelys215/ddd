@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export const useGetLocation = () => {
 	const [city, setCity] = useState<string | null>(null);
-	const [error, setError] = useState<string | null>(null);
+	const [error] = useState<string | null>(null);
 
 	useEffect(() => {
 		// Check if location data is already in sessionStorage
@@ -21,16 +21,20 @@ export const useGetLocation = () => {
 				);
 				const data = await response.json();
 
-				// Save city to sessionStorage and state
-				if (data.city) {
+				// Handle throttling or error responses
+				if (data.error && data.error.description.includes('Throttled')) {
+					console.warn('Geocode API throttled. Defaulting to fallback message.');
+					setCity(null); // Default to "Hey, hey!" when throttled
+				} else if (data.city) {
 					sessionStorage.setItem('city', data.city);
 					setCity(data.city);
 				} else {
-					setError('Unable to determine city');
+					console.warn('City not found in the response. Defaulting to fallback message.');
+					setCity(null); // Default to "Hey, hey!"
 				}
 			} catch (error) {
 				console.error('Error fetching location:', error);
-				setError('Unable to fetch location data');
+				setCity(null); // Default to "Hey, hey!" on fetch failure
 			}
 		};
 
@@ -44,11 +48,12 @@ export const useGetLocation = () => {
 					},
 					(error) => {
 						console.error('Error getting location:', error);
-						setError('Unable to retrieve location');
+						setCity(null); // Default to "Hey, hey!" if location is unavailable
 					}
 				);
 			} else {
-				setError('Geolocation is not supported by this browser');
+				console.warn('Geolocation is not supported by this browser.');
+				setCity(null); // Default to "Hey, hey!" if geolocation is unsupported
 			}
 		};
 
