@@ -16,6 +16,7 @@ import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
 import { WatcherSpeaks } from './views/novella/Chapters/_01/WatcherSpeaks.tsx';
 import { Obedience } from './views/novella/Chapters/_01/Obedience.tsx';
 import { Knowledge } from './views/novella/Chapters/_01/Knowledge.tsx';
+import { Maze } from './views/novella/Games/Maze/maze.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
 	{
 		path: '/works/gloria',
 		element: <Gloria />,
+	},
+	{
+		path: '/maze',
+		element: <Maze />,
 	},
 	{
 		path: '/novella/calling',

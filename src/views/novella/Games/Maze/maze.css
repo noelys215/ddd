@@ -1,0 +1,97 @@
+.map:focus {
+	outline: none;
+}
+
+.setting button {
+	font-size: 15px;
+}
+.setting input {
+	font-size: 20px;
+}
+.topWall {
+	border-top: 2px solid cornsilk;
+}
+.rightWall {
+	border-right: 2px solid cornsilk;
+}
+.bottomWall {
+	border-bottom: 2px solid cornsilk;
+}
+.leftWall {
+	border-left: 2px solid cornsilk;
+}
+.sol div {
+	height: 50%;
+	width: 50%;
+	border-radius: 50%;
+	background: peachpuff;
+	display: inline-block;
+}
+
+#maze {
+	margin-top: 15px;
+	border-collapse: collapse;
+}
+#maze td {
+	height: 20px;
+	width: 20px;
+}
+
+.maze-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 400px;
+}
+
+.dpad-container {
+	display: grid;
+	grid-template-areas:
+		'. up .'
+		'left center right'
+		'. down .';
+	justify-content: center;
+	align-items: center;
+	margin: 1rem 0;
+}
+
+.dpad-container:focus {
+	outline: none;
+}
+
+.arrow-row {
+	display: flex;
+	justify-content: center;
+}
+
+.dpad-container button {
+	color: cornsilk;
+	border: none;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.dpad-container button:hover {
+	transform: scale(1.2);
+}
+
+.dpad-container .up {
+	grid-area: up;
+}
+
+.dpad-container .down {
+	grid-area: down;
+}
+
+.dpad-container .left {
+	grid-area: left;
+}
+
+.dpad-container .right {
+	grid-area: right;
+}
+
+.dpad-container .center {
+	grid-area: center;
+	visibility: hidden;
+}

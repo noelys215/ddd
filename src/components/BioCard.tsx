@@ -205,7 +205,8 @@ const BioCard: React.FC<BioCardProps> = ({
 						fill="#FFF"
 						size={40}
 						weight="fill"
-						onClick={() => navigate('/novella/calling')}
+						onClick={() => navigate('/maze')}
+						// onClick={() => navigate('/novella/calling')}
 						className="rotate"
 						style={{ cursor: 'pointer' }}
 					/>
