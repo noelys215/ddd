@@ -110,13 +110,13 @@ const MazeComponent = () => {
 				</h3>
 				<div className="flex justify-center space-x-4">
 					<button className="button-89" onClick={() => handleSelectDifficulty(7)}>
-						Easy
+						Tall
 					</button>
 					<button className="button-89" onClick={() => handleSelectDifficulty(13)}>
-						Medium
+						Grande
 					</button>
 					<button className="button-89" onClick={() => handleSelectDifficulty(18)}>
-						Hard
+						Venti
 					</button>
 				</div>
 			</div>
