@@ -10,14 +10,14 @@ export const useGetWeather = () => {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		// Check if weather data is already cached in localStorage
-		const cachedWeather = localStorage.getItem('weatherData');
+		// Check if weather data is already in sessionStorage
+		const cachedWeather = sessionStorage.getItem('weatherData');
 		if (cachedWeather) {
 			setWeather(JSON.parse(cachedWeather));
 			return;
 		}
 
-		// Function to get the weather based on lat/lon
+		// Function to fetch weather data
 		const fetchWeather = async (lat: number, lon: number) => {
 			try {
 				const apiKey = import.meta.env.VITE_WEATHER_KEY;
@@ -26,14 +26,12 @@ export const useGetWeather = () => {
 				);
 				const data = await response.json();
 
-				// Extract main and description from the weather array
+				// Extract weather information
 				const { main, description } = data.weather[0];
 
-				// Cache the result in localStorage
+				// Save to sessionStorage and state
 				const weatherData = { main, description };
-				localStorage.setItem('weatherData', JSON.stringify(weatherData));
-
-				// Update the state with the new data
+				sessionStorage.setItem('weatherData', JSON.stringify(weatherData));
 				setWeather(weatherData);
 			} catch (error) {
 				console.error('Error fetching weather:', error);
@@ -41,7 +39,7 @@ export const useGetWeather = () => {
 			}
 		};
 
-		// Function to get the user's geolocation
+		// Get the user's location
 		const getLocation = () => {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(
@@ -60,7 +58,7 @@ export const useGetWeather = () => {
 		};
 
 		getLocation();
-	}, []); // Empty dependency array ensures the effect only runs once
+	}, []); // Runs only once when the component mounts
 
 	return { weather, error };
 };
