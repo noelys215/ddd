@@ -197,16 +197,17 @@ const BioCard: React.FC<BioCardProps> = ({
 				</figure>
 			</header>
 
-			{/* Horizontal Line */}
+			{/* Horizontal Line - Rabbit */}
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" aria-hidden="true" />
 				<div className="absolute inset-x-0 top-0 flex justify-center -mt-5">
 					<Rabbit
 						fill="#FFF"
-						size={38}
+						size={40}
 						weight="fill"
 						onClick={() => navigate('/novella/calling')}
 						className="rotate"
+						style={{ cursor: 'pointer' }}
 					/>
 				</div>
 			</div>
