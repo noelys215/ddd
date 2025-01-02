@@ -154,7 +154,7 @@ const MazeComponent = () => {
 			</div>
 
 			<p
-				className={`flex justify-center text-xl font-bold text-green-400 transition-opacity duration-300 ${
+				className={`flex justify-center text-center text-xl font-bold text-green-400 transition-opacity duration-300 ${
 					status === 'playing' ? 'opacity-0' : 'opacity-100'
 				}`}>
 				Zoom zoom! Labyrinth conquered, hero human!
