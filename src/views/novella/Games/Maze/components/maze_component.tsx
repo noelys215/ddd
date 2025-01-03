@@ -106,7 +106,7 @@ const MazeComponent = () => {
 		<div className="map justify-center" onKeyDown={handleMove} tabIndex={-1}>
 			<div>
 				<h3 className="flex justify-center text-white text-xl font-medium mt-1 mb-1">
-					Select Difficulty
+					Tap tap, pick now!
 				</h3>
 				<div className="flex justify-center space-x-4">
 					<button className="button-89" onClick={() => handleSelectDifficulty(7)}>
