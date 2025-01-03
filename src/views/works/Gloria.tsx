@@ -37,6 +37,9 @@ export const Gloria = () => {
 								<span className="text-green-50 text-xs uppercase font-semibold px-1.5 py-0.5 rounded-sm bg-green-700">
 									Online
 								</span>
+								<span className="text-xs uppercase font-semibold px-1.5 py-0.5 ml-2 rounded-sm bg-yellow-600">
+									Sunsetting
+								</span>
 							</li>
 							<li>
 								<Meta>Stack</Meta>
@@ -76,6 +79,10 @@ export const Gloria = () => {
 								Project Overview
 							</h2>
 							<p className="text-white text-sm md:text-base leading-relaxed">
+								[ Blast from the past! My first solo project, now retiring after 3+
+								years due to outdated tech.]
+								<br />
+								<br />
 								Gloria Fútbol is a simple soccer live score app that tracks the top
 								scores, stats, and records for some of the worlds most prestigious
 								leagues.
