@@ -26,7 +26,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 
 	return (
 		<article
-			className="p-6 bg-black rounded-lg shadow-lg"
+			className="p-6 bg-black rounded-lg"
 			style={{ backgroundColor: '#101010' }}
 			aria-labelledby={`${title}-title`}
 			role="button"
@@ -62,7 +62,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 				</div>
 
 				{/* Description */}
-				<p className="text-gray-300 text-sm">{description}</p>
+				<p className="text-gray-300 text-md">{description}</p>
 			</a>
 		</article>
 	);
