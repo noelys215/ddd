@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
 
+const formatCityName = (name: string): string => {
+	return name
+		.toLowerCase() // Convert to lowercase
+		.split(' ') // Split into individual words
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter
+		.join(' '); // Join the words back together
+};
+
 export const useGetLocation = () => {
 	const [city, setCity] = useState<string | null>(null);
 	const [error] = useState<string | null>(null);
@@ -8,7 +16,7 @@ export const useGetLocation = () => {
 		// Check if location data is already in sessionStorage
 		const cachedCity = sessionStorage.getItem('city');
 		if (cachedCity) {
-			setCity(cachedCity);
+			setCity(formatCityName(cachedCity));
 			return;
 		}
 
