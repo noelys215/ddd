@@ -28,8 +28,8 @@ export const LiftLab = () => {
 						<ul className="space-y-1">
 							<li>
 								<Meta>Status</Meta>
-								<span className="text-yellow-50 text-xs uppercase font-semibold px-1.5 py-0.5 rounded-sm bg-yellow-600">
-									On Hold
+								<span className="text-green-50 text-xs uppercase font-semibold px-1.5 py-0.5 rounded-sm bg-green-700">
+									Online
 								</span>
 							</li>
 							<li>
@@ -38,7 +38,16 @@ export const LiftLab = () => {
 									React Native | Expo | UI Kitten | AsyncStorage | TypeScript
 								</span>
 							</li>
-
+							<li>
+								<Meta>Visit</Meta>
+								<a
+									href="https://apps.apple.com/us/app/liftlab-sbs/id6740149381"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="text-pink-500 hover:underline">
+									LifeLab ( iOS )
+								</a>
+							</li>
 							<li>
 								<Meta>Github</Meta>
 								<a
@@ -118,6 +127,14 @@ export const LiftLab = () => {
 								this app supports, and to UI Kitten and the React Native Community
 								for their open-source tools.
 							</p>
+
+							<a
+								href="https://www.strongerbyscience.com/program-bundle/"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-pink-500 hover:underline">
+								Source: Stronger by Science Program Bundle
+							</a>
 						</MotionSection>
 					</section>
 
