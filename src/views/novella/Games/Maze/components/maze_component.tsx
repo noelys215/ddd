@@ -115,7 +115,7 @@ const MazeComponent = () => {
 					<button className="button-89" onClick={() => handleSelectDifficulty(13)}>
 						Grande
 					</button>
-					<button className="button-89" onClick={() => handleSelectDifficulty(18)}>
+					<button className="button-89" onClick={() => handleSelectDifficulty(16)}>
 						Venti
 					</button>
 				</div>
@@ -162,17 +162,17 @@ const MazeComponent = () => {
 
 			<div className="dpad-container">
 				<button className="up" onClick={() => handleArrowMove('up')}>
-					<ArrowSquareUp size={40} />
+					<ArrowSquareUp size={55} />
 				</button>
 				<button className="left" onClick={() => handleArrowMove('left')}>
-					<ArrowSquareLeft size={40} />
+					<ArrowSquareLeft size={55} />
 				</button>
 				<div className="center"></div>
 				<button className="right" onClick={() => handleArrowMove('right')}>
-					<ArrowSquareRight size={40} />
+					<ArrowSquareRight size={55} />
 				</button>
 				<button className="down" onClick={() => handleArrowMove('down')}>
-					<ArrowSquareDown size={40} />
+					<ArrowSquareDown size={55} />
 				</button>
 			</div>
 
