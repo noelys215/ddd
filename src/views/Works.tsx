@@ -56,7 +56,7 @@ export const Works: React.FC = () => {
 
 						<WorkGridItem
 							title="Gloria Fútbol"
-							description="Simple soccer/futbol app with live scores, charts and tables."
+							description="Soccer/futbol app with live scores, charts and tables."
 							imageUrl={gloriaThumb}
 							link="/works/gloria"
 						/>
@@ -70,7 +70,7 @@ export const Works: React.FC = () => {
 
 						<WorkGridItem
 							title="Percentage Calculator"
-							description="Coupon Percentage Calculator."
+							description="Employee Coupon Percentage Calculator."
 							imageUrl={calcThumb}
 							href="https://coupon-henna.vercel.app/"
 						/>

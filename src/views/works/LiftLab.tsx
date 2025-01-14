@@ -68,13 +68,14 @@ export const LiftLab = () => {
 								Project Overview
 							</h2>
 							<p className="text-white text-sm md:text-base leading-relaxed">
-								LiftLab is a React Native app designed as a companion for the
-								Stronger by Science powerlifting program. It helps users track their
-								strength progression in the main lifts: Squat, Bench Press, and
-								Deadlift. The app calculates and tracks 1-rep max (1RM) values,
-								dynamically adjusts weights based on performance, and provides
-								progressive tracking for weeks of workouts. All workout data is
-								stored locally using AsyncStorage for easy access and persistence.
+								LiftLab is a React Native app designed as a companion for the&nbsp;
+								<u>Stronger by Science SBS Hypertrophy program</u>. It helps users
+								track their strength progression in the main lifts: Squat, Bench
+								Press, and Deadlift. The app calculates and tracks 1-rep max (1RM)
+								values, dynamically adjusts weights based on performance, and
+								provides progressive tracking for weeks of workouts. All workout
+								data is stored locally using AsyncStorage for easy access and
+								persistence.
 							</p>
 						</MotionSection>
 					</section>
