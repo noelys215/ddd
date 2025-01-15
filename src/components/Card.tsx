@@ -47,7 +47,7 @@ const Card: React.FC<CardProps> = ({
 						fill="#FFF"
 						size={40}
 						weight="fill"
-						// onClick={() => navigate('/')}
+						onClick={() => navigate('/mole')}
 						// onClick={() => navigate('/novella/calling')}
 						className="counter-rotate"
 						style={{ cursor: 'pointer' }}
