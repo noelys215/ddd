@@ -17,6 +17,7 @@ import { WatcherSpeaks } from './views/novella/Chapters/_01/WatcherSpeaks.tsx';
 import { Obedience } from './views/novella/Chapters/_01/Obedience.tsx';
 import { Knowledge } from './views/novella/Chapters/_01/Knowledge.tsx';
 import { Maze } from './views/novella/Games/Maze/maze.tsx';
+import WhackAMole from './views/novella/Games/WhackAMole/WackAMole.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
 	{
 		path: '/maze',
 		element: <Maze />,
+	},
+	{
+		path: '/mole',
+		element: <WhackAMole />,
 	},
 	{
 		path: '/novella/calling',
