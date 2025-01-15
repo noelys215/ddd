@@ -24,7 +24,7 @@ export const Home: React.FC = () => {
 					I’m a full-stack software engineer from Southern NJ, always cooking up clean, simple, and functional designs that look cool and work even cooler. 
 					JavaScript is my bread and butter (React and Next.js, oh yeah!), but I’m language-flexible—give me any tech, and I’ll make it sing. I’ve got backend chops too, with Spring Boot and AWS in my toolkit, thanks to some fun college projects. 
 					Obsessed with learning new things and pushing boundaries, I keep my skills sharp and my creativity sharper. So go ahead, click around, and explore—there’s a lot of nifty stuff here to geek out on!
-					[ Hop hop! Some things are meant to be clicked, but only the curious will find them! ]`}
+					[ Hop hop! Spin Spin! Some things hide deep within!; for the curious and true, you'll find secrets waiting for you! ]`}
 				/>
 			</MotionSection>
 		</Layout>
