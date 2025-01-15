@@ -141,6 +141,21 @@ hr:after {
 	}
 }
 
+/* Counter Rotate */
+
+.counter-rotate {
+	animation: counter-rotation 3.5s infinite linear;
+}
+
+@keyframes counter-rotation {
+	from {
+		transform: rotate(360deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}
+
 /* Experimental/Can be Deleted */
 .bionic-highlight {
 	background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 50%, transparent 100%);

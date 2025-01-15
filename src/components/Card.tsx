@@ -1,4 +1,4 @@
-import { CaretRight, Heart } from '@phosphor-icons/react';
+import { CaretRight, Rabbit } from '@phosphor-icons/react';
 import React from 'react';
 import Text from './Text';
 import SkillsCard from './SkillsCard'; // Import the SkillsCard
@@ -41,8 +41,17 @@ const Card: React.FC<CardProps> = ({
 			{/* Horizontal Line */}
 			<div className="relative mb-4">
 				<hr className="border-gray-400 w-4/5 mx-auto" />
-				<div className="absolute inset-x-0 top-0 flex justify-center -mt-3.5">
-					<Heart fill="#FF69B4" weight="fill" size={26} />
+				<div className="absolute inset-x-0 top-0 flex justify-center -mt-5">
+					{/* <Heart fill="#FF69B4" weight="fill" size={26} /> */}
+					<Rabbit
+						fill="#FFF"
+						size={40}
+						weight="fill"
+						// onClick={() => navigate('/')}
+						// onClick={() => navigate('/novella/calling')}
+						className="counter-rotate"
+						style={{ cursor: 'pointer' }}
+					/>
 				</div>
 			</div>
 
