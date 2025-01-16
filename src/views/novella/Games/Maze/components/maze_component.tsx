@@ -105,10 +105,10 @@ const MazeComponent = () => {
 	return (
 		<div className="map justify-center" onKeyDown={handleMove} tabIndex={-1}>
 			<div>
-				<h3 className="flex justify-center text-white text-xl font-medium mt-1 mb-1">
+				<h3 className="flex justify-center text-white text-xl font-medium mb-1">
 					Tap tap, pick now!
 				</h3>
-				<div className="flex justify-center space-x-4">
+				<div className="flex justify-center space-x-4 mb-2">
 					<button className="button-89" onClick={() => handleSelectDifficulty(7)}>
 						Tall
 					</button>
@@ -120,6 +120,13 @@ const MazeComponent = () => {
 					</button>
 				</div>
 			</div>
+
+			<p
+				className={`high-score flex justify-center text-center text-sm font-bold text-green-400 transition-opacity duration-300 ${
+					status === 'playing' ? 'opacity-0' : 'opacity-100'
+				}`}>
+				Zoom zoom! Labyrinth conquered, hero human!
+			</p>
 
 			<div className="maze-container">
 				<table id="maze">
@@ -152,13 +159,6 @@ const MazeComponent = () => {
 					</tbody>
 				</table>
 			</div>
-
-			<p
-				className={`flex justify-center text-center text-xl font-bold text-green-400 transition-opacity duration-300 ${
-					status === 'playing' ? 'opacity-0' : 'opacity-100'
-				}`}>
-				Zoom zoom! Labyrinth conquered, hero human!
-			</p>
 
 			<div className="dpad-container">
 				<button className="up" onClick={() => handleArrowMove('up')}>
