@@ -1,8 +1,8 @@
-.pulse {
-	animation: pulse-animation 1s infinite;
+.shake {
+	animation: shake-animation 1s infinite;
 }
 
-@keyframes pulse-animation {
+@keyframes shake-animation {
 	0% {
 		transform: translateX(0);
 	}

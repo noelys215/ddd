@@ -29,9 +29,7 @@ const WhackAMoleGame: React.FC = () => {
 		setRabbitPosition(-1); // Remove rabbit immediately after a click
 	};
 
-	const handleMissClick = () => {
-		setScore((prevScore) => Math.max(0, prevScore - 1)); // Deduct a point if no rabbit, but don't go below 0
-	};
+	const handleMissClick = () => setScore((prevScore) => Math.max(0, prevScore - 1)); // Deduct a point if no rabbit, but don't go below 0
 
 	const resetGame = () => {
 		setScore(0);
@@ -52,7 +50,7 @@ const WhackAMoleGame: React.FC = () => {
 							<div
 								onClick={handleRabbitClick}
 								className="w-full h-full rounded-full justify-center items-center flex">
-								<Rabbit weight="fill" className="text-white w-12 h-12 pulse" />
+								<Rabbit weight="fill" className="text-white w-12 h-12 shake" />
 							</div>
 						)}
 					</div>
