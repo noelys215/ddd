@@ -11,10 +11,7 @@ const WhackAMoleGame: React.FC = () => {
 	const [speed, setSpeed] = useState(1000); // Initial speed (1 second)
 
 	useEffect(() => {
-		const interval = setInterval(() => {
-			moveRabbit();
-		}, speed);
-
+		const interval = setInterval(() => moveRabbit(), speed);
 		return () => clearInterval(interval);
 	}, [speed]);
 
@@ -25,7 +22,7 @@ const WhackAMoleGame: React.FC = () => {
 
 	const handleRabbitClick = () => {
 		setScore(score + 1);
-		setSpeed((prevSpeed) => Math.max(200, prevSpeed - 50)); // Increase speed (minimum 200ms)
+		setSpeed((prevSpeed) => Math.max(150, prevSpeed - 50)); // Increase speed (minimum 200ms)
 		setRabbitPosition(-1); // Remove rabbit immediately after a click
 	};
 
@@ -36,6 +33,8 @@ const WhackAMoleGame: React.FC = () => {
 		setSpeed(1000);
 		setRabbitPosition(-1);
 	};
+
+	// Add Timer
 
 	return (
 		<div className="w-full max-w-[400px] mx-auto flex flex-col items-center">
