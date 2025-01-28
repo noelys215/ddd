@@ -25,3 +25,25 @@
 	font-weight: 400;
 	font-style: normal;
 }
+
+.v-shake {
+	animation: v-shake-animation 1s infinite;
+}
+
+@keyframes v-shake-animation {
+	0% {
+		transform: translateY(0);
+	}
+	25% {
+		transform: translateY(1px);
+	}
+	50% {
+		transform: translateY(-0.5px);
+	}
+	75% {
+		transform: translateY(0.5px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}

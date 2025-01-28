@@ -64,9 +64,9 @@ const WhackAMoleGame: React.FC = () => {
 			<h1 className="text-lg font-bold m-2 text-pink-400 high-score">High Score: {score}</h1>
 			<h2
 				className={`text-md font-bold mb-4 text-pink-400 high-score ${
-					isGameOver && 'shake'
+					isGameOver && 'v-shake'
 				}`}>
-				Time Left: {timeLeft}s
+				Time Left: {timeLeft}
 			</h2>
 			<div
 				className={`grid grid-cols-3 gap-2 w-full aspect-square mb-4 ${
