@@ -10,12 +10,12 @@ import Atalanta from './views/works/Atalanta.tsx';
 import { HelmetProvider } from 'react-helmet-async';
 import { LiftLab } from './views/works/LiftLab.tsx';
 import { Gloria } from './views/works/Gloria.tsx';
-import { Calling } from './views/novella/Chapters/_00/Calling.tsx';
-import { Descent } from './views/novella/Chapters/_01/Descent.tsx';
-import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
-import { WatcherSpeaks } from './views/novella/Chapters/_01/WatcherSpeaks.tsx';
-import { Obedience } from './views/novella/Chapters/_01/Obedience.tsx';
-import { Knowledge } from './views/novella/Chapters/_01/Knowledge.tsx';
+// import { Calling } from './views/novella/Chapters/_00/Calling.tsx';
+// import { Descent } from './views/novella/Chapters/_01/Descent.tsx';
+// import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
+// import { WatcherSpeaks } from './views/novella/Chapters/_01/WatcherSpeaks.tsx';
+// import { Obedience } from './views/novella/Chapters/_01/Obedience.tsx';
+// import { Knowledge } from './views/novella/Chapters/_01/Knowledge.tsx';
 import { Maze } from './views/novella/Games/Maze/maze.tsx';
 import WhackAMole from './views/novella/Games/WhackAMole/WackAMole.tsx';
 
@@ -56,30 +56,30 @@ const router = createBrowserRouter([
 		path: '/mole',
 		element: <WhackAMole />,
 	},
-	{
-		path: '/novella/calling',
-		element: <Calling />,
-	},
-	{
-		path: '/novella/descent',
-		element: <Descent />,
-	},
-	{
-		path: '/novella/descent/watcher',
-		element: <Watcher />,
-	},
-	{
-		path: '/novella/descent/watcherSpeaks',
-		element: <WatcherSpeaks />,
-	},
-	{
-		path: '/novella/descent/obedience',
-		element: <Obedience />,
-	},
-	{
-		path: '/novella/descent/knowledge',
-		element: <Knowledge />,
-	},
+	// {
+	// 	path: '/novella/calling',
+	// 	element: <Calling />,
+	// },
+	// {
+	// 	path: '/novella/descent',
+	// 	element: <Descent />,
+	// },
+	// {
+	// 	path: '/novella/descent/watcher',
+	// 	element: <Watcher />,
+	// },
+	// {
+	// 	path: '/novella/descent/watcherSpeaks',
+	// 	element: <WatcherSpeaks />,
+	// },
+	// {
+	// 	path: '/novella/descent/obedience',
+	// 	element: <Obedience />,
+	// },
+	// {
+	// 	path: '/novella/descent/knowledge',
+	// 	element: <Knowledge />,
+	// },
 ]);
 
 createRoot(document.getElementById('root')!).render(
