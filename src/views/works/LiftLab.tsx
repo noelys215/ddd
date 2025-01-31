@@ -105,7 +105,7 @@ export const LiftLab = () => {
 					<section aria-labelledby="tech-heading">
 						<MotionSection delay={0.1}>
 							<h2 className="text-white text-lg font-bold text-center my-5">
-								Key Features
+								Technologies Used
 							</h2>
 							<p className="text-white text-sm md:text-base leading-relaxed">
 								<br />- React Native: For cross-platform mobile development.
