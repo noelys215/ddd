@@ -11,6 +11,7 @@ import {
 	CloudSnow,
 	CloudFog,
 	Rabbit,
+	Envelope,
 } from '@phosphor-icons/react';
 
 import React, { useState, useEffect } from 'react';
@@ -182,6 +183,14 @@ const BioCard: React.FC<BioCardProps> = ({
 								<GithubLogo size={24} weight="fill" />
 							</a>
 						)}
+						{
+							<a
+								href="mailto:betanch@gmail.com?subject=A%20message%20from%20the%20digital%20void!&body=Hmm…%20what%20to%20write…%20oh!%20Hi%20Found%20your%20website,%20so%20now%20I’m%20here!"
+								aria-label="Send Email"
+								className="text-white hover:text-pink-400">
+								<Envelope size={24} weight="duotone" />
+							</a>
+						}
 					</nav>
 				</div>
 
