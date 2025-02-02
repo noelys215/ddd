@@ -155,7 +155,9 @@ const Atalanta = () => {
 							<p className="text-white text-sm md:text-base leading-relaxed">
 								Planned improvements include address auto-completion, enhanced
 								CAPTCHA for security, analytics integration, SMS verification, and a
-								redesign of product pages for a more luxurious aesthetic.
+								redesign of product pages for a more luxurious aesthetic. I also
+								plan to implement PayWright testing throughout the application for
+								better reliability.
 							</p>
 						</MotionSection>
 					</section>

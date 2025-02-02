@@ -117,6 +117,22 @@ export const LiftLab = () => {
 						</MotionSection>
 					</section>
 
+					{/* Future Enhancements */}
+					<section aria-labelledby="improvements-heading">
+						<MotionSection delay={0.1}>
+							<h2 className="text-white text-lg font-bold text-center my-6">
+								Future Enhancements
+							</h2>
+							<p className="text-white text-sm md:text-base leading-relaxed">
+								I plan to potentially move away from React Native and instead use
+								SwiftUI to create a native iOS app. This would allow for more
+								customization and better performance on iOS devices. Additionally, I
+								would like to add testing to the app to ensure stability and
+								reliability.
+							</p>
+						</MotionSection>
+					</section>
+
 					{/* Acknowledgements */}
 					<section aria-labelledby="acknowledgements-heading">
 						<MotionSection delay={0.1}>
