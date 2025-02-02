@@ -9,7 +9,7 @@ export const Maze = () => {
 	const glitch = useGlitch({ hideOverflow: true, timing: { duration: 3150 } });
 
 	return (
-		<Layout title="_calling">
+		<Layout title="labyrinth">
 			<Container opacity={95}>
 				<MotionSection delay={0.2}>
 					<div className="flex justify-center text-center" ref={glitch.ref}>
