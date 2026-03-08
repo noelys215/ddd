@@ -7,10 +7,10 @@ import CybersigilFrame from "../components/CybersigilFrame";
 
 // Images
 import gloriaThumb from "../assets/works/gloria/gloria4.png";
-import atalantaThumb from "../assets/works/atalanta/atalanta1.png";
 import liftLabThumb from "../assets/works/liftlab/liftLabThumb.png";
 import roshamboThumb from "../assets/works/roshambo/roshambo.png";
 import calcThumb from "../assets/works/calcper/CalcPer.png";
+import modWorldwideThumb from "../assets/works/modworldwide/MOD_THUMB.png";
 
 export const Works: React.FC = () => {
   const navigate = useNavigate();
@@ -72,25 +72,18 @@ export const Works: React.FC = () => {
             className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8"
             role="list"
           >
-            <WorkGridItem
+            {/* <WorkGridItem
               title="Atalanta A.C."
               description="A semi-modern athletic clothing e-commerce store."
               imageUrl={atalantaThumb}
               link="/works/atalanta"
-            />
+            /> */}
 
             <WorkGridItem
-              title="LiftLab"
-              description="A companion app for the Stronger by Science weightlifting program."
-              imageUrl={liftLabThumb}
-              link="/works/liftlab"
-            />
-
-            <WorkGridItem
-              title="Gloria Fútbol"
-              description="Soccer/futbol app with live scores, charts and tables."
-              imageUrl={gloriaThumb}
-              link="/works/gloria"
+              title="MOD Worldwide"
+              description="Official MOD portfolio platform with JSON-driven pages and high-end motion."
+              imageUrl={modWorldwideThumb}
+              link="/works/modworldwide"
             />
           </div>
 
@@ -122,6 +115,12 @@ export const Works: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
             <WorkGridItem
+              title="LiftLab"
+              description="A companion app for the Stronger by Science weightlifting program."
+              imageUrl={liftLabThumb}
+              link="/works/liftlab"
+            />
+            <WorkGridItem
               title="Ro-Sham-Bo"
               description="A fun little rock-paper-scissor-spock game."
               imageUrl={roshamboThumb}
@@ -133,6 +132,13 @@ export const Works: React.FC = () => {
               description="Employee Coupon Percentage Calculator."
               imageUrl={calcThumb}
               href="https://coupon-henna.vercel.app/"
+            />
+
+            <WorkGridItem
+              title="Gloria Fútbol"
+              description="Soccer/futbol app with live scores, charts and tables."
+              imageUrl={gloriaThumb}
+              link="/works/gloria"
             />
           </div>
         </CybersigilFrame>

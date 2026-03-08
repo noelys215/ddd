@@ -10,6 +10,7 @@ import Atalanta from './views/works/Atalanta.tsx';
 import { HelmetProvider } from 'react-helmet-async';
 import { LiftLab } from './views/works/LiftLab.tsx';
 import { Gloria } from './views/works/Gloria.tsx';
+import MODWorldwide from './views/works/MODWorldwide.tsx';
 // import { Calling } from './views/novella/Chapters/_00/Calling.tsx';
 // import { Descent } from './views/novella/Chapters/_01/Descent.tsx';
 // import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
 	{
 		path: '/works/gloria',
 		element: <Gloria />,
+	},
+	{
+		path: '/works/modworldwide',
+		element: <MODWorldwide />,
 	},
 	{
 		path: '/maze',

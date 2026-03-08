@@ -305,7 +305,7 @@ const BioCard: React.FC<BioCardProps> = ({
           <img
             src={imageUrl}
             alt={`Photo of ${name}`}
-            className="object-cover rounded-full border border-gray-200 w-[clamp(80px,32vw,147px)] h-[clamp(80px,32vw,147px)]"
+            className="object-cover rounded-full border-2 border-gray-200 w-[clamp(80px,32vw,147px)] h-[clamp(80px,32vw,147px)]"
             ref={glitch.ref}
           />
         </figure>
