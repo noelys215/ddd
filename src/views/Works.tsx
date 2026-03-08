@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import MotionSection from '../components/MotionSection';
 import { WorkGridItem } from '../components/WorkGridItem';
 import { CaretRight } from '@phosphor-icons/react';
+import CybersigilFrame from '../components/CybersigilFrame';
 
 // Images
 import gloriaThumb from '../assets/works/gloria/gloria4.png';
@@ -18,8 +19,8 @@ export const Works: React.FC = () => {
 	return (
 		<Layout title="works">
 			<MotionSection delay={0.1}>
-				<section
-					className="border border-white rounded-md max-w-5xl w-full p-6 bg-black shadow-md mx-auto opacity-95"
+				<CybersigilFrame
+					className="rounded-md max-w-5xl w-full p-6 bg-black shadow-md mx-auto opacity-95"
 					style={{ backgroundColor: '#101010' }}
 					aria-labelledby="works-heading">
 					<header className="mb-5">
@@ -75,7 +76,7 @@ export const Works: React.FC = () => {
 							href="https://coupon-henna.vercel.app/"
 						/>
 					</div>
-				</section>
+				</CybersigilFrame>
 			</MotionSection>
 		</Layout>
 	);

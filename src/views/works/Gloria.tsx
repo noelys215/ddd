@@ -4,6 +4,7 @@ import { Meta } from '../../components/Meta';
 import MotionSection from '../../components/MotionSection';
 import { Slider } from '../../components/Silder';
 import { Title } from '../../components/Title';
+import CybersigilFrame from '../../components/CybersigilFrame';
 
 const imageArr = [
 	{ src: '/works/gloria/gloria1.png', alt: 'gloria' },
@@ -16,8 +17,8 @@ export const Gloria = () => {
 	return (
 		<Layout title="liftLab">
 			<MotionSection delay={0.1}>
-				<article
-					className="border border-white rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95 overflow-hidden"
+				<CybersigilFrame
+					className="rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95"
 					style={{ backgroundColor: '#101010' }}
 					aria-labelledby="gloria-title">
 					{/* Title Section */}
@@ -136,7 +137,7 @@ export const Gloria = () => {
 							<Slider array={imageArr} />
 						</MotionSection>
 					</section>
-				</article>
+				</CybersigilFrame>
 			</MotionSection>
 		</Layout>
 	);

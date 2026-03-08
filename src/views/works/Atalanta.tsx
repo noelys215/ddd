@@ -4,6 +4,7 @@ import { Title } from '../../components/Title';
 import { Badge } from '../../components/Badge';
 import { Meta } from '../../components/Meta';
 import { Slider } from '../../components/Silder';
+import CybersigilFrame from '../../components/CybersigilFrame';
 
 const imageArr = [
 	{ src: '/works/atalanta/running.gif', alt: 'atalanta' },
@@ -22,8 +23,8 @@ const Atalanta = () => {
 	return (
 		<Layout title="atalanta">
 			<MotionSection delay={0.1}>
-				<article
-					className="border border-white rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95 overflow-hidden"
+				<CybersigilFrame
+					className="rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95"
 					aria-labelledby="atalanta-title"
 					style={{ backgroundColor: '#101010' }}>
 					{/* Title Section */}
@@ -161,7 +162,7 @@ const Atalanta = () => {
 							</p>
 						</MotionSection>
 					</section>
-				</article>
+				</CybersigilFrame>
 			</MotionSection>
 		</Layout>
 	);
