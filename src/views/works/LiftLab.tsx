@@ -4,6 +4,7 @@ import { Meta } from '../../components/Meta';
 import MotionSection from '../../components/MotionSection';
 import { Slider } from '../../components/Silder';
 import { Title } from '../../components/Title';
+import CybersigilFrame from '../../components/CybersigilFrame';
 
 const imageArr = [
 	{ src: '/works/liftlab/setup.png', alt: 'liftLab' },
@@ -14,8 +15,8 @@ export const LiftLab = () => {
 	return (
 		<Layout title="liftLab">
 			<MotionSection delay={0.1}>
-				<article
-					className="border border-white rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95 overflow-hidden"
+				<CybersigilFrame
+					className="rounded-md max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95"
 					aria-labelledby="liftlab-title"
 					style={{ backgroundColor: '#101010' }}>
 					{/* Title Section */}
@@ -164,7 +165,7 @@ export const LiftLab = () => {
 							<Slider array={imageArr} width={'65%'} />
 						</MotionSection>
 					</section>
-				</article>
+				</CybersigilFrame>
 			</MotionSection>
 		</Layout>
 	);

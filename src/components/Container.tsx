@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import CybersigilFrame from "./CybersigilFrame";
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,12 +13,12 @@ export const Container: React.FC<LayoutProps> = ({
   opacity = 95,
 }) => {
   return (
-    <article
-      className={`border border-white rounded-lg max-w-4xl w-full p-6 md:p-12 bg-black shadow-md mx-auto opacity-${opacity}`}
+    <CybersigilFrame
+      className={`rounded-lg max-w-4xl w-full p-6 md:p-12 bg-black shadow-md mx-auto opacity-${opacity}`}
       style={{ backgroundColor: color }}
       aria-labelledby="card-title"
     >
       {children}
-    </article>
+    </CybersigilFrame>
   );
 };
