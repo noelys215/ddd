@@ -131,7 +131,7 @@ const BioCard: React.FC<BioCardProps> = ({
     step: 1,
     scramble: 5,
     seed: 4,
-    range: [8700, 10300],
+    range: [8704, 8959],
     playOnMount: true,
     onAnimationEnd: () => setIsInitialNameScrambleDone(true),
   });
@@ -144,7 +144,7 @@ const BioCard: React.FC<BioCardProps> = ({
       step: 1,
       scramble: 5,
       seed: 4,
-      range: [8700, 10300],
+      range: [8704, 8959],
       playOnMount: false,
       overdrive: true,
     });
