@@ -1,4 +1,3 @@
-import { CaretRight } from '@phosphor-icons/react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,13 +16,23 @@ export const Title: React.FC<TitleProps> = ({ title, children }) => {
 					className="text-pink-500 hover:underline cursor-pointer">
 					Home
 				</a>
-				<CaretRight size={14} weight="bold" className="mx-1 text-pink-500 inline-flex" />
+				<span
+					aria-hidden="true"
+					className="mx-1 inline-block"
+					style={{ color: '#ec4899' }}>
+					/
+				</span>
 				<a
 					onClick={() => navigate('/works')}
 					className="text-pink-500 hover:underline cursor-pointer">
 					{title}
 				</a>
-				<CaretRight size={14} weight="bold" className="mx-1 text-pink-500 inline-flex" />
+				<span
+					aria-hidden="true"
+					className="mx-1 inline-block"
+					style={{ color: '#ec4899' }}>
+					/
+				</span>
 
 				<h3 className="inline-block text-white text-2xl font-medium">{children}</h3>
 			</nav>

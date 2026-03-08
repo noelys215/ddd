@@ -47,7 +47,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 					<img
 						src={imageUrl}
 						alt={`Screenshot of ${title}`}
-						className="object-cover w-full h-48 rounded-lg mb-4"
+						className="object-cover w-full h-48 rounded-lg mb-4 transition-[filter] duration-500 ease-out hover:blur-[1px] focus-visible:blur-[1px]"
 					/>
 				</figure>
 

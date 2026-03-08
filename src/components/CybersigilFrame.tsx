@@ -10,10 +10,11 @@ const DEFAULT_SIGIL_GLYPHS = [
   "✶",
   "✦",
   "✧",
+  "†",
+  "✛",
 ] as const;
 
-interface CybersigilFrameProps
-  extends React.ComponentPropsWithoutRef<"article"> {
+interface CybersigilFrameProps extends React.ComponentPropsWithoutRef<"article"> {
   glyphs?: readonly string[];
 }
 

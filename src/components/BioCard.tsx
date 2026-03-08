@@ -20,7 +20,7 @@ import React, { useState, useEffect } from "react";
 
 import { useGlitch } from "react-powerglitch";
 import Text from "./Text";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetWeather } from "../hooks/useGetWeather";
 import { useScramble } from "use-scramble";
 import CybersigilFrame from "./CybersigilFrame";
@@ -315,15 +315,18 @@ const BioCard: React.FC<BioCardProps> = ({
       <div className="relative mb-4">
         <hr className="border-gray-400 w-4/5 mx-auto" aria-hidden="true" />
         <div className="absolute inset-x-0 top-0 flex justify-center -mt-5">
-          <Rabbit
-            fill="#FFF"
-            size={40}
-            weight="fill"
-            onClick={() => navigate("/maze")}
-            // onClick={() => navigate('/novella/calling')}
-            className="rotate"
-            style={{ cursor: "pointer" }}
-          />
+          <Link
+            to="/maze"
+            aria-label="Play rabbit game"
+            className="text-white hover:text-pink-400 transition-colors duration-200"
+          >
+            <Rabbit
+              size={40}
+              weight="fill"
+              // onClick={() => navigate('/novella/calling')}
+              className="rotate"
+            />
+          </Link>
         </div>
       </div>
 
