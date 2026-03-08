@@ -190,6 +190,62 @@ button:hover,
   cursor: url("/src/assets/cursor/reticle-lock.svg") 32 32, pointer;
 }
 
+.code-block {
+	min-width: 0;
+	width: 100%;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.code-block pre {
+	margin: 0 !important;
+	padding: 0.7rem !important;
+	font-size: 0.7rem !important;
+	line-height: 1.4 !important;
+	white-space: pre !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	min-width: 0 !important;
+	overflow-x: auto !important;
+	overflow-y: hidden !important;
+	-webkit-overflow-scrolling: touch;
+	overscroll-behavior-x: contain;
+	touch-action: pan-x;
+}
+
+.code-block .shiki {
+	display: block !important;
+	width: 100% !important;
+	min-width: 100% !important;
+	max-width: 100% !important;
+}
+
+.code-block code {
+	display: block;
+	width: max-content;
+	min-width: 100%;
+}
+
+@media (max-width: 639px) {
+	.code-block pre {
+		white-space: pre-wrap !important;
+		word-break: break-word;
+		overflow-wrap: anywhere;
+	}
+
+	.code-block code {
+		width: 100%;
+		min-width: 0;
+	}
+}
+
+@media (min-width: 640px) {
+	.code-block pre {
+		padding: 0.95rem !important;
+		font-size: 0.8rem !important;
+	}
+}
+
 a,
 button {
   transition: transform 120ms ease, filter 120ms ease;

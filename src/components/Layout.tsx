@@ -11,7 +11,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, title }) => {
   return (
     <section
-      className="relative flex flex-col justify-center items-center min-h-screen w-full bg-black p-6 font-custom overflow-hidden"
+      className="relative flex flex-col justify-center items-center min-h-screen w-full bg-black p-6 font-custom overflow-x-hidden"
       style={{
         // backgroundImage: `url(${backgroundImage})`,
         // backgroundSize: 'contain',
@@ -27,7 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
         <title>{`_henry [ ${title} ]`}</title>
         {/* <meta name="description" content={`Page about ${title}`} /> */}
       </Helmet>
-      <div className="relative z-10 flex flex-col justify-center items-center space-y-6 w-full">
+      <div className="relative z-10 flex flex-col justify-center items-center space-y-6 w-full max-w-full">
         {children}
       </div>
     </section>
