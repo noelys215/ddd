@@ -1,6 +1,6 @@
-import { CaretRight, Rabbit } from "@phosphor-icons/react";
+import { Rabbit } from "@phosphor-icons/react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container } from "../components/Container";
 import ExperienceCard from "../components/ExperienceCard";
 import Layout from "../components/Layout";
@@ -75,11 +75,13 @@ export const Experience = () => {
             >
               Home
             </a>
-            <CaretRight
-              size={14}
-              weight="bold"
-              className="mx-1 text-pink-500 inline-flex"
-            />
+            <span
+              aria-hidden="true"
+              className="mx-1 inline-block"
+              style={{ color: "#ec4899" }}
+            >
+              /
+            </span>
             <h3 className="inline-block text-white text-2xl font-medium">
               Experience
             </h3>
@@ -88,14 +90,13 @@ export const Experience = () => {
           <div className="relative mb-6">
             <hr className="border-gray-400 w-4/5 mx-auto" />
             <div className="absolute inset-x-0 top-0 flex justify-center -mt-5">
-              <Rabbit
-                fill="#FFF"
-                size={40}
-                weight="fill"
-                onClick={() => navigate("/mole")}
-                className="counter-rotate"
-                style={{ cursor: "pointer" }}
-              />
+              <Link
+                to="/mole"
+                aria-label="Play whack-a-mole"
+                className="text-white hover:text-pink-400 transition-colors duration-200"
+              >
+                <Rabbit size={40} weight="fill" className="counter-rotate" />
+              </Link>
             </div>
           </div>
 

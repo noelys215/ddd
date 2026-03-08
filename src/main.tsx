@@ -18,6 +18,7 @@ import { Gloria } from './views/works/Gloria.tsx';
 // import { Knowledge } from './views/novella/Chapters/_01/Knowledge.tsx';
 import { Maze } from './views/novella/Games/Maze/maze.tsx';
 import WhackAMole from './views/novella/Games/WhackAMole/WackAMole.tsx';
+import { RedLightGreenLight } from './views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx';
 
 const router = createBrowserRouter([
 	{
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/maze',
+		element: <RedLightGreenLight />,
+	},
+	{
+		path: '/maze-classic',
 		element: <Maze />,
 	},
 	{

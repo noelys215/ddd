@@ -1,4 +1,4 @@
-import { CaretRight, Rabbit } from "@phosphor-icons/react";
+import { Rabbit } from "@phosphor-icons/react";
 import React from "react";
 import Text from "./Text";
 import SkillsCard from "./SkillsCard"; // Import the SkillsCard
@@ -36,11 +36,13 @@ const Card: React.FC<CardProps> = ({
         >
           Home
         </a>
-        <CaretRight
-          size={14}
-          weight="bold"
-          className="mx-1 text-pink-500 inline-flex"
-        />
+        <span
+          aria-hidden="true"
+          className="mx-1 inline-block"
+          style={{ color: "#ec4899" }}
+        >
+          /
+        </span>
         <h3 className="inline-block text-white text-2xl font-medium">
           {title}
         </h3>

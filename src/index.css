@@ -179,3 +179,24 @@ strong {
 span {
 	color: rgba(255, 255, 255, 0.8); /* Slightly dimmer for contrast */
 }
+
+body {
+  cursor: url("/src/assets/cursor/reticle-open.svg") 32 32, crosshair;
+}
+
+a:hover,
+button:hover,
+[role="button"]:hover {
+  cursor: url("/src/assets/cursor/reticle-lock.svg") 32 32, pointer;
+}
+
+a,
+button {
+  transition: transform 120ms ease, filter 120ms ease;
+}
+
+a:hover,
+button:hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 4px rgba(255,42,138,0.35));
+}
