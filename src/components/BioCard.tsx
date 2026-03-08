@@ -206,7 +206,7 @@ const BioCard: React.FC<BioCardProps> = ({
       className="border border-white rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
       style={{ backgroundColor: "#101010" }}
     >
-      <header className="flex items-center justify-between mb-4">
+      <header className="flex items-center md:items-start justify-between mb-4">
         {/* Name/Title and Subtitle on the left */}
         <div>
           {/* Name/Title */}
@@ -300,12 +300,11 @@ const BioCard: React.FC<BioCardProps> = ({
         </div>
 
         {/* Image on the top right */}
-        <figure className="relative ml-4">
+        <figure className="relative ml-3 sm:ml-4">
           <img
             src={imageUrl}
             alt={`Photo of ${name}`}
-            className="object-cover rounded-full border border-gray-200"
-            style={{ width: "147px", height: "147px" }}
+            className="object-cover rounded-full border border-gray-200 w-[clamp(80px,32vw,147px)] h-[clamp(80px,32vw,147px)]"
             ref={glitch.ref}
           />
         </figure>
