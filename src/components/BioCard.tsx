@@ -35,6 +35,19 @@ interface BioCardProps {
   githubUrl?: string;
 }
 
+const SIGIL_GLYPHS = [
+  "☉",
+  "☽",
+  "☿",
+  "⚚",
+  "⚶",
+  "†",
+  "‡",
+  "✝",
+  "✟",
+  "✠",
+] as const;
+
 const BioCard: React.FC<BioCardProps> = ({
   imageUrl,
   name,
@@ -54,6 +67,10 @@ const BioCard: React.FC<BioCardProps> = ({
     useState(false);
   const [isInitialNameScrambleDone, setIsInitialNameScrambleDone] =
     useState(false);
+  const [cornerSigils, setCornerSigils] = useState<[string, string]>([
+    "⟡",
+    "✦",
+  ]);
   const navigate = useNavigate();
 
   // Weather
@@ -170,6 +187,17 @@ const BioCard: React.FC<BioCardProps> = ({
     return () => clearInterval(loopInterval);
   }, [isInitialNameScrambleDone, loopNamePart, replayLoopingNameScramble]);
 
+  useEffect(() => {
+    const pick = () =>
+      SIGIL_GLYPHS[Math.floor(Math.random() * SIGIL_GLYPHS.length)];
+    const topLeft = pick();
+    let bottomRight = pick();
+    if (SIGIL_GLYPHS.length > 1) {
+      while (bottomRight === topLeft) bottomRight = pick();
+    }
+    setCornerSigils([topLeft, bottomRight]);
+  }, []);
+
   // Previous full-name looping scramble implementation (kept for rollback)
   /*
   const { ref: scrambledNameRef, replay: replayScramble } = useScramble({
@@ -203,9 +231,39 @@ const BioCard: React.FC<BioCardProps> = ({
 
   return (
     <article
-      className="border border-white rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
+      className="relative border-2 border-[rgba(255,255,255,0.25)] rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
       style={{ backgroundColor: "#101010" }}
     >
+      <span
+        aria-hidden="true"
+        className="absolute z-20 top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none text-3xl font-bold leading-none"
+        style={{
+          color: "#ff2a8a",
+          opacity: 0.85,
+          textShadow: "0 0 6px rgba(255,42,138,0.4)",
+        }}
+      >
+        {cornerSigils[0]}
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute z-20 bottom-0 right-0 translate-x-1/2 translate-y-1/2 pointer-events-none select-none text-3xl font-bold leading-none"
+        style={{
+          color: "#ff2a8a",
+          opacity: 0.85,
+          textShadow: "0 0 6px rgba(255,42,138,0.4)",
+        }}
+      >
+        {cornerSigils[1]}
+      </span>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute z-10 inset-0 rounded-md"
+      >
+        <div className="absolute -top-[2px] -left-[2px] h-[24px] w-[24px] bg-[#101010]" />
+        <div className="absolute -bottom-[2px] -right-[2px] h-[24px] w-[24px] bg-[#101010]" />
+      </div>
+
       <header className="flex items-center md:items-start justify-between mb-4">
         {/* Name/Title and Subtitle on the left */}
         <div>
