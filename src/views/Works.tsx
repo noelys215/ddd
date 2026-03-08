@@ -54,7 +54,7 @@ export const Works: React.FC = () => {
             </span>
 
             <h2 className="text-white text-lg md:text-xl tracking-wide whitespace-nowrap">
-              Personal Work
+              Client Work
             </h2>
 
             <span
@@ -72,48 +72,6 @@ export const Works: React.FC = () => {
             className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8"
             role="list"
           >
-            <WorkGridItem
-              title="Ro-Sham-Bo"
-              description="A fun little rock-paper-scissor-spock game."
-              imageUrl={roshamboThumb}
-              href="https://spock-game.vercel.app/"
-            />
-
-            <WorkGridItem
-              title="Percentage Calculator"
-              description="Employee Coupon Percentage Calculator."
-              imageUrl={calcThumb}
-              href="https://coupon-henna.vercel.app/"
-            />
-          </div>
-
-          <div className="flex items-center gap-4 my-8">
-            <div className="flex-1 h-px bg-white/20" />
-
-            <span
-              aria-hidden="true"
-              className="text-pink-500 text-lg"
-              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
-            >
-              ✛
-            </span>
-
-            <h2 className="text-white text-lg md:text-xl tracking-wide whitespace-nowrap">
-              Client Work
-            </h2>
-
-            <span
-              aria-hidden="true"
-              className="text-pink-500 text-lg"
-              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
-            >
-              ✛
-            </span>
-
-            <div className="flex-1 h-px bg-white/20" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
             <WorkGridItem
               title="Atalanta A.C."
               description="A semi-modern athletic clothing e-commerce store."
@@ -133,6 +91,48 @@ export const Works: React.FC = () => {
               description="Soccer/futbol app with live scores, charts and tables."
               imageUrl={gloriaThumb}
               link="/works/gloria"
+            />
+          </div>
+
+          <div className="flex items-center gap-4 my-8">
+            <div className="flex-1 h-px bg-white/20" />
+
+            <span
+              aria-hidden="true"
+              className="text-pink-500 text-lg"
+              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
+            >
+              ✛
+            </span>
+
+            <h2 className="text-white text-lg md:text-xl tracking-wide whitespace-nowrap">
+              Personal Work
+            </h2>
+
+            <span
+              aria-hidden="true"
+              className="text-pink-500 text-lg"
+              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
+            >
+              ✛
+            </span>
+
+            <div className="flex-1 h-px bg-white/20" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
+            <WorkGridItem
+              title="Ro-Sham-Bo"
+              description="A fun little rock-paper-scissor-spock game."
+              imageUrl={roshamboThumb}
+              href="https://spock-game.vercel.app/"
+            />
+
+            <WorkGridItem
+              title="Percentage Calculator"
+              description="Employee Coupon Percentage Calculator."
+              imageUrl={calcThumb}
+              href="https://coupon-henna.vercel.app/"
             />
           </div>
         </CybersigilFrame>
