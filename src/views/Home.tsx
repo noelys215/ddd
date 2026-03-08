@@ -8,7 +8,9 @@ import { useGetLocation } from '../hooks/useGetLocation';
 export const Home: React.FC = () => {
 	const { city } = useGetLocation();
 
-	const locationMessage = city ? `Hey human in ${city}, nice to meet you!` : 'Hey, hey!';
+	const locationMessage = city
+		? `Hi human in ${city}, nice to meet you!`
+		: 'Hi human, nice to meet you!';
 
 	return (
 		<Layout title="home">
@@ -17,6 +19,7 @@ export const Home: React.FC = () => {
 					imageUrl={whomImage}
 					name="Henry Betancourth"
 					subtitle="Software Engineer"
+					city={city}
 					githubUrl="https://github.com/noelys215"
 					linkedinUrl="https://www.linkedin.com/in/henry-betancourth/"
 					text={`${locationMessage} 
