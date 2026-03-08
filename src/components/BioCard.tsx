@@ -22,7 +22,8 @@ import { useGlitch } from "react-powerglitch";
 import Text from "./Text";
 import { useNavigate } from "react-router-dom";
 import { useGetWeather } from "../hooks/useGetWeather";
-import Typewriter from "typewriter-effect";
+import { useScramble } from "use-scramble";
+// import Typewriter from "typewriter-effect";
 
 interface BioCardProps {
   imageUrl?: string;
@@ -49,6 +50,10 @@ const BioCard: React.FC<BioCardProps> = ({
     null,
   );
   const [weatherMain, setWeatherMain] = useState<string | null>(null);
+  const [shouldStartInitialScramble, setShouldStartInitialScramble] =
+    useState(false);
+  const [isInitialNameScrambleDone, setIsInitialNameScrambleDone] =
+    useState(false);
   const navigate = useNavigate();
 
   // Weather
@@ -115,9 +120,72 @@ const BioCard: React.FC<BioCardProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  // Split the name into two parts
-  const staticPart = name?.slice(0, -3); // First part of the name (excluding the last 4 characters)
-  const typewriterPart = name?.slice(-3); // Last 4 characters to animate
+  const fullName = name || "";
+  const loopNamePart = fullName.length > 4 ? fullName.slice(-3) : fullName;
+  const staticNamePart = fullName.length > 4 ? fullName.slice(0, -3) : "";
+
+  const { ref: fullNameScrambleRef } = useScramble({
+    text: fullName,
+    speed: 0.5,
+    tick: 1,
+    step: 1,
+    scramble: 5,
+    seed: 4,
+    range: [33, 190],
+    playOnMount: true,
+    onAnimationEnd: () => setIsInitialNameScrambleDone(true),
+  });
+
+  const { ref: loopingNameScrambleRef, replay: replayLoopingNameScramble } =
+    useScramble({
+      text: loopNamePart,
+      speed: 0.45,
+      tick: 1,
+      step: 1,
+      scramble: 5,
+      seed: 4,
+      range: [33, 190],
+      playOnMount: false,
+      overdrive: true,
+    });
+
+  useEffect(() => {
+    setIsInitialNameScrambleDone(false);
+    setShouldStartInitialScramble(false);
+    const startDelayTimeout = setTimeout(() => {
+      setShouldStartInitialScramble(true);
+    }, 850);
+
+    return () => clearTimeout(startDelayTimeout);
+  }, [fullName]);
+
+  useEffect(() => {
+    if (!isInitialNameScrambleDone || !loopNamePart) return;
+
+    replayLoopingNameScramble();
+    const loopInterval = setInterval(() => {
+      replayLoopingNameScramble();
+    }, 3200);
+
+    return () => clearInterval(loopInterval);
+  }, [isInitialNameScrambleDone, loopNamePart, replayLoopingNameScramble]);
+
+  // Previous full-name looping scramble implementation (kept for rollback)
+  /*
+  const { ref: scrambledNameRef, replay: replayScramble } = useScramble({
+    text: name || "",
+    speed: 0.8,
+    tick: 1,
+    step: 1,
+    scramble: 4,
+    seed: 2,
+    overflow: true,
+    overdrive: true,
+  });
+  */
+  // Previous typewriter implementation (kept for quick rollback)
+  // const staticPart = name?.slice(0, -3);
+  // const typewriterPart = name?.slice(-3);
 
   // Track clicks with react-ga4
   const trackButtonClick = (buttonName: string) => {
@@ -142,21 +210,37 @@ const BioCard: React.FC<BioCardProps> = ({
         {/* Name/Title and Subtitle on the left */}
         <div>
           {/* Name/Title */}
+          {/* <h1 id="bio-card-title" className="text-white text-lg font-semibold"> */}
           <h1 id="bio-card-title" className="text-white text-lg font-semibold">
-            {/* Static part */}
-            <span>{staticPart}</span>
-            <span style={{ display: "inline-block" }}>
-              <Typewriter
-                options={{
-                  strings: typewriterPart,
-                  autoStart: true,
-                  loop: true,
-                  cursor: "_",
-                  delay: 250,
-                  deleteSpeed: 250,
-                }}
-              />
-            </span>
+            {!shouldStartInitialScramble ? (
+              <span>{fullName}</span>
+            ) : !isInitialNameScrambleDone ? (
+              <span ref={fullNameScrambleRef} />
+            ) : (
+              <>
+                <span>{staticNamePart}</span>
+                <span
+                  style={{ display: "inline-block" }}
+                  ref={loopingNameScrambleRef}
+                />
+              </>
+            )}
+            {/*
+              Previous typewriter implementation (kept for quick rollback)
+              <span>{staticPart}</span>
+              <span style={{ display: "inline-block" }}>
+                <Typewriter
+                  options={{
+                    strings: typewriterPart,
+                    autoStart: true,
+                    loop: true,
+                    cursor: "_",
+                    delay: 250,
+                    deleteSpeed: 250,
+                  }}
+                />
+              </span>
+            */}
           </h1>
 
           {/* Subtitle */}
