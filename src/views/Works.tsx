@@ -115,6 +115,13 @@ export const Works: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
             <WorkGridItem
+              title="Arbiter"
+              description="A full-stack collaborative decision platform for group watch sessions."
+              imageUrl={modWorldwideThumb}
+              link="/works/arbiter"
+            />
+
+            <WorkGridItem
               title="LiftLab"
               description="A companion app for the Stronger by Science weightlifting program."
               imageUrl={liftLabThumb}
