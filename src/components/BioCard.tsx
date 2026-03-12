@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   GithubLogo,
   LinkedinLogo,
@@ -15,8 +14,6 @@ import {
 } from "@phosphor-icons/react";
 
 import React, { useState, useEffect } from "react";
-
-// Declare the gtag property on the Window interface
 
 import { useGlitch } from "react-powerglitch";
 import Text from "./Text";
@@ -188,18 +185,19 @@ const BioCard: React.FC<BioCardProps> = ({
   // const staticPart = name?.slice(0, -3);
   // const typewriterPart = name?.slice(-3);
 
-  // Track clicks with react-ga4
   const trackButtonClick = (buttonName: string) => {
-    /* @ts-ignore */
-    if (typeof window.gtag === "function") {
-      /* @ts-expect-error */
-      window.gtag("event", "click", {
-        event_category: "Button",
-        event_label: buttonName,
-      });
-    } else {
-      console.warn("Google Analytics is not initialized.");
-    }
+    const posthogClient = (
+      window as Window & {
+        posthog?: {
+          capture: (event: string, properties?: Record<string, string>) => void;
+        };
+      }
+    ).posthog;
+
+    posthogClient?.capture("bio_card_nav_click", {
+      button_name: buttonName,
+      location: "bio_card",
+    });
   };
 
   return (

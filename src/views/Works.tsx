@@ -6,10 +6,6 @@ import { WorkGridItem } from "../components/WorkGridItem";
 import CybersigilFrame from "../components/CybersigilFrame";
 
 // Images
-import gloriaThumb from "../assets/works/gloria/gloria4.png";
-import liftLabThumb from "../assets/works/liftlab/liftLabThumb.png";
-import roshamboThumb from "../assets/works/roshambo/roshambo.png";
-import calcThumb from "../assets/works/calcper/CalcPer.png";
 import modWorldwideThumb from "../assets/works/modworldwide/MOD_THUMB.png";
 
 export const Works: React.FC = () => {
@@ -121,7 +117,7 @@ export const Works: React.FC = () => {
               link="/works/arbiter"
             />
 
-            <WorkGridItem
+            {/* <WorkGridItem
               title="LiftLab"
               description="A companion app for the Stronger by Science weightlifting program."
               imageUrl={liftLabThumb}
@@ -146,7 +142,7 @@ export const Works: React.FC = () => {
               description="Soccer/futbol app with live scores, charts and tables."
               imageUrl={gloriaThumb}
               link="/works/gloria"
-            />
+            /> */}
           </div>
         </CybersigilFrame>
       </MotionSection>
