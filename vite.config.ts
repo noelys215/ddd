@@ -3,22 +3,24 @@ import react from '@vitejs/plugin-react';
 import { VitePluginRadar } from 'vite-plugin-radar';
 
 export default defineConfig(({ mode }) => {
-	// Load environment variables for the current mode (e.g., development or production)
 	const env = loadEnv(mode, process.cwd(), '');
+	const posthogKey = env.VITE_POSTHOG_KEY;
+	const posthogHost = env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com';
 
 	return {
 		plugins: [
 			react(),
 			VitePluginRadar({
-				analytics: {
-					// Use the environment variable
-					id: env.VITE_GA_TRACKING_ID,
+				posthog: {
+					enabled: Boolean(posthogKey),
+					token: posthogKey,
+					api_host: posthogHost,
+					config: {
+						capture_pageview: true,
+					},
 				},
 			}),
 		],
-		define: {
-			'process.env.VITE_GA_TRACKING_ID': JSON.stringify(process.env.VITE_GA_TRACKING_ID),
-		},
 		optimizeDeps: {
 			exclude: ['enbla-carousel-fade'],
 		},
