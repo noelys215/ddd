@@ -4,12 +4,14 @@ import Layout from "../components/Layout";
 import MotionSection from "../components/MotionSection";
 import { WorkGridItem } from "../components/WorkGridItem";
 import CybersigilFrame from "../components/CybersigilFrame";
+import { useAnalytics } from "../hooks/useAnalytics";
 
 // Images
 import modWorldwideThumb from "../assets/works/modworldwide/MOD_THUMB.png";
 
 export const Works: React.FC = () => {
   const navigate = useNavigate();
+  const { track } = useAnalytics();
 
   return (
     <Layout title="works">
@@ -21,7 +23,13 @@ export const Works: React.FC = () => {
         >
           <header className="mb-5">
             <a
-              onClick={() => navigate("/")}
+              onClick={() => {
+                track("breadcrumb_navigated", {
+                  destination: "/",
+                  context: "works",
+                });
+                navigate("/");
+              }}
               className="text-pink-500 hover:underline cursor-pointer"
             >
               Home

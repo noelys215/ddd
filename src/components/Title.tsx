@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 interface TitleProps {
 	children: React.ReactNode;
@@ -8,11 +9,18 @@ interface TitleProps {
 
 export const Title: React.FC<TitleProps> = ({ title, children }) => {
 	const navigate = useNavigate();
+	const { track } = useAnalytics();
 	return (
 		<header>
 			<nav aria-label="breadcrumb" className="mb-5">
 				<a
-					onClick={() => navigate('/')}
+					onClick={() => {
+						track('breadcrumb_navigated', {
+							destination: '/',
+							context: title,
+						});
+						navigate('/');
+					}}
 					className="text-pink-500 hover:underline cursor-pointer">
 					Home
 				</a>
@@ -23,7 +31,13 @@ export const Title: React.FC<TitleProps> = ({ title, children }) => {
 					/
 				</span>
 				<a
-					onClick={() => navigate('/works')}
+					onClick={() => {
+						track('breadcrumb_navigated', {
+							destination: '/works',
+							context: title,
+						});
+						navigate('/works');
+					}}
 					className="text-pink-500 hover:underline cursor-pointer">
 					{title}
 				</a>

@@ -21,6 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGetWeather } from "../hooks/useGetWeather";
 import { useScramble } from "use-scramble";
 import CybersigilFrame from "./CybersigilFrame";
+import { useAnalytics } from "../hooks/useAnalytics";
 // import Typewriter from "typewriter-effect";
 
 interface BioCardProps {
@@ -53,6 +54,7 @@ const BioCard: React.FC<BioCardProps> = ({
   const [isInitialNameScrambleDone, setIsInitialNameScrambleDone] =
     useState(false);
   const navigate = useNavigate();
+  const { track } = useAnalytics();
 
   // Weather
   const { weather, error: weatherError } = useGetWeather();
@@ -186,15 +188,7 @@ const BioCard: React.FC<BioCardProps> = ({
   // const typewriterPart = name?.slice(-3);
 
   const trackButtonClick = (buttonName: string) => {
-    const posthogClient = (
-      window as Window & {
-        posthog?: {
-          capture: (event: string, properties?: Record<string, string>) => void;
-        };
-      }
-    ).posthog;
-
-    posthogClient?.capture("bio_card_nav_click", {
+    track("home_cta_clicked", {
       button_name: buttonName,
       location: "bio_card",
     });
@@ -271,6 +265,12 @@ const BioCard: React.FC<BioCardProps> = ({
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
                 className="text-white hover:text-pink-400"
+                onClick={() =>
+                  track("home_social_clicked", {
+                    destination: linkedinUrl,
+                    social_platform: "linkedin",
+                  })
+                }
               >
                 <LinkedinLogo size={24} weight="fill" />
               </a>
@@ -282,6 +282,12 @@ const BioCard: React.FC<BioCardProps> = ({
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
                 className="text-white hover:text-pink-400"
+                onClick={() =>
+                  track("home_social_clicked", {
+                    destination: githubUrl,
+                    social_platform: "github",
+                  })
+                }
               >
                 <GithubLogo size={24} weight="fill" />
               </a>
@@ -291,6 +297,12 @@ const BioCard: React.FC<BioCardProps> = ({
                 href="mailto:betanch@gmail.com?subject=A%20message%20from%20the%20digital%20void!&body=Hmm…%20what%20to%20write…%20oh!%20Hi%20Found%20your%20website,%20so%20now%20I’m%20here!"
                 aria-label="Send Email"
                 className="text-white hover:text-pink-400"
+                onClick={() =>
+                  track("home_social_clicked", {
+                    destination: "mailto:betanch@gmail.com",
+                    social_platform: "email",
+                  })
+                }
               >
                 <Envelope size={24} weight="duotone" />
               </a>
@@ -317,6 +329,12 @@ const BioCard: React.FC<BioCardProps> = ({
             to="/maze"
             aria-label="Play rabbit game"
             className="text-white hover:text-pink-400 transition-colors duration-200"
+            onClick={() =>
+              track("home_game_entry_clicked", {
+                destination: "/maze",
+                entry_point: "bio_rabbit",
+              })
+            }
           >
             <Rabbit
               size={40}

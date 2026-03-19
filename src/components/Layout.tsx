@@ -1,6 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 // import backgroundImage from '../assets/static.gif';
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
+import { useAnalytics } from "../hooks/useAnalytics";
 import Noise from "./Noise";
 
 interface LayoutProps {
@@ -9,6 +11,57 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, title }) => {
+  const location = useLocation();
+  const { track } = useAnalytics();
+
+  useEffect(() => {
+    track("page_viewed", {
+      page_title_key: title,
+      route_path: location.pathname,
+      route_depth: location.pathname.split("/").filter(Boolean).length,
+    });
+  }, [location.pathname, title, track]);
+
+  useEffect(() => {
+    const handleDocumentClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const anchor = target.closest("a[href]");
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+
+      const href = anchor.getAttribute("href");
+      if (!href || href.startsWith("#")) return;
+
+      const isMailOrTel =
+        href.startsWith("mailto:") || href.startsWith("tel:");
+      let isExternal = isMailOrTel;
+
+      if (!isExternal) {
+        try {
+          const absoluteUrl = new URL(href, window.location.origin);
+          isExternal = absoluteUrl.origin !== window.location.origin;
+        } catch {
+          return;
+        }
+      }
+
+      if (!isExternal) return;
+
+      track("outbound_link_clicked", {
+        source_path: window.location.pathname,
+        destination_url: href,
+        link_label:
+          anchor.getAttribute("aria-label") ||
+          anchor.textContent?.trim().slice(0, 80) ||
+          "unknown",
+      });
+    };
+
+    document.addEventListener("click", handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
+  }, [track]);
+
   return (
     <section
       className="relative flex flex-col justify-center items-center min-h-screen w-full bg-black p-6 font-custom overflow-x-hidden"

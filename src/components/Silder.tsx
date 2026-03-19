@@ -3,27 +3,50 @@ import Fade from "embla-carousel-fade";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
 import Zoom from "react-medium-image-zoom";
+import { useLocation } from "react-router-dom";
 import "react-medium-image-zoom/dist/styles.css";
+import { useAnalytics } from "../hooks/useAnalytics";
 
 interface SliderProps {
   array: { src: string; alt: string }[];
   options?: EmblaOptionsType;
   width?: string; // Optional width for the image
   height?: string; // Optional height for the image
+  analyticsLabel?: string;
 }
 
-export const Slider: React.FC<SliderProps> = ({ array, width = "100%" }) => {
+export const Slider: React.FC<SliderProps> = ({
+  array,
+  width = "100%",
+  analyticsLabel,
+}) => {
+  const location = useLocation();
+  const { track } = useAnalytics();
+  const analyticsContext = analyticsLabel || location.pathname;
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [
     Fade(),
   ]);
 
   const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+    track("carousel_navigated", {
+      direction: "previous",
+      item_count: array.length,
+      context: analyticsContext,
+    });
+  }, [analyticsContext, array.length, emblaApi, track]);
 
   const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+    track("carousel_navigated", {
+      direction: "next",
+      item_count: array.length,
+      context: analyticsContext,
+    });
+  }, [analyticsContext, array.length, emblaApi, track]);
 
   return (
     <div className="slider-container w-full mx-auto relative">
@@ -43,7 +66,7 @@ export const Slider: React.FC<SliderProps> = ({ array, width = "100%" }) => {
         </button>
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
-            {array.map((item) => (
+            {array.map((item, index) => (
               <div className="embla__slide relative" key={item.src}>
                 <Zoom>
                   <img
@@ -51,6 +74,13 @@ export const Slider: React.FC<SliderProps> = ({ array, width = "100%" }) => {
                     alt={item.alt}
                     className="w-full h-auto object-contain rounded-lg"
                     style={{ width: width, margin: "auto" }}
+                    onClick={() =>
+                      track("carousel_image_opened", {
+                        image_index: index,
+                        image_alt: item.alt,
+                        context: analyticsContext,
+                      })
+                    }
                   />
                 </Zoom>
               </div>

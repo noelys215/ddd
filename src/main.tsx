@@ -21,6 +21,9 @@ import ArbiterPortfolioCaseStudy from './views/works/Arbiter.tsx';
 import { Maze } from './views/novella/Games/Maze/maze.tsx';
 import WhackAMole from './views/novella/Games/WhackAMole/WackAMole.tsx';
 import { RedLightGreenLight } from './views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx';
+import { registerAnalyticsDefaults } from './hooks/useAnalytics.ts';
+
+registerAnalyticsDefaults();
 
 const router = createBrowserRouter([
 	{

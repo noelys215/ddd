@@ -2,9 +2,11 @@ import Layout from '../components/Layout';
 import MotionSection from '../components/MotionSection';
 import error from '../assets/errorAlt.png';
 import { useNavigate } from 'react-router-dom';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 export const NotFound = () => {
 	const navigate = useNavigate();
+	const { track } = useAnalytics();
 
 	return (
 		<Layout title="11_17">
@@ -23,7 +25,12 @@ export const NotFound = () => {
 
 						{/* Back to Home Button */}
 						<button
-							onClick={() => navigate('/')}
+							onClick={() => {
+								track('not_found_return_home_clicked', {
+									destination: '/',
+								});
+								navigate('/');
+							}}
 							className="button-89"
 							style={{ width: '10rem' }}
 							aria-label="Return to Home Page">

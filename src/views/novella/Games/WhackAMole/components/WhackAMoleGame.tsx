@@ -2,15 +2,24 @@ import { Rabbit } from '@phosphor-icons/react';
 import React, { useState, useEffect } from 'react';
 import '../WhackAMole.css';
 import { useNavigate } from 'react-router-dom';
+import { useAnalytics } from '../../../../../hooks/useAnalytics';
 
 const WhackAMoleGame: React.FC = () => {
 	const navigate = useNavigate();
+	const { track } = useAnalytics();
 	const [score, setScore] = useState(0);
 	const [rabbitPosition, setRabbitPosition] = useState<number>(-1); // -1 indicates no rabbit on the grid
 	const [speed, setSpeed] = useState(1000); // Initial speed (1 second)
 
 	const [timeLeft, setTimeLeft] = useState(60); // Timer set to 60 seconds
 	const [isGameOver, setIsGameOver] = useState(false);
+
+	useEffect(() => {
+		track('game_opened', {
+			game_name: 'whack_a_mole',
+			source_path: '/mole',
+		});
+	}, [track]);
 
 	useEffect(() => {
 		const rabbitInterval = setInterval(() => {
@@ -29,8 +38,13 @@ const WhackAMoleGame: React.FC = () => {
 			return () => clearInterval(timerInterval);
 		} else {
 			setIsGameOver(true);
+			track('game_round_completed', {
+				game_name: 'whack_a_mole',
+				outcome: 'timeout',
+				final_score: score,
+			});
 		}
-	}, [timeLeft]);
+	}, [score, timeLeft, track]);
 
 	const moveRabbit = () => {
 		const newPosition = Math.floor(Math.random() * 9); // 3x3 grid has 9 cells
@@ -52,6 +66,9 @@ const WhackAMoleGame: React.FC = () => {
 	};
 
 	const resetGame = () => {
+		track('game_round_restarted', {
+			game_name: 'whack_a_mole',
+		});
 		setScore(0);
 		setSpeed(1000);
 		setRabbitPosition(-1);
@@ -91,7 +108,15 @@ const WhackAMoleGame: React.FC = () => {
 				<button onClick={resetGame} className="button-89">
 					Reset Game
 				</button>
-				<button className="button-89" onClick={() => navigate('/')}>
+				<button
+					className="button-89"
+					onClick={() => {
+						track('game_exit_clicked', {
+							game_name: 'whack_a_mole',
+							destination: '/',
+						});
+						navigate('/');
+					}}>
 					Go Home
 				</button>
 			</div>
