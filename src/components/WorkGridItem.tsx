@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 interface WorkGridItemProps {
 	title: string;
@@ -17,9 +18,15 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 	href,
 }) => {
 	const navigate = useNavigate();
+	const { track } = useAnalytics();
 
 	const handleNavigation = () => {
 		if (link) {
+			track('work_card_opened', {
+				work_title: title,
+				destination_type: 'internal',
+				destination: link,
+			});
 			navigate(link);
 		}
 	};
@@ -36,6 +43,13 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 			<a
 				href={href || '#'}
 				onClick={(e) => {
+					if (href) {
+						track('work_card_opened', {
+							work_title: title,
+							destination_type: 'external',
+							destination: href,
+						});
+					}
 					if (!href) e.preventDefault();
 				}}
 				rel="noopener noreferrer"

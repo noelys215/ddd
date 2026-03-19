@@ -10,15 +10,24 @@ import {
 	ArrowSquareRight,
 } from '@phosphor-icons/react';
 import { useNavigate } from 'react-router-dom';
+import { useAnalytics } from '../../../../../hooks/useAnalytics';
 
 const MazeComponent = () => {
 	const navigate = useNavigate();
+	const { track } = useAnalytics();
 	const [gameId, setGameId] = useState(1);
 	const [status, setStatus] = useState('playing');
 
 	const [size, setSize] = useState(10);
 
 	const [userPosition, setUserPosition] = useState([0, 0]);
+
+	useEffect(() => {
+		track('game_opened', {
+			game_name: 'maze_classic',
+			source_path: '/maze-classic',
+		});
+	}, [track]);
 
 	// Generate the maze based on size and gameId
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,6 +42,15 @@ const MazeComponent = () => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userPosition[0], userPosition[1]]);
+
+	useEffect(() => {
+		if (status !== 'won') return;
+		track('game_round_completed', {
+			game_name: 'maze_classic',
+			outcome: 'win',
+			maze_size: size,
+		});
+	}, [size, status, track]);
 
 	// Dynamically generate class names based on cell position and walls
 	const makeClassName = (i: number, j: number) => {
@@ -85,6 +103,10 @@ const MazeComponent = () => {
 
 	// Handle difficulty selection
 	const handleSelectDifficulty = (selectedSize: number) => {
+		track('maze_difficulty_selected', {
+			game_name: 'maze_classic',
+			maze_size: selectedSize,
+		});
 		setSize(selectedSize);
 		setUserPosition([0, 0]);
 		setStatus('playing');
@@ -177,10 +199,26 @@ const MazeComponent = () => {
 			</div>
 
 			<div className="flex justify-center space-x-4 mt-6">
-				<button className="button-89" onClick={() => handleSelectDifficulty(size)}>
+				<button
+					className="button-89"
+					onClick={() => {
+						track('game_round_restarted', {
+							game_name: 'maze_classic',
+							maze_size: size,
+						});
+						handleSelectDifficulty(size);
+					}}>
 					Restart
 				</button>
-				<button className="button-89" onClick={() => navigate('/')}>
+				<button
+					className="button-89"
+					onClick={() => {
+						track('game_exit_clicked', {
+							game_name: 'maze_classic',
+							destination: '/',
+						});
+						navigate('/');
+					}}>
 					Go Home
 				</button>
 			</div>

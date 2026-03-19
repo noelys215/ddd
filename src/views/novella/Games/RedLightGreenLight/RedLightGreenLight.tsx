@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container } from "../../../../components/Container";
 import Layout from "../../../../components/Layout";
 import MotionSection from "../../../../components/MotionSection";
+import { useAnalytics } from "../../../../hooks/useAnalytics";
 import rabbitSitting from "../../../../assets/rabbit_sitting.png";
 import rabbitStanding from "../../../../assets/rabbit_standing.png";
 
@@ -26,6 +27,7 @@ const getInitialBestProgress = (): number => {
 
 export const RedLightGreenLight: React.FC = () => {
   const navigate = useNavigate();
+  const { track } = useAnalytics();
   const [light, setLight] = useState<LightState>("red");
   const [progress, setProgress] = useState(0);
   const [bestProgress, setBestProgress] = useState(getInitialBestProgress);
@@ -38,6 +40,13 @@ export const RedLightGreenLight: React.FC = () => {
   );
   const progressRef = useRef(0);
   const stepTimeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    track("game_opened", {
+      game_name: "red_light_green_light",
+      source_path: "/maze",
+    });
+  }, [track]);
 
   useEffect(() => {
     progressRef.current = progress;
@@ -57,7 +66,7 @@ export const RedLightGreenLight: React.FC = () => {
   }, []);
 
   const finishRound = useCallback(
-    (reason: string) => {
+    (reason: string, outcome: "win" | "timeout" | "red_light_move") => {
       if (stepTimeoutRef.current !== null) {
         window.clearTimeout(stepTimeoutRef.current);
         stepTimeoutRef.current = null;
@@ -66,13 +75,19 @@ export const RedLightGreenLight: React.FC = () => {
       setIsPlaying(false);
       setIsGameOver(true);
       setStatus(reason);
+      track("game_round_completed", {
+        game_name: "red_light_green_light",
+        outcome,
+        final_progress: progressRef.current,
+        seconds_remaining: timeLeft,
+      });
       setBestProgress((prev) => {
         const nextBest = Math.max(prev, progressRef.current);
         if (nextBest !== prev) persistBestProgress(nextBest);
         return nextBest;
       });
     },
-    [persistBestProgress],
+    [persistBestProgress, timeLeft, track],
   );
 
   const startGame = () => {
@@ -84,6 +99,9 @@ export const RedLightGreenLight: React.FC = () => {
     setIsStepping(false);
     setIsPlaying(true);
     setStatus("Green light! Move forward.");
+    track("game_round_started", {
+      game_name: "red_light_green_light",
+    });
   };
 
   useEffect(() => {
@@ -93,7 +111,7 @@ export const RedLightGreenLight: React.FC = () => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           window.clearInterval(timer);
-          finishRound("Time's up.");
+          finishRound("Time's up.", "timeout");
           return 0;
         }
         return prev - 1;
@@ -131,14 +149,14 @@ export const RedLightGreenLight: React.FC = () => {
         setIsStepping(false);
       }, 180);
       if (nextProgress >= WIN_PROGRESS) {
-        finishRound("You crossed the finish line.");
+        finishRound("You crossed the finish line.", "win");
       } else {
         setStatus("Good move.");
       }
       return;
     }
 
-    finishRound("Red light! You moved too soon.");
+    finishRound("Red light! You moved too soon.", "red_light_move");
   };
 
   const lightBadgeClass =
@@ -241,7 +259,16 @@ export const RedLightGreenLight: React.FC = () => {
               <button onClick={startGame} className="button-89">
                 {isPlaying ? "Restart" : isGameOver ? "Play Again" : "Start"}
               </button>
-              <button className="button-89" onClick={() => navigate("/")}>
+              <button
+                className="button-89"
+                onClick={() => {
+                  track("game_exit_clicked", {
+                    game_name: "red_light_green_light",
+                    destination: "/",
+                  });
+                  navigate("/");
+                }}
+              >
                 Go Home
               </button>
             </div>

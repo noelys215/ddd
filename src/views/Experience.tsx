@@ -5,6 +5,7 @@ import { Container } from "../components/Container";
 import ExperienceCard from "../components/ExperienceCard";
 import Layout from "../components/Layout";
 import MotionSection from "../components/MotionSection";
+import { useAnalytics } from "../hooks/useAnalytics";
 
 const skillsArray = [
   "React",
@@ -63,6 +64,7 @@ On the Comcast and Xumo side, I help build and maintain websites powered by Dire
 
 export const Experience = () => {
   const navigate = useNavigate();
+  const { track } = useAnalytics();
 
   return (
     <Layout title="experience">
@@ -70,7 +72,13 @@ export const Experience = () => {
         <Container>
           <header className="mb-5">
             <a
-              onClick={() => navigate("/")}
+              onClick={() => {
+                track("breadcrumb_navigated", {
+                  destination: "/",
+                  context: "experience",
+                });
+                navigate("/");
+              }}
               className="text-pink-500 hover:underline cursor-pointer"
             >
               Home
@@ -94,6 +102,12 @@ export const Experience = () => {
                 to="/mole"
                 aria-label="Play whack-a-mole"
                 className="text-white hover:text-pink-400 transition-colors duration-200"
+                onClick={() =>
+                  track("experience_game_entry_clicked", {
+                    destination: "/mole",
+                    entry_point: "experience_rabbit",
+                  })
+                }
               >
                 <Rabbit size={40} weight="fill" className="counter-rotate" />
               </Link>
