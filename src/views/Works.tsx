@@ -8,6 +8,7 @@ import { useAnalytics } from "../hooks/useAnalytics";
 
 // Images
 import modWorldwideThumb from "../assets/works/modworldwide/MOD_THUMB.png";
+import arbiterThumb from "/works/arbiter/arbiter_thumb.png";
 
 export const Works: React.FC = () => {
   const navigate = useNavigate();
@@ -121,7 +122,7 @@ export const Works: React.FC = () => {
             <WorkGridItem
               title="Arbiter"
               description="A full-stack collaborative decision platform for group watch sessions."
-              imageUrl={modWorldwideThumb}
+              imageUrl={arbiterThumb}
               link="/works/arbiter"
             />
 
