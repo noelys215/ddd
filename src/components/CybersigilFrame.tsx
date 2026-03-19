@@ -1,46 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import flowerGlyph from "../assets/flower.svg";
 
-const DEFAULT_SIGIL_GLYPHS = [
-  "⟡",
-  "⌖",
-  "⋄",
-  "⟁",
-  "†",
-  "⊹",
-  "✶",
-  "✦",
-  "✧",
-  "†",
-  "✛",
-] as const;
-
-interface CybersigilFrameProps extends React.ComponentPropsWithoutRef<"article"> {
-  glyphs?: readonly string[];
-}
-
-const CybersigilFrame: React.FC<CybersigilFrameProps> = ({
+const CybersigilFrame: React.FC<React.ComponentPropsWithoutRef<"article">> = ({
   children,
   className = "",
   style,
-  glyphs = DEFAULT_SIGIL_GLYPHS,
   ...props
 }) => {
-  const [cornerSigils, setCornerSigils] = useState<[string, string]>([
-    "⟡",
-    "✦",
-  ]);
-
-  useEffect(() => {
-    if (!glyphs.length) return;
-    const pick = () => glyphs[Math.floor(Math.random() * glyphs.length)];
-    const topLeft = pick();
-    let bottomRight = pick();
-    if (glyphs.length > 1) {
-      while (bottomRight === topLeft) bottomRight = pick();
-    }
-    setCornerSigils([topLeft, bottomRight]);
-  }, [glyphs]);
-
   const backgroundColor = style?.backgroundColor || "#101010";
 
   return (
@@ -49,28 +15,44 @@ const CybersigilFrame: React.FC<CybersigilFrameProps> = ({
       style={style}
       {...props}
     >
-      <span
+      <div
         aria-hidden="true"
-        className="absolute z-30 top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none text-3xl font-bold leading-none"
+        className="absolute z-30 top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
         style={{
-          color: "#ff2a8a",
+          width: "1.875rem",
+          height: "1.875rem",
+          backgroundColor: "#ff2a8a",
           opacity: 0.85,
-          textShadow: "0 0 6px rgba(255,42,138,0.4)",
+          filter: "drop-shadow(0 0 6px rgba(255,42,138,0.4))",
+          WebkitMaskImage: `url(${flowerGlyph})`,
+          WebkitMaskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+          WebkitMaskSize: "contain",
+          maskImage: `url(${flowerGlyph})`,
+          maskRepeat: "no-repeat",
+          maskPosition: "center",
+          maskSize: "contain",
         }}
-      >
-        {cornerSigils[0]}
-      </span>
-      <span
+      />
+      <div
         aria-hidden="true"
-        className="absolute z-30 bottom-0 right-0 translate-x-1/2 translate-y-1/2 pointer-events-none select-none text-3xl font-bold leading-none"
+        className="absolute z-30 bottom-0 right-0 translate-x-1/2 translate-y-1/2 pointer-events-none select-none"
         style={{
-          color: "#ff2a8a",
+          width: "1.875rem",
+          height: "1.875rem",
+          backgroundColor: "#ff2a8a",
           opacity: 0.85,
-          textShadow: "0 0 6px rgba(255,42,138,0.4)",
+          filter: "drop-shadow(0 0 6px rgba(255,42,138,0.4))",
+          WebkitMaskImage: `url(${flowerGlyph})`,
+          WebkitMaskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+          WebkitMaskSize: "contain",
+          maskImage: `url(${flowerGlyph})`,
+          maskRepeat: "no-repeat",
+          maskPosition: "center",
+          maskSize: "contain",
         }}
-      >
-        {cornerSigils[1]}
-      </span>
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute z-20 inset-0"
