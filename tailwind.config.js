@@ -10,7 +10,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				custom: ['EVA', 'serif'],
+				custom: ['Space Grotesk', 'PT Sans', 'sans-serif'],
 			},
 		},
 	},
