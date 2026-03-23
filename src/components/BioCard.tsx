@@ -199,12 +199,15 @@ const BioCard: React.FC<BioCardProps> = ({
       className="rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
       style={{ backgroundColor: "#101010" }}
     >
-      <header className="flex items-center md:items-start justify-between mb-4">
+      <header className="flex items-center justify-between mb-4">
         {/* Name/Title and Subtitle on the left */}
-        <div>
+        <div className="flex-1 min-w-0">
           {/* Name/Title */}
           {/* <h1 id="bio-card-title" className="text-white text-lg font-semibold"> */}
-          <h1 id="bio-card-title" className="text-white text-md font-semibold">
+          <h1
+            id="bio-card-title"
+            className="text-white text-md md:text-xl font-semibold"
+          >
             {!shouldStartInitialScramble ? (
               <span>{fullName}</span>
             ) : !isInitialNameScrambleDone ? (
@@ -311,7 +314,7 @@ const BioCard: React.FC<BioCardProps> = ({
         </div>
 
         {/* Image on the top right */}
-        <figure className="relative ml-3 sm:ml-4">
+        <figure className="relative ml-3 sm:ml-4 shrink-0 self-center">
           <img
             src={imageUrl}
             alt={`Photo of ${name}`}
