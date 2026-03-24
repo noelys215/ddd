@@ -12,7 +12,8 @@
 
 body,
 .font-custom {
-	font-family: 'Space Grotesk', 'PT Sans', sans-serif;
+	font-family: 'Clash Grotesk', 'PT Sans', sans-serif;
+	font-weight: 400 !important;
 }
 
 h1,

@@ -206,7 +206,7 @@ const BioCard: React.FC<BioCardProps> = ({
           {/* <h1 id="bio-card-title" className="text-white text-lg font-semibold"> */}
           <h1
             id="bio-card-title"
-            className="text-white text-md md:text-xl font-semibold"
+            className="text-white text-sm md:text-xl font-semibold"
           >
             {!shouldStartInitialScramble ? (
               <span>{fullName}</span>
