@@ -10,7 +10,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				custom: ['Space Grotesk', 'PT Sans', 'sans-serif'],
+				custom: ['Clash Grotesk', 'PT Sans', 'sans-serif'],
 			},
 		},
 	},
