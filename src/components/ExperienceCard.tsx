@@ -23,8 +23,12 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
     <section>
       <header className="mb-2">
         <h3 className="inline-block text-white text-xl font-medium mb-1">
-          {company} | {job}
+          {company}
         </h3>
+        <br />
+        <h4 className="inline-block text-white text-md font-medium mb-1">
+          {job}
+        </h4>
         <br />
         <h4 className="inline-block text-white text-sm font-medium mb-1 italic">
           {year}
