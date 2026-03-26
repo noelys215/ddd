@@ -5,6 +5,20 @@ import MotionSection from "../../components/MotionSection";
 import { Title } from "../../components/Title";
 import CybersigilFrame from "../../components/CybersigilFrame";
 import CodeBlock from "../../components/CodeBlock";
+import { Slider } from "../../components/Silder";
+import arbiterHomeGif from "../../assets/works/arbiter/arbiter_home.gif";
+import arbiterAiSelection from "../../assets/works/arbiter/arbiter_ai_selection.png";
+import arbiterAiDeckDelt from "../../assets/works/arbiter/arbiter_ai_deck_delt.png";
+import arbiterWaitingRoom from "../../assets/works/arbiter/arbiter_waiting_room.png";
+import arbiterSwippingGif from "../../assets/works/arbiter/arbiter_swipping.gif";
+
+const imageArr = [
+  { src: arbiterHomeGif, alt: "Arbiter home" },
+  { src: arbiterAiSelection, alt: "Arbiter AI selection" },
+  { src: arbiterAiDeckDelt, alt: "Arbiter AI deck dealt" },
+  { src: arbiterWaitingRoom, alt: "Arbiter waiting room" },
+  { src: arbiterSwippingGif, alt: "Arbiter deck swiping" },
+];
 
 const ArbiterPortfolioCaseStudy = () => {
   return (
@@ -581,6 +595,17 @@ if not any(host == allowed or host.endswith(f".{allowed}")
               </ul>
             </MotionSection>
           </section>
+
+          {/* Screenshots */}
+          <section aria-labelledby="screenshots-heading">
+            <MotionSection delay={0.1}>
+              <h4 className="text-white text-lg font-bold text-center my-6">
+                Screenshots
+              </h4>
+              <Slider array={imageArr} />
+            </MotionSection>
+          </section>
+
           {/* Future Enhancements */}
           <section aria-labelledby="improvements-heading">
             <MotionSection delay={0.1}>
