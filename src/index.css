@@ -10,10 +10,32 @@
 	font-display: swap;
 }
 
+@font-face {
+	font-family: 'AuxMono';
+	src: url('./fonts/AuxMono-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
 body,
 .font-custom {
 	font-family: 'Clash Grotesk', 'PT Sans', sans-serif;
 	font-weight: 400 !important;
+}
+
+.breadcrumb-font,
+.breadcrumb-font a,
+.breadcrumb-font span,
+.breadcrumb-font h1,
+.breadcrumb-font h2,
+.breadcrumb-font h3,
+.breadcrumb-font h4,
+.breadcrumb-font h5,
+.breadcrumb-font h6 {
+	font-family: 'AuxMono', 'Clash Grotesk', 'PT Sans', monospace;
+	letter-spacing: 0.04em;
+	text-transform: lowercase;
 }
 
 @media (min-width: 1700px) {
@@ -35,13 +57,15 @@ h4,
 h5,
 h6,
 .start-gate-trigger {
-	font-family: 'EVA', serif;
+	/* font-family: 'EVA', serif; */
+	font-family: 'AuxMono', 'Clash Grotesk', 'PT Sans', monospace;
 	font-feature-settings: 'liga' 0, 'kern' 1;
 	font-kerning: normal;
 	font-synthesis: none;
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	text-transform: uppercase;
 	/* letter-spacing: 0.02em; */
 }
 

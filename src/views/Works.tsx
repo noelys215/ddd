@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import MotionSection from "../components/MotionSection";
 import { WorkGridItem } from "../components/WorkGridItem";
 import CybersigilFrame from "../components/CybersigilFrame";
+import SectionHeading from "../components/SectionHeading";
 import { useAnalytics } from "../hooks/useAnalytics";
 
 // Images
@@ -24,7 +25,7 @@ export const Works: React.FC = () => {
           style={{ backgroundColor: "#101010" }}
           aria-labelledby="works-heading"
         >
-          <header className="mb-5">
+          <header className="mb-5 breadcrumb-font">
             <a
               onClick={() => {
                 track("breadcrumb_navigated", {
@@ -49,31 +50,7 @@ export const Works: React.FC = () => {
             </h1>
           </header>
 
-          <div className="flex items-center gap-4 my-8">
-            <div className="flex-1 h-px bg-white/20" />
-
-            <span
-              aria-hidden="true"
-              className="text-pink-500 text-xl"
-              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
-            >
-              †
-            </span>
-
-            <h2 className="text-white text-lg md:text-xl tracking-wide whitespace-nowrap">
-              Client Work
-            </h2>
-
-            <span
-              aria-hidden="true"
-              className="text-pink-500 text-xl"
-              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
-            >
-              †
-            </span>
-
-            <div className="flex-1 h-px bg-white/20" />
-          </div>
+          <SectionHeading symbol="cross">Client Work</SectionHeading>
 
           <div
             className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8"
@@ -94,31 +71,7 @@ export const Works: React.FC = () => {
             />
           </div>
 
-          <div className="flex items-center gap-4 my-8">
-            <div className="flex-1 h-px bg-white/20" />
-
-            <span
-              aria-hidden="true"
-              className="text-pink-500 text-lg"
-              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
-            >
-              ✛
-            </span>
-
-            <h2 className="text-white text-lg md:text-xl tracking-wide whitespace-nowrap">
-              Personal Work
-            </h2>
-
-            <span
-              aria-hidden="true"
-              className="text-pink-500 text-lg"
-              style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
-            >
-              ✛
-            </span>
-
-            <div className="flex-1 h-px bg-white/20" />
-          </div>
+          <SectionHeading symbol="plus">Personal Work</SectionHeading>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
             <WorkGridItem

@@ -5,6 +5,7 @@ import MotionSection from "../../components/MotionSection";
 import { Title } from "../../components/Title";
 import CybersigilFrame from "../../components/CybersigilFrame";
 import CodeBlock from "../../components/CodeBlock";
+import SectionHeading from "../../components/SectionHeading";
 import { Slider } from "../../components/Silder";
 import arbiterHomeGif from "../../assets/works/arbiter/arbiter_home.gif";
 import arbiterAiSelection from "../../assets/works/arbiter/arbiter_ai_selection.png";
@@ -110,12 +111,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="problem-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="problem-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="problem-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Problem
-              </h2>
+              </SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 Choosing what to watch in a group usually devolves into chaotic
                 messaging threads, uneven participation, and decision fatigue.
@@ -131,12 +134,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="solution-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="solution-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="solution-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Solution
-              </h2>
+              </SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 Arbiter treats group movie night as a structured decision
                 system. Users add friends, form invite-only groups, build shared
@@ -159,12 +164,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="system-framing-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="system-framing-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="system-framing-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 System Framing
-              </h2>
+              </SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 The implementation treats this as a stateful multiplayer system:
                 collecting preferences, generating personalized decks,
@@ -177,12 +184,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="principles-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="principles-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="principles-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Design Principles
-              </h2>
+              </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
                   Social gating keeps collaborative spaces intentional and
@@ -216,12 +225,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="architecture-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="architecture-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="architecture-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 System Architecture
-              </h2>
+              </SectionHeading>
 
               <p className="text-white/75 text-xs md:text-sm leading-relaxed text-center max-w-2xl mx-auto mb-4">
                 High-level flow of the runtime decision pipeline.
@@ -276,12 +287,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="flow-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="flow-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="flow-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Core Product Flow
-              </h2>
+              </SectionHeading>
 
               <div className="text-center space-y-2 text-sm md:text-base text-white/85">
                 <div>Friendship Invite</div>
@@ -323,12 +336,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="handoff-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="handoff-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="handoff-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Decision-to-Watch Handoff
-              </h2>
+              </SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 Arbiter does not stop at choosing a winner. Once a title is
                 resolved, the platform can generate a shared Teleparty room link
@@ -353,12 +368,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
             <section aria-labelledby="screenshots-heading">
               <MotionSection delay={0.1}>
-                <h2
-                  id="screenshots-heading"
-                  className="text-white text-lg font-bold text-center my-6"
+                <SectionHeading
+                  symbol="cross"
+                  headingId="screenshots-heading"
+                  className="my-6"
+                  headingClassName="font-bold text-center whitespace-normal"
                 >
                   Screenshots
-                </h2>
+                </SectionHeading>
                 <p className="text-white/75 text-xs md:text-sm leading-relaxed text-center max-w-2xl mx-auto mb-4">
                   Selected product views showing session flow, shared voting,
                   and winner resolution across the app.
@@ -370,12 +387,14 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <section aria-labelledby="highlights-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="highlights-heading"
-                className="text-white text-lg font-bold text-center my-5"
+              <SectionHeading
+                symbol="cross"
+                headingId="highlights-heading"
+                className="my-5"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Engineering Highlights
-              </h2>
+              </SectionHeading>
 
               <div className="space-y-10">
                 <div className="space-y-2">
@@ -528,12 +547,14 @@ if not any(host == allowed or host.endswith(f".{allowed}")
 
           <section aria-labelledby="security-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="security-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="security-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Security & Reliability
-              </h2>
+              </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
                   Cookie-based authentication with <code>HttpOnly</code>,
@@ -562,12 +583,14 @@ if not any(host == allowed or host.endswith(f".{allowed}")
 
           <section aria-labelledby="outcomes-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="outcomes-heading"
-                className="text-white text-lg font-bold text-center my-6"
+              <SectionHeading
+                symbol="cross"
+                headingId="outcomes-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
               >
                 Engineering Outcomes
-              </h2>
+              </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-none">
                 <li>
                   Demonstrates end-to-end ownership across product UX, API
@@ -609,9 +632,14 @@ if not any(host == allowed or host.endswith(f".{allowed}")
           {/* Future Enhancements */}
           <section aria-labelledby="improvements-heading">
             <MotionSection delay={0.1}>
-              <h2 className="text-white text-lg font-bold text-center my-6">
+              <SectionHeading
+                symbol="cross"
+                headingId="improvements-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
                 Future Enhancements
-              </h2>
+              </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>WebSocket session updates instead of polling</li>
                 <li>

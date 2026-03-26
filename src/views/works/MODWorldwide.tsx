@@ -9,6 +9,7 @@ import modShot1 from "../../assets/works/modworldwide/MacBook Pro-1773000445376.
 import modShot2 from "../../assets/works/modworldwide/MacBook Pro-1773000487175.jpeg";
 import modShot4 from "../../assets/works/modworldwide/MacBook Pro-1773000519270.jpeg";
 import CodeBlock from "../../components/CodeBlock";
+import SectionHeading from "../../components/SectionHeading";
 
 const imageArr = [
   { src: modShot1, alt: "MOD Worldwide portfolio homepage" },
@@ -26,7 +27,7 @@ const MODWorldwide = () => {
           aria-labelledby="modworldwide-title"
         >
           <Title title="Works">
-            MOD Worldwide <Badge>2025</Badge>
+            MOD Worldwide<Badge>2025</Badge>
           </Title>
 
           <section
@@ -97,12 +98,7 @@ const MODWorldwide = () => {
 
           <section aria-labelledby="overview-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="overview-heading"
-                className="text-white text-lg font-bold text-center my-6"
-              >
-                Project Overview
-              </h2>
+              <SectionHeading symbol="plus">Project Overview</SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 This project is MOD’s official website and case-study platform,
                 built from scratch through close collaboration between
@@ -128,12 +124,7 @@ const MODWorldwide = () => {
 
           <section aria-labelledby="architecture-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="architecture-heading"
-                className="text-white text-lg font-bold text-center my-6"
-              >
-                How It Works
-              </h2>
+              <SectionHeading symbol="plus">How It Works</SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 Request flow:
               </p>
@@ -146,12 +137,7 @@ const MODWorldwide = () => {
 
           <section aria-labelledby="system-architecture-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="system-architecture-heading"
-                className="text-white text-lg font-bold text-center my-6 mb-0"
-              >
-                System Architecture
-              </h2>
+              <SectionHeading symbol="plus">System Architecture</SectionHeading>
               <h3
                 id="system-architecture-heading"
                 className="text-white text-md font-semibold text-center my-2"
@@ -219,12 +205,7 @@ const MODWorldwide = () => {
 
           <section aria-labelledby="features-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="features-heading"
-                className="text-white text-lg font-bold text-center my-6"
-              >
-                Why It Stands Out
-              </h2>
+              <SectionHeading symbol="plus">Why It Stands Out</SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-none">
                 <li>
                   Demonstrates product thinking and system design maturity, not
@@ -250,12 +231,9 @@ const MODWorldwide = () => {
 
           <section aria-labelledby="challenges-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="challenges-heading"
-                className="text-white text-lg font-bold text-center my-6"
-              >
+              <SectionHeading symbol="plus">
                 Engineering Challenges
-              </h2>
+              </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc">
                 <li>
                   Designing a deterministic block renderer that allows flexible
@@ -275,12 +253,9 @@ const MODWorldwide = () => {
 
           <section aria-labelledby="decisions-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="decisions-heading"
-                className="text-white text-lg font-bold text-center my-6"
-              >
+              <SectionHeading symbol="plus">
                 Key Engineering Decisions
-              </h2>
+              </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc">
                 <li>
                   Use JSON as the source of truth for route-driven content
@@ -300,12 +275,9 @@ const MODWorldwide = () => {
 
           <section aria-labelledby="highlights-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="highlights-heading"
-                className="text-white text-lg font-bold text-center my-5"
-              >
+              <SectionHeading symbol="plus">
                 Engineering Highlights
-              </h2>
+              </SectionHeading>
 
               <p className="text-white/80 text-sm text-center max-w-2xl mx-auto mb-6">
                 Selected excerpts from the production codebase illustrating the
@@ -476,12 +448,9 @@ useMotionValueEvent(scrollProgress, "change", (value: number) => {
 
           <section aria-labelledby="collab-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="collab-heading"
-                className="text-white text-lg font-bold text-center my-6"
-              >
+              <SectionHeading symbol="plus">
                 In-House Delivery Model
-              </h2>
+              </SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 The build reflects real cross-functional delivery: designers
                 define art direction and interaction rhythm, account managers
@@ -494,12 +463,7 @@ useMotionValueEvent(scrollProgress, "change", (value: number) => {
 
           <section aria-labelledby="screenshots-heading">
             <MotionSection delay={0.1}>
-              <h2
-                id="screenshots-heading"
-                className="text-white text-lg font-bold text-center my-6"
-              >
-                Selected Screens
-              </h2>
+              <SectionHeading symbol="plus">Selected Screens</SectionHeading>
               <Slider array={imageArr} />
             </MotionSection>
           </section>

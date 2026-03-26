@@ -12,7 +12,7 @@ export const Title: React.FC<TitleProps> = ({ title, children }) => {
 	const { track } = useAnalytics();
 	return (
 		<header>
-			<nav aria-label="breadcrumb" className="mb-5">
+			<nav aria-label="breadcrumb" className="mb-5 breadcrumb-font">
 				<a
 					onClick={() => {
 						track('breadcrumb_navigated', {

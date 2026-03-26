@@ -26,7 +26,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           {company} | {job}
         </h3>
         <br />
-        <h4 className="inline-block text-white text-md font-medium mb-1 italic">
+        <h4 className="inline-block text-white text-sm font-medium mb-1 italic">
           {year}
         </h4>
       </header>
