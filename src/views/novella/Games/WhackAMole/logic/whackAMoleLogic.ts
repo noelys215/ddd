@@ -3,5 +3,5 @@ export const getRandomPosition = (gridSize: number): number => {
 };
 
 export const calculateNewSpeed = (currentSpeed: number): number => {
-	return Math.max(200, currentSpeed - 50);
+	return Math.max(300, currentSpeed - 35);
 };

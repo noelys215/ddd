@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({
   const navigate = useNavigate();
   return (
     <Container>
-      <header className="mb-5">
+      <header className="mb-5 breadcrumb-font">
         <a
           onClick={() => navigate("/")}
           className="text-pink-500 hover:underline cursor-pointer"

@@ -70,7 +70,7 @@ export const Experience = () => {
     <Layout title="experience">
       <MotionSection delay={0.2}>
         <Container>
-          <header className="mb-5">
+          <header className="mb-5 breadcrumb-font">
             <a
               onClick={() => {
                 track("breadcrumb_navigated", {
