@@ -7,8 +7,10 @@ import CybersigilFrame from "../components/CybersigilFrame";
 import { useAnalytics } from "../hooks/useAnalytics";
 
 // Images
-import modWorldwideThumb from "../assets/works/modworldwide/MOD_THUMB.png";
-import arbiterThumb from "/works/arbiter/arbiter_thumb.png";
+import arbiterThumb from "../assets/works/arbiter/arbiter_home.gif";
+
+const modWorldwideThumb =
+  "https://portfolio-assets.nyc3.digitaloceanspaces.com/mod_thumb_animated.gif";
 
 export const Works: React.FC = () => {
   const navigate = useNavigate();
