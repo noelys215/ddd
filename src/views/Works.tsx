@@ -9,6 +9,7 @@ import { useAnalytics } from "../hooks/useAnalytics";
 
 // Images
 import arbiterThumb from "../assets/works/arbiter/arbiter_home.gif";
+import aiThumb from "../assets/works/aiknowledgeassistant/ai_chat_demo.gif";
 
 const modWorldwideThumb =
   "https://portfolio-assets.nyc3.digitaloceanspaces.com/mod_thumb_animated.gif";
@@ -69,6 +70,13 @@ export const Works: React.FC = () => {
               imageUrl={modWorldwideThumb}
               link="/works/modworldwide"
             />
+
+            <WorkGridItem
+              title="AI Knowledge Assistant"
+              description="AI-powered knowledge assistant embedded into a CMS platform, enabling instant document retrieval and reducing manual search time for internal teams."
+              imageUrl={aiThumb}
+              link="/works/ai-knowledge-assistant"
+            />
           </div>
 
           <SectionHeading symbol="plus">Personal Work</SectionHeading>
@@ -76,7 +84,7 @@ export const Works: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
             <WorkGridItem
               title="Arbiter"
-              description="A full-stack collaborative decision platform for group watch sessions."
+              description="Real-time collaborative decision platform with dynamic card-based UI and session-based interactions for group watch experiences."
               imageUrl={arbiterThumb}
               link="/works/arbiter"
             />

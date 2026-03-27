@@ -12,6 +12,7 @@ import { LiftLab } from './views/works/LiftLab.tsx';
 import { Gloria } from './views/works/Gloria.tsx';
 import MODWorldwide from './views/works/MODWorldwide.tsx';
 import ArbiterPortfolioCaseStudy from './views/works/Arbiter.tsx';
+import AIKnowledgeAssistant from './views/works/AIKnowledgeAssistant.tsx';
 // import { Calling } from './views/novella/Chapters/_00/Calling.tsx';
 // import { Descent } from './views/novella/Chapters/_01/Descent.tsx';
 // import { Watcher } from './views/novella/Chapters/_01/Watcher.tsx';
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
 	{
 		path: '/works/arbiter',
 		element: <ArbiterPortfolioCaseStudy />,
+	},
+	{
+		path: '/works/ai-knowledge-assistant',
+		element: <AIKnowledgeAssistant />,
 	},
 	{
 		path: '/maze',
