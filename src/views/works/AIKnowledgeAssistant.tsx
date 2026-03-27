@@ -92,6 +92,17 @@ const AIKnowledgeAssistant = () => {
                   no cross-site document leakage
                 </span>
               </li>
+              <li>
+                <Meta>Visit</Meta>
+                <a
+                  href="https://simple-template-starter-kccic7g8b-moderati.vercel.app/health-plans"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pink-500 hover:underline"
+                >
+                  sok ai preview
+                </a>
+              </li>
             </ul>
           </section>
 
