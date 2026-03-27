@@ -35,7 +35,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
   const symbolCharacter = SYMBOL_MAP[symbol];
 
   return (
-    <div className={joinClasses("flex items-center gap-4 my-8", className)}>
+    <div className={joinClasses("flex items-center md:gap-4 my-8", className)}>
       <div className="flex-1 h-px bg-white/20" />
 
       <span
@@ -43,7 +43,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
         className={joinClasses(
           "text-pink-500",
           SYMBOL_SIZE_CLASS[symbol],
-          symbolClassName
+          symbolClassName,
         )}
         style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
       >
@@ -53,8 +53,8 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
       <h2
         id={headingId}
         className={joinClasses(
-          "text-white text-lg md:text-xl tracking-wide whitespace-nowrap",
-          headingClassName
+          "text-white text-md md:text-xl tracking-wide whitespace-nowrap",
+          headingClassName,
         )}
       >
         {children}
@@ -65,7 +65,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
         className={joinClasses(
           "text-pink-500",
           SYMBOL_SIZE_CLASS[symbol],
-          symbolClassName
+          symbolClassName,
         )}
         style={{ textShadow: "0 0 6px rgba(255,42,138,0.35)" }}
       >

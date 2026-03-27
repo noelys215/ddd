@@ -234,7 +234,7 @@ const MODWorldwide = () => {
               <SectionHeading symbol="plus">
                 Engineering Challenges
               </SectionHeading>
-              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc">
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
                   Designing a deterministic block renderer that allows flexible
                   page composition while keeping bundle size small
@@ -256,7 +256,7 @@ const MODWorldwide = () => {
               <SectionHeading symbol="plus">
                 Key Engineering Decisions
               </SectionHeading>
-              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc">
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
                   Use JSON as the source of truth for route-driven content
                   composition
