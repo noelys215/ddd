@@ -122,6 +122,8 @@ export const WatcherSpeaks = () => {
 							src={watcher}
 							alt="Watcher"
 							className="object-cover rounded-full opacity-90"
+							loading="lazy"
+							decoding="async"
 							style={{
 								width: '400px',
 								maskImage:

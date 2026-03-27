@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
-import { codeToHtml } from "shiki";
-
 interface Props {
-  code: string;
-  lang: string;
+  html?: string;
+  code?: string;
 }
 
-export default function CodeBlock({ code, lang }: Props) {
-  const [html, setHtml] = useState("");
-
-  useEffect(() => {
-    codeToHtml(code, {
-      lang,
-      theme: "vitesse-black",
-    }).then(setHtml);
-  }, [code, lang]);
+export default function CodeBlock({ html, code = "" }: Props) {
+  if (!html) {
+    return (
+      <pre className="code-block min-w-0 w-full max-w-full overflow-x-auto rounded-md border border-white/10 bg-black/40 p-4 text-sm text-white/70">
+        <code>{code}</code>
+      </pre>
+    );
+  }
 
   return (
     <div

@@ -239,6 +239,7 @@ export const RedLightGreenLight: React.FC = () => {
                   src={isStepping ? rabbitSitting : rabbitStanding}
                   alt={isStepping ? "Rabbit sitting" : "Rabbit standing"}
                   className="w-20 h-20 sm:w-24 sm:h-24 object-contain select-none pointer-events-none brightness-0 invert"
+                  decoding="async"
                   draggable={false}
                 />
               </button>
