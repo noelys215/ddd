@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Fade from "embla-carousel-fade";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
@@ -15,6 +15,22 @@ interface SliderProps {
   analyticsLabel?: string;
 }
 
+const getNormalizedIndex = (index: number, length: number) =>
+  ((index % length) + length) % length;
+
+const getSlideIndexesToLoad = (selectedIndex: number, length: number) => {
+  if (length === 0) return [];
+  if (length === 1) return [0];
+
+  return Array.from(
+    new Set(
+      [selectedIndex - 1, selectedIndex, selectedIndex + 1].map((index) =>
+        getNormalizedIndex(index, length),
+      ),
+    ),
+  );
+};
+
 export const Slider: React.FC<SliderProps> = ({
   array,
   width = "100%",
@@ -23,10 +39,43 @@ export const Slider: React.FC<SliderProps> = ({
   const location = useLocation();
   const { track } = useAnalytics();
   const analyticsContext = analyticsLabel || location.pathname;
+  const [loadedIndexes, setLoadedIndexes] = useState<Set<number>>(
+    () => new Set(array.length > 0 ? [0] : []),
+  );
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [
     Fade(),
   ]);
+
+  useEffect(() => {
+    setLoadedIndexes(new Set(array.length > 0 ? [0] : []));
+  }, [array]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const loadVisibleSlides = () => {
+      const indexesToLoad = getSlideIndexesToLoad(
+        emblaApi.selectedScrollSnap(),
+        array.length,
+      );
+
+      setLoadedIndexes((previous) => {
+        const next = new Set(previous);
+        indexesToLoad.forEach((index) => next.add(index));
+        return next;
+      });
+    };
+
+    loadVisibleSlides();
+    emblaApi.on("select", loadVisibleSlides);
+    emblaApi.on("reInit", loadVisibleSlides);
+
+    return () => {
+      emblaApi.off("select", loadVisibleSlides);
+      emblaApi.off("reInit", loadVisibleSlides);
+    };
+  }, [array.length, emblaApi]);
 
   const scrollPrev = useCallback(() => {
     if (!emblaApi) return;
@@ -68,21 +117,35 @@ export const Slider: React.FC<SliderProps> = ({
           <div className="embla__container">
             {array.map((item, index) => (
               <div className="embla__slide relative" key={item.src}>
-                <Zoom>
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    className="w-full h-auto object-contain rounded-lg"
-                    style={{ width: width, margin: "auto" }}
-                    onClick={() =>
-                      track("carousel_image_opened", {
-                        image_index: index,
-                        image_alt: item.alt,
-                        context: analyticsContext,
-                      })
-                    }
+                {loadedIndexes.has(index) ? (
+                  <Zoom>
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      className="w-full h-auto object-contain rounded-lg"
+                      style={{ width: width, margin: "auto" }}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      onClick={() =>
+                        track("carousel_image_opened", {
+                          image_index: index,
+                          image_alt: item.alt,
+                          context: analyticsContext,
+                        })
+                      }
+                    />
+                  </Zoom>
+                ) : (
+                  <div
+                    aria-hidden="true"
+                    className="rounded-lg border border-white/10 bg-white/5"
+                    style={{
+                      width,
+                      margin: "auto",
+                      aspectRatio: "16 / 10",
+                    }}
                   />
-                </Zoom>
+                )}
               </div>
             ))}
           </div>

@@ -21,8 +21,50 @@ export default defineConfig(({ mode }) => {
 				},
 			}),
 		],
+		build: {
+			rollupOptions: {
+				output: {
+					manualChunks(id) {
+						if (!id.includes('node_modules')) return undefined;
+
+						if (id.includes('@shikijs') || id.includes('/shiki/')) {
+							return 'vendor-shiki';
+						}
+
+						if (
+							id.includes('embla-carousel') ||
+							id.includes('react-medium-image-zoom')
+						) {
+							return 'vendor-carousel';
+						}
+
+						if (id.includes('framer-motion')) {
+							return 'vendor-motion';
+						}
+
+						if (
+							id.includes('@phosphor-icons/react') ||
+							id.includes('react-powerglitch') ||
+							id.includes('use-scramble')
+						) {
+							return 'vendor-ui-effects';
+						}
+
+						if (
+							id.includes('/react/') ||
+							id.includes('/react-dom/') ||
+							id.includes('react-router') ||
+							id.includes('react-helmet-async') ||
+							id.includes('/scheduler/')
+						) {
+							return 'vendor-react';
+						}
+					},
+				},
+			},
+		},
 		optimizeDeps: {
-			exclude: ['enbla-carousel-fade'],
+			exclude: ['embla-carousel-fade'],
 		},
 	};
 });

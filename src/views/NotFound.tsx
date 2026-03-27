@@ -19,6 +19,7 @@ export const NotFound = () => {
 								src={error}
 								alt="404 Error"
 								className="object-cover w-full h-full scale-105"
+								decoding="async"
 							/>
 							<figcaption className="sr-only">404 Error - Page Not Found</figcaption>
 						</figure>

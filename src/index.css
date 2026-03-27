@@ -3,14 +3,6 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: 'EVA';
-	src: url('./fonts/EVA.ttf') format('truetype');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
 	font-family: 'AuxMono';
 	src: url('./fonts/AuxMono-Regular.ttf') format('truetype');
 	font-weight: 400;

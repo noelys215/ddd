@@ -18,10 +18,10 @@ import React, { useState, useEffect } from "react";
 import { useGlitch } from "react-powerglitch";
 import Text from "./Text";
 import { Link, useNavigate } from "react-router-dom";
-import { useGetWeather } from "../hooks/useGetWeather";
 import { useScramble } from "use-scramble";
 import CybersigilFrame from "./CybersigilFrame";
 import { useAnalytics } from "../hooks/useAnalytics";
+import type { WeatherData } from "../hooks/useLocalEnvironment";
 // import Typewriter from "typewriter-effect";
 
 interface BioCardProps {
@@ -29,7 +29,8 @@ interface BioCardProps {
   name?: string;
   subtitle?: string;
   text?: string;
-  city?: string | null;
+  weather?: WeatherData | null;
+  weatherError?: string | null;
   linkedinUrl?: string;
   githubUrl?: string;
 }
@@ -39,41 +40,25 @@ const BioCard: React.FC<BioCardProps> = ({
   name,
   subtitle,
   text,
-  city,
+  weather,
+  weatherError,
   linkedinUrl,
   githubUrl,
 }) => {
   const glitch = useGlitch();
   const [time, setTime] = useState<string>("");
-  const [weatherDescription, setWeatherDescription] = useState<string | null>(
-    null,
-  );
-  const [weatherMain, setWeatherMain] = useState<string | null>(null);
   const [shouldStartInitialScramble, setShouldStartInitialScramble] =
     useState(false);
   const [isInitialNameScrambleDone, setIsInitialNameScrambleDone] =
     useState(false);
   const navigate = useNavigate();
   const { track } = useAnalytics();
-
-  // Weather
-  const { weather, error: weatherError } = useGetWeather();
-
-  useEffect(() => {
-    if (weather) {
-      const weatherWithCity = city
-        ? `${weather.description}`
-        : weather.description;
-      setWeatherDescription(weatherWithCity);
-      setWeatherMain(weather.main);
-    } else if (weatherError) {
-      setWeatherDescription("weather unavailable...");
-      setWeatherMain(null);
-    } else {
-      setWeatherDescription(null);
-      setWeatherMain(null);
-    }
-  }, [weather, city, weatherError]);
+  const weatherDescription = weather
+    ? weather.description
+    : weatherError
+      ? "weather unavailable..."
+      : null;
+  const weatherMain = weather?.main ?? null;
 
   const getWeatherIcon = (main: string) => {
     switch (main) {
@@ -319,6 +304,9 @@ const BioCard: React.FC<BioCardProps> = ({
             src={imageUrl}
             alt={`Photo of ${name}`}
             className="object-cover rounded-full border-2 border-gray-200 w-[clamp(80px,32vw,147px)] h-[clamp(80px,32vw,147px)]"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             ref={glitch.ref}
           />
         </figure>

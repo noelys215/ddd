@@ -10,6 +10,7 @@ import modShot2 from "../../assets/works/modworldwide/MacBook Pro-1773000487175.
 import modShot4 from "../../assets/works/modworldwide/MacBook Pro-1773000519270.jpeg";
 import CodeBlock from "../../components/CodeBlock";
 import SectionHeading from "../../components/SectionHeading";
+import { codeSnippetHtml } from "../../generated/codeSnippetHtml";
 
 const imageArr = [
   { src: modShot1, alt: "MOD Worldwide portfolio homepage" },
@@ -294,27 +295,7 @@ const MODWorldwide = () => {
                     </span>
                   </div>
                   <CodeBlock
-                    lang="ts"
-                    code={`export const slugToFileMap: Record<string, PageMapEntry> = fs
-  .readdirSync(PAGES_DIR)
-  .reduce((map, file) => {
-    const slug =
-      file === "index.json" ? [] : file.replace(/\\.json$/, "").split(".");
-
-    map[slug.join("/")] = {
-      filename: file,
-      slug,
-      filePath: path.join(PAGES_DIR, file),
-    };
-
-    return map;
-  }, {} as Record<string, PageMapEntry>);
-
-export function getStaticParams() {
-  return Object.values(slugToFileMap).map((entry) => ({
-    slug: entry.slug,
-  }));
-}`}
+                    html={codeSnippetHtml.modWorldwide.fileBasedCmsRouting}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
@@ -332,25 +313,7 @@ export function getStaticParams() {
                   </div>
 
                   <CodeBlock
-                    lang="tsx"
-                    code={`const componentMap: Record<string, React.ComponentType<any>> =
-  Object.keys(Blocks).reduce((acc, key) => {
-    acc[key.toLowerCase()] = (Blocks as any)[key];
-    return acc;
-  }, {} as Record<string, React.ComponentType<any>>);
-
-return (content || []).map((section: any, id: number) => {
-  const ComponentType = componentMap[section.type];
-  if (!ComponentType) return null;
-
-  return (
-    <ComponentType
-      key={id + "-" + section.type}
-      id={id}
-      {...section.props}
-    />
-  );
-});`}
+                    html={codeSnippetHtml.modWorldwide.dynamicBlockRenderer}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
@@ -368,39 +331,7 @@ return (content || []).map((section: any, id: number) => {
                   </div>
 
                   <CodeBlock
-                    lang="json"
-                    code={`{
-  "metadata": {
-    "title": "Home",
-    "description": "MOD Worldwide"
-  },
-  "nav": {
-    "variant": "light"
-  },
-  "content": [
-    {
-      "type": "videohero",
-      "props": {
-        "firstLine": "We are a creative collective",
-        "secondLine": "built on intentional disruption"
-      }
-    },
-    {
-      "type": "scrollrevealtext",
-      "props": {
-        "segments": [
-          { "text": "We build digital experiences", "color": "#212121" }
-        ]
-      }
-    },
-    {
-      "type": "worktilelist",
-      "props": {
-        "tileSize": "large"
-      }
-    }
-  ]
-}`}
+                    html={codeSnippetHtml.modWorldwide.cmsPageDefinition}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
@@ -419,22 +350,7 @@ return (content || []).map((section: any, id: number) => {
                   </div>
 
                   <CodeBlock
-                    lang="ts"
-                    code={`const { scrollYProgress } = useScroll({
-  target: containerRef,
-  offset: ["start 0.9", "end 0.5"],
-});
-
-useMotionValueEvent(scrollProgress, "change", (value: number) => {
-  if (value >= nextWordStart && !hasAnimated) {
-    setHasAnimated(true);
-
-    animate(finalColorOpacity, 1, {
-      duration: 1.8,
-      ease: "easeOut",
-    });
-  }
-});`}
+                    html={codeSnippetHtml.modWorldwide.scrollRevealMotionEngine}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">

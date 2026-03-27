@@ -12,6 +12,7 @@ import arbiterAiSelection from "../../assets/works/arbiter/arbiter_ai_selection.
 import arbiterAiDeckDelt from "../../assets/works/arbiter/arbiter_ai_deck_delt.png";
 import arbiterWaitingRoom from "../../assets/works/arbiter/arbiter_waiting_room.png";
 import arbiterSwippingGif from "../../assets/works/arbiter/arbiter_swipping.gif";
+import { codeSnippetHtml } from "../../generated/codeSnippetHtml";
 
 const imageArr = [
   { src: arbiterHomeGif, alt: "Arbiter home" },
@@ -406,16 +407,7 @@ const ArbiterPortfolioCaseStudy = () => {
                   </div>
 
                   <CodeBlock
-                    lang="py"
-                    code={`if phase == "collecting" and (all_dealt or len(member_ids) <= 1):
-    out_candidates = await _finalize_collecting_to_swipe(
-        db,
-        s=sess,
-        runtime=runtime,
-        member_ids=member_ids,
-        now=now,
-    )
-    phase = "swiping"`}
+                    html={codeSnippetHtml.arbiter.statefulSessionOrchestration}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
@@ -434,15 +426,7 @@ const ArbiterPortfolioCaseStudy = () => {
                   </div>
 
                   <CodeBlock
-                    lang="py"
-                    code={`max_yes = max(v["yes"] for v in stats.values())
-yes_tied = [item_id for item_id, v in stats.items() if v["yes"] == max_yes]
-...
-min_no = min(stats[item_id]["no"] for item_id in yes_tied)
-no_tied = [item_id for item_id in yes_tied if stats[item_id]["no"] == min_no]
-...
-rng = random.Random(str(s.id))
-return rng.choice(sorted(tied_ids, key=lambda x: str(x)))`}
+                    html={codeSnippetHtml.arbiter.deterministicResolutionTieStrategy}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
@@ -461,12 +445,7 @@ return rng.choice(sorted(tied_ids, key=lambda x: str(x)))`}
                   </div>
 
                   <CodeBlock
-                    lang="ts"
-                    code={`const voteKey = \`\${sessionRound}:\${card.watchlist_item_id}\`;
-if (processedVotesRef.current.has(voteKey)) return;
-processedVotesRef.current.add(voteKey);
-...
-localStorage.setItem(cardIndexStorageKey, String(currentIndex));`}
+                    html={codeSnippetHtml.arbiter.frontendVoteIntegrityPersistence}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
@@ -485,24 +464,7 @@ localStorage.setItem(cardIndexStorageKey, String(currentIndex));`}
                   </div>
 
                   <CodeBlock
-                    lang="py"
-                    code={`if text and text.strip():
-    try:
-        refined = await ai_parse_constraints(baseline=base, text=text.strip())
-    except AIError:
-        refined = base
-
-try:
-    rerank = await ai_rerank_candidates(
-        constraints=refined,
-        candidates=candidates_payload,
-    )
-    if len(valid_ids) >= min_valid:
-        final_order = ordered
-        ai_used = True
-        ai_why = rerank.why
-except AIError:
-    pass`}
+                    html={codeSnippetHtml.arbiter.aiParsingRerankFallbacks}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
@@ -522,17 +484,7 @@ except AIError:
                   </div>
 
                   <CodeBlock
-                    lang="py"
-                    code={`if s.group.owner_id != user_id:
-    raise PermissionError("Only the group leader can set the Teleparty link")
-
-normalized = _normalize_watch_party_url(url)
-if normalized and s.result_watchlist_item_id is None:
-    raise ValueError("Pick a winner before sharing a Teleparty link")
-
-if not any(host == allowed or host.endswith(f".{allowed}") 
-    for allowed in WATCH_PARTY_ALLOWED_HOSTS):
-        raise ValueError("watch party URL must be a Teleparty link")`}
+                    html={codeSnippetHtml.arbiter.telepartyValidationLeaderControl}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">

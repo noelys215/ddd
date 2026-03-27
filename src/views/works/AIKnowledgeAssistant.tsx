@@ -10,6 +10,7 @@ import SectionHeading from "../../components/SectionHeading";
 import aiHome from "../../assets/works/aiknowledgeassistant/ai_chat_thumb.png";
 import aiDemo from "../../assets/works/aiknowledgeassistant/ai_chat_demo.gif";
 import { Slider } from "../../components/Silder";
+import { codeSnippetHtml } from "../../generated/codeSnippetHtml";
 
 const imageArr = [
   { src: aiDemo, alt: "AI Chat Home" },
@@ -270,24 +271,7 @@ const AIKnowledgeAssistant = () => {
                     </span>
                   </div>
                   <CodeBlock
-                    lang="ts"
-                    code={`function filterChunksByRequestedYears(chunks: AiIndexChunk[], requestedYears: string[]) {
-  if (requestedYears.length === 0) {
-    return chunks;
-  }
-
-  const requestedSet = new Set(requestedYears);
-
-  return chunks.filter((chunk) => {
-    const sourceYear = inferChunkSourceYear(chunk);
-
-    if (sourceYear) {
-      return requestedSet.has(sourceYear);
-    }
-
-    return chunkTextHasAnyYear(chunk, requestedYears);
-  });
-}`}
+                    html={codeSnippetHtml.aiKnowledgeAssistant.yearAwareRetrievalFilter}
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
                     This is a retrieval-level safeguard. If a user asks about
@@ -304,20 +288,7 @@ const AIKnowledgeAssistant = () => {
                     </span>
                   </div>
                   <CodeBlock
-                    lang="ts"
-                    code={`export function rankChunksBySimilarity(
-  queryEmbedding: number[],
-  chunks: AiIndexChunk[],
-  topK: number
-) {
-  return chunks
-    .map((chunk) => ({
-      chunk,
-      score: cosineSimilarity(queryEmbedding, chunk.embedding),
-    }))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, topK);
-}`}
+                    html={codeSnippetHtml.aiKnowledgeAssistant.semanticRanking}
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
                     Retrieval is intentionally transparent and inspectable:
@@ -334,16 +305,7 @@ const AIKnowledgeAssistant = () => {
                     </span>
                   </div>
                   <CodeBlock
-                    lang="js"
-                    code={`function rowsToTableLikeText(rows) {
-  return rows
-    .sort((a, b) => b.y - a.y)
-    .map((row) => {
-      const orderedCells = row.cells.sort((a, b) => a.x - b.x);
-      return orderedCells.map((cell) => cell.text).join("  |  ");
-    })
-    .join("\\n");
-}`}
+                    html={codeSnippetHtml.aiKnowledgeAssistant.pdfTableReconstruction}
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
                     This turns raw PDF text positions into something retrieval
@@ -360,18 +322,7 @@ const AIKnowledgeAssistant = () => {
                     </span>
                   </div>
                   <CodeBlock
-                    lang="tsx"
-                    code={`export const aiAssistantBlockSchema: Template = {
-  name: "aiAssistant",
-  label: "AI-Powered Knowledge Assistant",
-  fields: [
-    { type: "string", name: "heading", label: "Heading" },
-    { type: "string", name: "subheading", label: "Subheading" },
-    { type: "string", name: "disclaimer", label: "Disclaimer" },
-    { type: "string", name: "suggestedQuestions", label: "Suggested Questions", list: true },
-    { type: "boolean", name: "enabled", label: "Enabled" },
-  ],
-};`}
+                    html={codeSnippetHtml.aiKnowledgeAssistant.tinaBlockRegistration}
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
                     The assistant is not hardcoded into a page. It behaves like

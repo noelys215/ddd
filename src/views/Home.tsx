@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import BioCard from "../components/BioCard";
 import Layout from "../components/Layout";
 import whomImage from "../assets/whom.jpeg";
-import { useGetLocation } from "../hooks/useGetLocation";
 import { useAnalytics } from "../hooks/useAnalytics";
 import { AnimatePresence, motion } from "framer-motion";
 import PressStartGate from "../components/PressStartGate";
+import { useLocalEnvironment } from "../hooks/useLocalEnvironment";
 
 const START_GATE_STORAGE_KEY = "portfolio_press_start_seen";
 const START_GATE_EXIT_MS = 960;
@@ -21,9 +21,9 @@ export const Home: React.FC = () => {
   const [phase, setPhase] = useState<EntryPhase>(() =>
     getStartGateState() ? "entered" : "gate",
   );
-  const { city } = useGetLocation();
   const { track } = useAnalytics();
   const exitTimeoutRef = useRef<number | null>(null);
+  const { city, weather, error } = useLocalEnvironment(phase === "entered");
 
   const locationMessage = city
     ? `Hi human in ${city}, nice to meet you!`
@@ -96,7 +96,8 @@ export const Home: React.FC = () => {
             imageUrl={whomImage}
             name="Henry Betancourth"
             subtitle="Software Engineer"
-            city={city}
+            weather={weather}
+            weatherError={error}
             githubUrl="https://github.com/noelys215"
             linkedinUrl="https://www.linkedin.com/in/henry-betancourth/"
             text={`${locationMessage} 
