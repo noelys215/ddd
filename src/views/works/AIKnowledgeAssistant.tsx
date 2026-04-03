@@ -8,12 +8,21 @@ import CodeBlock from "../../components/CodeBlock";
 import SectionHeading from "../../components/SectionHeading";
 
 import aiHome from "../../assets/works/aiknowledgeassistant/ai_chat_thumb.png";
-import aiDemo from "../../assets/works/aiknowledgeassistant/ai_chat_demo.gif";
+import aiDemoMp4 from "../../assets/works/aiknowledgeassistant/ai_chat_demo.mp4";
+import aiDemoWebm from "../../assets/works/aiknowledgeassistant/ai_chat_demo.webm";
 import { Slider } from "../../components/Silder";
 import { codeSnippetHtml } from "../../generated/codeSnippetHtml";
 
 const imageArr = [
-  { src: aiDemo, alt: "AI Chat Home" },
+  {
+    kind: "video" as const,
+    alt: "AI Chat Home",
+    poster: aiHome,
+    sources: [
+      { src: aiDemoWebm, type: "video/webm" },
+      { src: aiDemoMp4, type: "video/mp4" },
+    ],
+  },
   { src: aiHome, alt: "AI Chat Demo" },
 ];
 
