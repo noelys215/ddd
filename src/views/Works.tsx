@@ -6,13 +6,45 @@ import { WorkGridItem } from "../components/WorkGridItem";
 import CybersigilFrame from "../components/CybersigilFrame";
 import SectionHeading from "../components/SectionHeading";
 import { useAnalytics } from "../hooks/useAnalytics";
+import type { MediaItem } from "../components/media";
 
-// Images
-import arbiterThumb from "../assets/works/arbiter/arbiter_home.gif";
-import aiThumb from "../assets/works/aiknowledgeassistant/ai_chat_demo.gif";
+import arbiterThumbMp4 from "../assets/works/arbiter/arbiter_home.mp4";
+import arbiterThumbPoster from "../assets/works/arbiter/arbiter_home_poster.jpg";
+import arbiterThumbWebm from "../assets/works/arbiter/arbiter_home.webm";
+import aiThumbPoster from "../assets/works/aiknowledgeassistant/ai_chat_thumb.png";
+import aiThumbMp4 from "../assets/works/aiknowledgeassistant/ai_chat_demo.mp4";
+import aiThumbWebm from "../assets/works/aiknowledgeassistant/ai_chat_demo.webm";
+import modWorldwideThumbMp4 from "../assets/works/modworldwide/mod_thumb_animated.mp4";
+import modWorldwideThumbPoster from "../assets/works/modworldwide/mod_thumb_animated_poster.jpg";
+import modWorldwideThumbWebm from "../assets/works/modworldwide/mod_thumb_animated.webm";
 
-const modWorldwideThumb =
-  "https://portfolio-assets.nyc3.digitaloceanspaces.com/mod_thumb_animated.gif";
+const modWorldwideMedia: MediaItem = {
+  kind: "video",
+  alt: "Screenshot of MOD Worldwide",
+  poster: modWorldwideThumbPoster,
+  sources: [
+    { src: modWorldwideThumbWebm, type: "video/webm" },
+    { src: modWorldwideThumbMp4, type: "video/mp4" },
+  ],
+};
+const aiThumbMedia: MediaItem = {
+  kind: "video",
+  alt: "Screenshot of AI Knowledge Assistant",
+  poster: aiThumbPoster,
+  sources: [
+    { src: aiThumbWebm, type: "video/webm" },
+    { src: aiThumbMp4, type: "video/mp4" },
+  ],
+};
+const arbiterThumbMedia: MediaItem = {
+  kind: "video",
+  alt: "Screenshot of Arbiter",
+  poster: arbiterThumbPoster,
+  sources: [
+    { src: arbiterThumbWebm, type: "video/webm" },
+    { src: arbiterThumbMp4, type: "video/mp4" },
+  ],
+};
 
 export const Works: React.FC = () => {
   const navigate = useNavigate();
@@ -67,14 +99,14 @@ export const Works: React.FC = () => {
             <WorkGridItem
               title="MOD Worldwide"
               description="Official MOD portfolio platform with JSON-driven pages and high-end motion."
-              imageUrl={modWorldwideThumb}
+              media={modWorldwideMedia}
               link="/works/modworldwide"
             />
 
             <WorkGridItem
               title="AI Knowledge Assistant"
               description="AI-powered knowledge assistant embedded into a CMS platform, enabling instant document retrieval and reducing manual search time for internal teams."
-              imageUrl={aiThumb}
+              media={aiThumbMedia}
               link="/works/ai-knowledge-assistant"
             />
           </div>
@@ -85,7 +117,7 @@ export const Works: React.FC = () => {
             <WorkGridItem
               title="Arbiter"
               description="Real-time collaborative decision platform with dynamic card-based UI and session-based interactions for group watch experiences."
-              imageUrl={arbiterThumb}
+              media={arbiterThumbMedia}
               link="/works/arbiter"
             />
 

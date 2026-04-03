@@ -5,9 +5,11 @@ import { EmblaOptionsType } from "embla-carousel";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
 import { useAnalytics } from "../hooks/useAnalytics";
+import { MediaAsset } from "./MediaAsset";
+import { getMediaSourceKey, isVideoMedia, type MediaItem } from "./media";
 
 interface SliderProps {
-  array: { src: string; alt: string }[];
+  array: MediaItem[];
   options?: EmblaOptionsType;
   width?: string; // Optional width for the image
   height?: string; // Optional height for the image
@@ -62,10 +64,18 @@ export const Slider: React.FC<SliderProps> = ({
       void image.decode?.().catch(() => undefined);
     };
 
-    array.slice(0, 2).forEach(({ src }) => preloadImage(src));
+    array.slice(0, 2).forEach((item) => {
+      if (!isVideoMedia(item)) {
+        preloadImage(item.src);
+      }
+    });
 
     const preloadRemaining = () => {
-      array.slice(2).forEach(({ src }) => preloadImage(src));
+      array.slice(2).forEach((item) => {
+        if (!isVideoMedia(item)) {
+          preloadImage(item.src);
+        }
+      });
     };
 
     if ("requestIdleCallback" in window) {
@@ -108,8 +118,11 @@ export const Slider: React.FC<SliderProps> = ({
 
     const indexesToPreload = getSlideIndexesToLoad(lightboxIndex, array.length);
     indexesToPreload.forEach((index) => {
+      const item = array[index];
+      if (isVideoMedia(item)) return;
+
       const image = new Image();
-      image.src = array[index].src;
+      image.src = item.src;
       void image.decode?.().catch(() => undefined);
     });
   }, [array, lightboxIndex]);
@@ -240,18 +253,21 @@ export const Slider: React.FC<SliderProps> = ({
           <div className="embla" ref={emblaRef}>
             <div className="embla__container">
               {array.map((item, index) => (
-                <div className="embla__slide relative" key={item.src}>
+                <div
+                  className="embla__slide relative"
+                  key={getMediaSourceKey(item)}
+                >
                   <button
                     type="button"
                     className="block w-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff2a8a]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg"
                     onClick={() => openLightbox(index)}
-                    aria-label={`Open image ${index + 1} of ${array.length}: ${item.alt}`}
+                    aria-label={`Open ${isVideoMedia(item) ? "media" : "image"} ${index + 1} of ${array.length}: ${item.alt}`}
                   >
-                    <img
-                      src={item.src}
-                      alt={item.alt}
+                    <MediaAsset
+                      media={item}
                       className="w-full object-contain rounded-lg"
                       style={{ width, height, margin: "auto" }}
+                      active={index === selectedIndex}
                       loading={
                         index === 0 || index === selectedIndex
                           ? "eager"
@@ -259,6 +275,11 @@ export const Slider: React.FC<SliderProps> = ({
                       }
                       fetchPriority={index === 0 ? "high" : "auto"}
                       decoding="async"
+                      preload={
+                        index === 0 || index === selectedIndex
+                          ? "auto"
+                          : "metadata"
+                      }
                     />
                   </button>
                 </div>
@@ -287,7 +308,7 @@ export const Slider: React.FC<SliderProps> = ({
               className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm"
               role="dialog"
               aria-modal="true"
-              aria-label="Image gallery lightbox"
+              aria-label="Media gallery lightbox"
               onClick={closeLightbox}
             >
               <div className="relative flex h-full w-full items-center justify-center px-4 py-6 sm:px-8">
@@ -318,11 +339,11 @@ export const Slider: React.FC<SliderProps> = ({
                   className="flex max-h-full max-w-[min(92vw,1200px)] flex-col items-center gap-4"
                   onClick={(event) => event.stopPropagation()}
                 >
-                  <img
-                    src={activeLightboxItem.src}
-                    alt={activeLightboxItem.alt}
+                  <MediaAsset
+                    media={activeLightboxItem}
                     className="max-h-[82vh] w-auto max-w-full rounded-lg object-contain shadow-[0_0_40px_rgba(0,0,0,0.4)]"
-                    decoding="async"
+                    active
+                    preload="auto"
                   />
                   <figcaption className="text-center text-sm text-white/72">
                     {activeLightboxItem.alt}

@@ -7,19 +7,39 @@ import CybersigilFrame from "../../components/CybersigilFrame";
 import CodeBlock from "../../components/CodeBlock";
 import SectionHeading from "../../components/SectionHeading";
 import { Slider } from "../../components/Silder";
-import arbiterHomeGif from "../../assets/works/arbiter/arbiter_home.gif";
+import arbiterHomeMp4 from "../../assets/works/arbiter/arbiter_home.mp4";
+import arbiterHomePoster from "../../assets/works/arbiter/arbiter_home_poster.jpg";
+import arbiterHomeWebm from "../../assets/works/arbiter/arbiter_home.webm";
 import arbiterAiSelection from "../../assets/works/arbiter/arbiter_ai_selection.png";
 import arbiterAiDeckDelt from "../../assets/works/arbiter/arbiter_ai_deck_delt.png";
 import arbiterWaitingRoom from "../../assets/works/arbiter/arbiter_waiting_room.png";
-import arbiterSwippingGif from "../../assets/works/arbiter/arbiter_swipping.gif";
+import arbiterSwippingMp4 from "../../assets/works/arbiter/arbiter_swipping.mp4";
+import arbiterSwippingPoster from "../../assets/works/arbiter/arbiter_swipping_poster.jpg";
+import arbiterSwippingWebm from "../../assets/works/arbiter/arbiter_swipping.webm";
 import { codeSnippetHtml } from "../../generated/codeSnippetHtml";
 
 const imageArr = [
-  { src: arbiterHomeGif, alt: "Arbiter home" },
+  {
+    kind: "video" as const,
+    alt: "Arbiter home",
+    poster: arbiterHomePoster,
+    sources: [
+      { src: arbiterHomeWebm, type: "video/webm" },
+      { src: arbiterHomeMp4, type: "video/mp4" },
+    ],
+  },
   { src: arbiterAiSelection, alt: "Arbiter AI selection" },
   { src: arbiterAiDeckDelt, alt: "Arbiter AI deck dealt" },
   { src: arbiterWaitingRoom, alt: "Arbiter waiting room" },
-  { src: arbiterSwippingGif, alt: "Arbiter deck swiping" },
+  {
+    kind: "video" as const,
+    alt: "Arbiter deck swiping",
+    poster: arbiterSwippingPoster,
+    sources: [
+      { src: arbiterSwippingWebm, type: "video/webm" },
+      { src: arbiterSwippingMp4, type: "video/mp4" },
+    ],
+  },
 ];
 
 const ArbiterPortfolioCaseStudy = () => {
