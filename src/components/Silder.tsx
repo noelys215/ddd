@@ -2,9 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import Fade from "embla-carousel-fade";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaOptionsType } from "embla-carousel";
-import Zoom from "react-medium-image-zoom";
+import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
-import "react-medium-image-zoom/dist/styles.css";
 import { useAnalytics } from "../hooks/useAnalytics";
 
 interface SliderProps {
@@ -33,49 +32,135 @@ const getSlideIndexesToLoad = (selectedIndex: number, length: number) => {
 
 export const Slider: React.FC<SliderProps> = ({
   array,
+  options,
   width = "100%",
+  height,
   analyticsLabel,
 }) => {
   const location = useLocation();
   const { track } = useAnalytics();
   const analyticsContext = analyticsLabel || location.pathname;
-  const [loadedIndexes, setLoadedIndexes] = useState<Set<number>>(
-    () => new Set(array.length > 0 ? [0] : []),
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, duration: 4, ...options },
+    [Fade()],
   );
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [
-    Fade(),
-  ]);
+  useEffect(() => {
+    setSelectedIndex(0);
+    setLightboxIndex(null);
+  }, [array]);
 
   useEffect(() => {
-    setLoadedIndexes(new Set(array.length > 0 ? [0] : []));
+    if (typeof window === "undefined" || array.length === 0) return;
+
+    const preloadImage = (src: string) => {
+      const image = new Image();
+      image.src = src;
+      void image.decode?.().catch(() => undefined);
+    };
+
+    array.slice(0, 2).forEach(({ src }) => preloadImage(src));
+
+    const preloadRemaining = () => {
+      array.slice(2).forEach(({ src }) => preloadImage(src));
+    };
+
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(preloadRemaining, {
+        timeout: 1200,
+      });
+
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = globalThis.setTimeout(preloadRemaining, 250);
+    return () => globalThis.clearTimeout(timeoutId);
   }, [array]);
 
   useEffect(() => {
     if (!emblaApi) return;
 
-    const loadVisibleSlides = () => {
-      const indexesToLoad = getSlideIndexesToLoad(
-        emblaApi.selectedScrollSnap(),
-        array.length,
-      );
-
-      setLoadedIndexes((previous) => {
-        const next = new Set(previous);
-        indexesToLoad.forEach((index) => next.add(index));
-        return next;
-      });
+    const syncSelectedSlide = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
     };
 
-    loadVisibleSlides();
-    emblaApi.on("select", loadVisibleSlides);
-    emblaApi.on("reInit", loadVisibleSlides);
+    syncSelectedSlide();
+    emblaApi.on("select", syncSelectedSlide);
+    emblaApi.on("reInit", syncSelectedSlide);
 
     return () => {
-      emblaApi.off("select", loadVisibleSlides);
-      emblaApi.off("reInit", loadVisibleSlides);
+      emblaApi.off("select", syncSelectedSlide);
+      emblaApi.off("reInit", syncSelectedSlide);
     };
-  }, [array.length, emblaApi]);
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (
+      lightboxIndex === null ||
+      typeof window === "undefined" ||
+      array.length < 2
+    ) {
+      return;
+    }
+
+    const indexesToPreload = getSlideIndexesToLoad(lightboxIndex, array.length);
+    indexesToPreload.forEach((index) => {
+      const image = new Image();
+      image.src = array[index].src;
+      void image.decode?.().catch(() => undefined);
+    });
+  }, [array, lightboxIndex]);
+
+  useEffect(() => {
+    if (lightboxIndex === null || typeof document === "undefined") return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setLightboxIndex(null);
+        return;
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        const nextIndex = getNormalizedIndex(lightboxIndex - 1, array.length);
+        setLightboxIndex(nextIndex);
+        emblaApi?.scrollTo(nextIndex);
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        const nextIndex = getNormalizedIndex(lightboxIndex + 1, array.length);
+        setLightboxIndex(nextIndex);
+        emblaApi?.scrollTo(nextIndex);
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [array.length, emblaApi, lightboxIndex]);
+
+  const scrollToIndex = useCallback(
+    (index: number) => {
+      if (array.length === 0) return 0;
+
+      const nextIndex = getNormalizedIndex(index, array.length);
+      emblaApi?.scrollTo(nextIndex);
+      setSelectedIndex(nextIndex);
+      return nextIndex;
+    },
+    [array.length, emblaApi],
+  );
 
   const scrollPrev = useCallback(() => {
     if (!emblaApi) return;
@@ -97,73 +182,174 @@ export const Slider: React.FC<SliderProps> = ({
     });
   }, [analyticsContext, array.length, emblaApi, track]);
 
+  const openLightbox = useCallback(
+    (index: number) => {
+      const nextIndex = scrollToIndex(index);
+      setLightboxIndex(nextIndex);
+      track("carousel_image_opened", {
+        image_index: nextIndex,
+        image_alt: array[nextIndex]?.alt,
+        context: analyticsContext,
+      });
+    },
+    [analyticsContext, array, scrollToIndex, track],
+  );
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+  }, []);
+
+  const navigateLightbox = useCallback(
+    (direction: -1 | 1) => {
+      if (lightboxIndex === null || array.length === 0) return;
+
+      const nextIndex = scrollToIndex(lightboxIndex + direction);
+      setLightboxIndex(nextIndex);
+      track("carousel_lightbox_navigated", {
+        direction: direction < 0 ? "previous" : "next",
+        image_index: nextIndex,
+        image_alt: array[nextIndex]?.alt,
+        context: analyticsContext,
+      });
+    },
+    [analyticsContext, array, lightboxIndex, scrollToIndex, track],
+  );
+
+  const activeLightboxItem =
+    lightboxIndex === null ? null : (array[lightboxIndex] ?? null);
+  const activeLightboxPosition = lightboxIndex === null ? 0 : lightboxIndex + 1;
+
   return (
-    <div className="slider-container w-full mx-auto relative">
-      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3 md:gap-4">
-        <button
-          className="embla__prev text-[#ff2a8a] opacity-70 hover:opacity-100 transform-gpu motion-safe:hover:scale-105 transition-[opacity,transform] duration-300 ease-out text-2xl sm:text-3xl md:text-4xl font-bold leading-none"
-          onClick={scrollPrev}
-          aria-label="Previous slide"
-          style={{
-            textShadow: "0 0 6px rgba(255,42,138,0.4), 0 0 2px rgba(0,0,0,0.9)",
-          }}
-        >
-          <span aria-hidden="true" className="inline-flex items-center gap-1">
-            <span className="text-[#ff2a8a]">◁</span>
-            <span className="text-[#ff2a8a]">⟡</span>
-          </span>
-        </button>
-        <div className="embla" ref={emblaRef}>
-          <div className="embla__container">
-            {array.map((item, index) => (
-              <div className="embla__slide relative" key={item.src}>
-                {loadedIndexes.has(index) ? (
-                  <Zoom>
+    <>
+      <div className="slider-container w-full mx-auto relative">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3 md:gap-4">
+          <button
+            className="embla__prev text-[#ff2a8a] opacity-70 hover:opacity-100 transform-gpu motion-safe:hover:scale-105 transition-[opacity,transform] duration-300 ease-out text-2xl sm:text-3xl md:text-4xl font-bold leading-none"
+            onClick={scrollPrev}
+            aria-label="Previous slide"
+            style={{
+              textShadow:
+                "0 0 6px rgba(255,42,138,0.4), 0 0 2px rgba(0,0,0,0.9)",
+            }}
+          >
+            <span aria-hidden="true" className="inline-flex items-center gap-1">
+              <span className="text-[#ff2a8a]">◁</span>
+              <span className="text-[#ff2a8a]">⟡</span>
+            </span>
+          </button>
+          <div className="embla" ref={emblaRef}>
+            <div className="embla__container">
+              {array.map((item, index) => (
+                <div className="embla__slide relative" key={item.src}>
+                  <button
+                    type="button"
+                    className="block w-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff2a8a]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg"
+                    onClick={() => openLightbox(index)}
+                    aria-label={`Open image ${index + 1} of ${array.length}: ${item.alt}`}
+                  >
                     <img
                       src={item.src}
                       alt={item.alt}
-                      className="w-full h-auto object-contain rounded-lg"
-                      style={{ width: width, margin: "auto" }}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      decoding="async"
-                      onClick={() =>
-                        track("carousel_image_opened", {
-                          image_index: index,
-                          image_alt: item.alt,
-                          context: analyticsContext,
-                        })
+                      className="w-full object-contain rounded-lg"
+                      style={{ width, height, margin: "auto" }}
+                      loading={
+                        index === 0 || index === selectedIndex
+                          ? "eager"
+                          : "lazy"
                       }
+                      fetchPriority={index === 0 ? "high" : "auto"}
+                      decoding="async"
                     />
-                  </Zoom>
-                ) : (
-                  <div
-                    aria-hidden="true"
-                    className="rounded-lg border border-white/10 bg-white/5"
-                    style={{
-                      width,
-                      margin: "auto",
-                      aspectRatio: "16 / 10",
-                    }}
-                  />
-                )}
-              </div>
-            ))}
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
+          <button
+            className="embla__next text-[#ff2a8a] opacity-70 hover:opacity-100 transform-gpu motion-safe:hover:scale-105 transition-[opacity,transform] duration-300 ease-out text-2xl sm:text-3xl md:text-4xl font-bold leading-none"
+            onClick={scrollNext}
+            aria-label="Next slide"
+            style={{
+              textShadow:
+                "0 0 6px rgba(255,42,138,0.4), 0 0 2px rgba(0,0,0,0.9)",
+            }}
+          >
+            <span aria-hidden="true" className="inline-flex items-center gap-1">
+              <span className="text-[#ff2a8a]">⟡</span>
+              <span className="text-[#ff2a8a]">▷</span>
+            </span>
+          </button>
         </div>
-        <button
-          className="embla__next text-[#ff2a8a] opacity-70 hover:opacity-100 transform-gpu motion-safe:hover:scale-105 transition-[opacity,transform] duration-300 ease-out text-2xl sm:text-3xl md:text-4xl font-bold leading-none"
-          onClick={scrollNext}
-          aria-label="Next slide"
-          style={{
-            textShadow: "0 0 6px rgba(255,42,138,0.4), 0 0 2px rgba(0,0,0,0.9)",
-          }}
-        >
-          <span aria-hidden="true" className="inline-flex items-center gap-1">
-            <span className="text-[#ff2a8a]">⟡</span>
-            <span className="text-[#ff2a8a]">▷</span>
-          </span>
-        </button>
       </div>
-    </div>
+      {activeLightboxItem && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Image gallery lightbox"
+              onClick={closeLightbox}
+            >
+              <div className="relative flex h-full w-full items-center justify-center px-4 py-6 sm:px-8">
+                <button
+                  type="button"
+                  className="absolute right-4 top-4 rounded-full border border-white/15 bg-black/70 px-4 py-2 text-sm uppercase tracking-[0.2em] text-white/85 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff2a8a]/80"
+                  aria-label="Close lightbox"
+                  onClick={closeLightbox}
+                >
+                  Close
+                </button>
+
+                {array.length > 1 ? (
+                  <button
+                    type="button"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/15 bg-black/70 px-3 py-4 text-2xl text-[#ff2a8a] transition-all hover:scale-105 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff2a8a]/80 sm:left-6"
+                    aria-label="Previous image"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      navigateLightbox(-1);
+                    }}
+                  >
+                    ◁
+                  </button>
+                ) : null}
+
+                <figure
+                  className="flex max-h-full max-w-[min(92vw,1200px)] flex-col items-center gap-4"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <img
+                    src={activeLightboxItem.src}
+                    alt={activeLightboxItem.alt}
+                    className="max-h-[82vh] w-auto max-w-full rounded-lg object-contain shadow-[0_0_40px_rgba(0,0,0,0.4)]"
+                    decoding="async"
+                  />
+                  <figcaption className="text-center text-sm text-white/72">
+                    {activeLightboxItem.alt}
+                    {array.length > 1
+                      ? ` (${activeLightboxPosition}/${array.length})`
+                      : ""}
+                  </figcaption>
+                </figure>
+
+                {array.length > 1 ? (
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/15 bg-black/70 px-3 py-4 text-2xl text-[#ff2a8a] transition-all hover:scale-105 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff2a8a]/80 sm:right-6"
+                    aria-label="Next image"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      navigateLightbox(1);
+                    }}
+                  >
+                    ▷
+                  </button>
+                ) : null}
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
+    </>
   );
 };
