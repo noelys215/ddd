@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import evilEyeVideo from "../assets/videos/evil_eye_2.mp4";
+import Noise from "./Noise";
 
 interface PressStartGateProps {
   onEnter: () => void;
 }
 
 const PressStartGate: React.FC<PressStartGateProps> = ({ onEnter }) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    videoRef.current.playbackRate = 0.52;
+  }, []);
+
   return (
     <motion.section
       initial={{ opacity: 1 }}
@@ -22,6 +31,20 @@ const PressStartGate: React.FC<PressStartGateProps> = ({ onEnter }) => {
       className="start-gate-overlay"
       aria-label="Start gate"
     >
+      <video
+        ref={videoRef}
+        className="start-gate-video"
+        src={evilEyeVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+      />
+      <div className="start-gate-static-overlay" aria-hidden="true">
+        <Noise opacity={0.13} speed={0.04} scale={1.3} color="#ffffff" />
+      </div>
+      <div className="start-gate-video-scrim" aria-hidden="true" />
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
