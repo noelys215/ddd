@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import BioCard from "../components/BioCard";
 import Layout from "../components/Layout";
 import whomImage from "../assets/whom.jpeg";
@@ -8,9 +8,8 @@ import PressStartGate from "../components/PressStartGate";
 import { useLocalEnvironment } from "../hooks/useLocalEnvironment";
 
 const START_GATE_STORAGE_KEY = "portfolio_press_start_seen";
-const START_GATE_EXIT_MS = 960;
 
-type EntryPhase = "gate" | "transitioning" | "entered";
+type EntryPhase = "gate" | "entered";
 
 const getStartGateState = (): boolean => {
   if (typeof window === "undefined") return false;
@@ -22,7 +21,6 @@ export const Home: React.FC = () => {
     getStartGateState() ? "entered" : "gate",
   );
   const { track } = useAnalytics();
-  const exitTimeoutRef = useRef<number | null>(null);
   const { city, weather, error } = useLocalEnvironment(phase === "entered");
 
   const locationMessage = city
@@ -32,13 +30,7 @@ export const Home: React.FC = () => {
   const enterSite = useCallback(
     (trigger: "pointer" | "keyboard") => {
       if (phase !== "gate") return;
-      setPhase("transitioning");
-      if (exitTimeoutRef.current !== null) {
-        window.clearTimeout(exitTimeoutRef.current);
-      }
-      exitTimeoutRef.current = window.setTimeout(() => {
-        setPhase("entered");
-      }, START_GATE_EXIT_MS);
+      setPhase("entered");
 
       if (typeof window !== "undefined") {
         window.sessionStorage.setItem(START_GATE_STORAGE_KEY, "1");
@@ -50,14 +42,6 @@ export const Home: React.FC = () => {
     },
     [phase, track],
   );
-
-  useEffect(() => {
-    return () => {
-      if (exitTimeoutRef.current !== null) {
-        window.clearTimeout(exitTimeoutRef.current);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (phase === "entered") return;
