@@ -335,8 +335,20 @@ button:hover {
 	height: 100%;
 	object-fit: cover;
 	object-position: center center;
-	/* transform: scale(var(--start-gate-video-scale, 1.25)); */
+	filter: grayscale(0.92) contrast(1.58) brightness(0.78) saturate(1.2);
 	transform-origin: center center;
+	pointer-events: none;
+}
+
+.start-gate-cybersigil-filter {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(90deg, rgba(0, 255, 255, 0.1), transparent 34%, rgba(255, 42, 138, 0.12) 68%, transparent),
+		repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 4px),
+		repeating-linear-gradient(90deg, rgba(255, 42, 138, 0.055) 0 1px, transparent 1px 18px);
+	mix-blend-mode: screen;
+	opacity: 0.36;
 	pointer-events: none;
 }
 
@@ -344,8 +356,9 @@ button:hover {
 	position: absolute;
 	inset: 0;
 	background:
-		radial-gradient(circle at center, transparent 12%, rgba(0, 0, 0, 0.12) 60%, rgba(0, 0, 0, 0.72) 100%),
-		rgba(0, 0, 0, 0.24);
+		radial-gradient(ellipse var(--start-gate-vignette-width, 48%) var(--start-gate-vignette-height, 42%) at 50% 50%, transparent 0 18%, rgba(255, 42, 138, 0.045) 32%, rgba(0, 0, 0, 0.2) 58%, rgba(0, 0, 0, 0.68) 100%),
+		linear-gradient(90deg, rgba(0, 255, 255, 0.055), transparent 38%, transparent 62%, rgba(255, 42, 138, 0.085)),
+		rgba(0, 0, 0, 0.3);
 	pointer-events: none;
 }
 
@@ -452,8 +465,9 @@ button:hover {
 		padding: 1rem;
 	}
 
-	.start-gate-video {
-		--start-gate-video-scale: 1.08;
+	.start-gate-video-scrim {
+		--start-gate-vignette-width: 76%;
+		--start-gate-vignette-height: 36%;
 	}
 
 	.start-gate-shell {
@@ -469,5 +483,12 @@ button:hover {
 	.start-gate-trigger:hover,
 	.start-gate-trigger:focus-visible {
 		letter-spacing: clamp(0.13em, 1.8vw, 0.22em);
+	}
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+	.start-gate-video-scrim {
+		--start-gate-vignette-width: 94%;
+		--start-gate-vignette-height: 28%;
 	}
 }
