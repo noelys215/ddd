@@ -41,6 +41,7 @@ const PressStartGate: React.FC<PressStartGateProps> = ({ onEnter }) => {
         playsInline
         aria-hidden="true"
       />
+      <div className="start-gate-cybersigil-filter" aria-hidden="true" />
       <div className="start-gate-static-overlay" aria-hidden="true">
         <Noise opacity={0.13} speed={0.04} scale={1.3} color="#ffffff" />
       </div>
