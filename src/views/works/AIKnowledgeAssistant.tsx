@@ -75,9 +75,9 @@ const AIKnowledgeAssistant = () => {
               <li>
                 <Meta>Impact</Meta>
                 <span>
-                  Turned static plan documents into a grounded question-answer
-                  system that can be dropped onto any CMS page as a reusable
-                  content block
+                  Turned static plan documents into a grounded, database-backed
+                  question-answer system that can be dropped onto any CMS page
+                  as a reusable content block
                 </span>
               </li>
               <li>
@@ -91,15 +91,15 @@ const AIKnowledgeAssistant = () => {
                 <Meta>Stack</Meta>
                 <span>
                   Next.js 14 | React 18 | TinaCMS | OpenAI Responses API |
-                  OpenAI Embeddings | pdfjs-dist | AWS S3 SDK | DigitalOcean
-                  Spaces
+                  OpenAI Embeddings | Supabase Postgres | pgvector | pdfjs-dist
+                  | AWS S3 SDK | DigitalOcean Spaces
                 </span>
               </li>
               <li>
                 <Meta>Constraint</Meta>
                 <span>
-                  No database, no vector store, no client-side OpenAI calls, and
-                  no cross-site document leakage
+                  Server-only AI calls, isolated document retrieval, portable AI
+                  module installation, and no cross-site document leakage
                 </span>
               </li>
               <li>
@@ -133,10 +133,11 @@ const AIKnowledgeAssistant = () => {
                 links users directly back to the source file and page.
                 <br />
                 <br />
-                Architecturally, the interesting part is that the system stays
-                operationally simple: offline indexing generates a committed
-                JSON semantic index, runtime retrieval happens server-side, and
-                the browser receives only the answer and clean source metadata.
+                Architecturally, the system moved from a local JSON semantic
+                index to Supabase Postgres with pgvector. Offline indexing still
+                prepares the documents, but runtime retrieval now happens
+                through indexed vector search, server-side filtering, response
+                streaming, and clean source metadata returned to the browser.
               </p>
             </MotionSection>
           </section>
@@ -158,12 +159,13 @@ const AIKnowledgeAssistant = () => {
 
                 <div className="rounded-md border border-white/10 bg-[#0c0c0c] p-4">
                   <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-pink-500">
-                    Offline Indexing Pipeline
+                    Postgres + pgvector Retrieval
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">
-                    Built a PDF ingestion flow that extracts page text, rescues
-                    table structure from positional PDF data, chunks content
-                    with overlap, and embeds every chunk for retrieval.
+                    Migrated retrieval from a generated JSON index to Supabase
+                    Postgres with pgvector, storing document chunks, metadata,
+                    embeddings, and indexed similarity search in a managed
+                    database.
                   </p>
                 </div>
 
@@ -173,19 +175,19 @@ const AIKnowledgeAssistant = () => {
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">
                     Added blocked-question handling, low-confidence rejection,
-                    and hard year-based retrieval filters so 2025 questions do
-                    not accidentally blend 2024 or 2026 policy details.
+                    and hard year and plan filters so questions about a specific
+                    plan year or option do not blend nearby policy details.
                   </p>
                 </div>
 
                 <div className="rounded-md border border-white/10 bg-[#0c0c0c] p-4">
                   <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-pink-500">
-                    Source Access Layer
+                    Streaming Answer Layer
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">
-                    Exposed cited PDFs through a constrained server route that
-                    allows inline viewing of approved files only, preventing
-                    arbitrary path access from the client.
+                    Reworked the chat API to stream answer deltas while keeping
+                    embeddings, database queries, model calls, and retrieval
+                    context fully server-side.
                   </p>
                 </div>
               </div>
@@ -210,13 +212,13 @@ const AIKnowledgeAssistant = () => {
                   </div>
                   <div className="text-pink-500">+</div>
                   <div className="font-mono tracking-wide">
-                    ai/data/ai_index.json becomes the site-specific semantic
-                    index
+                    ai:sync writes documents, chunks, metadata, and embeddings
+                    into Supabase Postgres
                   </div>
                   <div className="text-pink-500">+</div>
                   <div className="font-mono tracking-wide">
-                    /api/ai/ask embeds the question and ranks chunks by cosine
-                    similarity
+                    pgvector ranks matching chunks with year and plan filters
+                    applied in SQL
                   </div>
                   <div className="text-pink-500">+</div>
                   <div className="font-mono tracking-wide">
@@ -224,7 +226,7 @@ const AIKnowledgeAssistant = () => {
                   </div>
                   <div className="text-pink-500">+</div>
                   <div className="font-mono tracking-wide">
-                    UI renders answer blocks and clickable PDF citations
+                    UI streams answer text and renders clickable PDF citations
                   </div>
                 </div>
               </div>
@@ -238,23 +240,30 @@ const AIKnowledgeAssistant = () => {
               </SectionHeading>
               <div className="space-y-4 text-white text-sm md:text-base leading-relaxed">
                 <p>
-                  I intentionally avoided a vector database here. The corpus was
-                  bounded enough that a committed JSON index plus cosine ranking
-                  would keep deployment simpler, reduce infrastructure surface
-                  area, and preserve strict site isolation.
+                  I started with a JSON-based semantic index because it was fast
+                  to ship and easy to inspect. Once the assistant needed a more
+                  professional retrieval layer, I migrated the corpus to
+                  Supabase Postgres with pgvector so similarity search, metadata
+                  filtering, and future scaling live in the database.
                 </p>
                 <p>
-                  I also treated plan year as a retrieval constraint, not just a
-                  prompt instruction. That matters because prompt-only year
+                  I treat plan year and plan option as retrieval constraints,
+                  not just prompt instructions. That matters because prompt-only
                   control is too weak for adjacent insurance documents with
                   similar vocabulary.
                 </p>
                 <p>
-                  For PDF extraction, I used positional text items to
-                  reconstruct table-like rows rather than flattening everything
-                  into generic text. That decision materially improved answers
-                  for deductible, coinsurance, and out-of-pocket comparisons
-                  where table context is the document.
+                  For PDF extraction, I use positional text items to reconstruct
+                  table-like rows rather than flattening everything into generic
+                  text. That decision materially improved answers for
+                  deductible, coinsurance, and out-of-pocket comparisons where
+                  table context is the document.
+                </p>
+                <p>
+                  The implementation is packaged inside the app's AI folder so
+                  it can be merged into other branches, installed with the local
+                  script, and pointed at the same Supabase-backed knowledge
+                  store without reworking the main site architecture.
                 </p>
               </div>
             </MotionSection>
@@ -266,43 +275,46 @@ const AIKnowledgeAssistant = () => {
                 Selected Implementation
               </SectionHeading>
               <p className="text-white/70 text-sm leading-relaxed max-w-3xl mx-auto mb-6">
-                Excerpts below reflect the actual architecture: retrieval is
-                server-side, year filtering happens before ranking, and the
-                block is registered into Tina like any other page section.
+                Excerpts below reflect the core architecture: retrieval is
+                server-side, metadata filters are applied before generation, and
+                the block is registered into Tina like any other page section.
               </p>
 
               <div className="space-y-10">
                 <div className="space-y-2">
                   <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>Year-Aware Retrieval Filter</span>
+                    <span>Year + Plan Retrieval Filter</span>
                     <span className="min-w-0 break-all sm:break-normal sm:text-right">
                       ai/server/askRoute.ts
                     </span>
                   </div>
                   <CodeBlock
-                    html={codeSnippetHtml.aiKnowledgeAssistant.yearAwareRetrievalFilter}
+                    html={
+                      codeSnippetHtml.aiKnowledgeAssistant
+                        .yearAwareRetrievalFilter
+                    }
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
-                    This is a retrieval-level safeguard. If a user asks about
-                    2025, chunks from other plan years are excluded before the
-                    model ever sees them.
+                    This is a retrieval-level safeguard. If a user asks about a
+                    specific plan year or option, unrelated chunks are excluded
+                    before the model ever sees them.
                   </p>
                 </div>
 
                 <div className="space-y-2">
                   <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>Semantic Ranking</span>
+                    <span>pgvector Similarity Search</span>
                     <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      ai/core/search.ts
+                      ai/core/vectorStore.ts
                     </span>
                   </div>
                   <CodeBlock
                     html={codeSnippetHtml.aiKnowledgeAssistant.semanticRanking}
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
-                    Retrieval is intentionally transparent and inspectable:
-                    question embedding in, chunk scores out, top-k context fed
-                    to generation.
+                    Retrieval is database-backed and inspectable: question
+                    embedding in, filtered pgvector matches out, top-k context
+                    streamed into generation.
                   </p>
                 </div>
 
@@ -314,7 +326,10 @@ const AIKnowledgeAssistant = () => {
                     </span>
                   </div>
                   <CodeBlock
-                    html={codeSnippetHtml.aiKnowledgeAssistant.pdfTableReconstruction}
+                    html={
+                      codeSnippetHtml.aiKnowledgeAssistant
+                        .pdfTableReconstruction
+                    }
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
                     This turns raw PDF text positions into something retrieval
@@ -331,7 +346,9 @@ const AIKnowledgeAssistant = () => {
                     </span>
                   </div>
                   <CodeBlock
-                    html={codeSnippetHtml.aiKnowledgeAssistant.tinaBlockRegistration}
+                    html={
+                      codeSnippetHtml.aiKnowledgeAssistant.tinaBlockRegistration
+                    }
                   />
                   <p className="text-white/70 text-xs leading-relaxed">
                     The assistant is not hardcoded into a page. It behaves like
@@ -359,13 +376,14 @@ const AIKnowledgeAssistant = () => {
                   when the uploaded documents do not support a confident answer.
                 </div>
                 <div className="rounded-md border border-white/10 bg-[#0c0c0c] p-4 text-white/80 text-sm leading-relaxed">
-                  OpenAI usage is fully server-side. The client never receives
-                  embeddings, API keys, or raw retrieval context.
+                  Supabase and OpenAI usage are fully server-side. The client
+                  never receives database credentials, embeddings, API keys, or
+                  raw retrieval context.
                 </div>
                 <div className="rounded-md border border-white/10 bg-[#0c0c0c] p-4 text-white/80 text-sm leading-relaxed">
-                  Source links resolve through a constrained file-serving route
-                  so users can inspect the cited PDF while file access remains
-                  controlled.
+                  Streaming responses reduce perceived wait time while source
+                  citations still resolve through a constrained file-serving
+                  route.
                 </div>
               </div>
             </MotionSection>
@@ -376,10 +394,11 @@ const AIKnowledgeAssistant = () => {
               <SectionHeading symbol="plus">Why This Matters</SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
                 The value here is not just that I integrated an LLM. I designed
-                a retrieval system around document truth, operational
-                simplicity, and editorial usability. The result is a feature
-                that content teams can actually use, engineers can reason about,
-                and users can verify by opening the source material themselves.
+                a retrieval system around document truth, database-backed
+                search, operational portability, and editorial usability. The
+                result is a feature that content teams can actually use,
+                engineers can reason about, and users can verify by opening the
+                source material themselves.
                 <br />
                 <br />
                 That is the kind of AI work I like to build: grounded,

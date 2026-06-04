@@ -120,33 +120,6 @@ export const Works: React.FC = () => {
               media={arbiterThumbMedia}
               link="/works/arbiter"
             />
-
-            {/* <WorkGridItem
-              title="LiftLab"
-              description="A companion app for the Stronger by Science weightlifting program."
-              imageUrl={liftLabThumb}
-              link="/works/liftlab"
-            />
-            <WorkGridItem
-              title="Ro-Sham-Bo"
-              description="A fun little rock-paper-scissor-spock game."
-              imageUrl={roshamboThumb}
-              href="https://spock-game.vercel.app/"
-            />
-
-            <WorkGridItem
-              title="Percentage Calculator"
-              description="Employee Coupon Percentage Calculator."
-              imageUrl={calcThumb}
-              href="https://coupon-henna.vercel.app/"
-            />
-
-            <WorkGridItem
-              title="Gloria Fútbol"
-              description="Soccer/futbol app with live scores, charts and tables."
-              imageUrl={gloriaThumb}
-              link="/works/gloria"
-            /> */}
           </div>
         </CybersigilFrame>
       </MotionSection>
