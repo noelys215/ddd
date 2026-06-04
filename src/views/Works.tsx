@@ -103,12 +103,12 @@ export const Works: React.FC = () => {
               link="/works/modworldwide"
             />
 
-            <WorkGridItem
+            {/* <WorkGridItem
               title="AI Knowledge Assistant"
               description="AI-powered knowledge assistant embedded into a CMS platform, enabling instant document retrieval and reducing manual search time for internal teams."
               media={aiThumbMedia}
               link="/works/ai-knowledge-assistant"
-            />
+            /> */}
           </div>
 
           <SectionHeading symbol="plus">Personal Work</SectionHeading>
