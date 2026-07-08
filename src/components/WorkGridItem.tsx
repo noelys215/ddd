@@ -21,6 +21,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
 }) => {
   const navigate = useNavigate();
   const { track } = useAnalytics();
+  const titleId = React.useId();
 
   const handleNavigation = () => {
     if (link) {
@@ -37,7 +38,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
     <article
       className="p-6 bg-black rounded-lg"
       style={{ backgroundColor: "#101010" }}
-      aria-labelledby={`${title}-title`}
+      aria-labelledby={titleId}
       role="button"
       onClick={handleNavigation}
       tabIndex={0}
@@ -72,10 +73,7 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
           ) : null}
         </figure>
 
-        <h2
-          id={`${title}-title`}
-          className="text-white text-lg font-semibold mb-2"
-        >
+        <h2 id={titleId} className="text-white text-lg font-semibold mb-2">
           {title}
         </h2>
 
