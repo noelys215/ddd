@@ -1,0 +1,291 @@
+{
+  "edges": [
+    {
+      "from_file": "src/hooks/useGetLocation.tsx",
+      "from_func": "getLocation",
+      "to_file": "src/hooks/useGetLocation.tsx",
+      "to_func": "fetchCity"
+    },
+    {
+      "from_file": "src/hooks/useGetWeather.tsx",
+      "from_func": "useGetWeather",
+      "to_file": "src/hooks/useGetWeather.tsx",
+      "to_func": "fetchWeather"
+    },
+    {
+      "from_file": "src/hooks/useGetLocation.tsx",
+      "from_func": "fetchCity",
+      "to_file": "src/hooks/useGetLocation.tsx",
+      "to_func": "isValidCityValue"
+    },
+    {
+      "from_file": "src/components/Silder.tsx",
+      "from_func": "getSlideIndexesToLoad",
+      "to_file": "src/components/Silder.tsx",
+      "to_func": "getNormalizedIndex"
+    },
+    {
+      "from_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "from_func": "RedLightGreenLight",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "useAnalytics"
+    },
+    {
+      "from_file": "src/hooks/useAnalytics.ts",
+      "from_func": "trackEvent",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "getPosthogClient"
+    },
+    {
+      "from_file": "src/hooks/useGetWeather.tsx",
+      "from_func": "useGetWeather",
+      "to_file": "src/hooks/useGetWeather.tsx",
+      "to_func": "parseCachedWeather"
+    },
+    {
+      "from_file": "src/hooks/useGetLocation.tsx",
+      "from_func": "useGetLocation",
+      "to_file": "src/hooks/useGetLocation.tsx",
+      "to_func": "getLocation"
+    },
+    {
+      "from_file": "src/hooks/useAnalytics.ts",
+      "from_func": "registerAnalyticsDefaults",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "getPosthogClient"
+    },
+    {
+      "from_file": "src/components/Noise.tsx",
+      "from_func": "Noise",
+      "to_file": "src/components/Noise.tsx",
+      "to_func": "hexToRgb"
+    },
+    {
+      "from_file": "src/hooks/useAnalytics.ts",
+      "from_func": "identifyUser",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "getPosthogClient"
+    },
+    {
+      "from_file": "src/components/WorkGridItem.tsx",
+      "from_func": "WorkGridItem",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "useAnalytics"
+    },
+    {
+      "from_file": "src/components/WorkGridItem.tsx",
+      "from_func": "handleNavigation",
+      "to_file": "src/components/WorkGridItem.tsx",
+      "to_func": "navigate"
+    },
+    {
+      "from_file": "src/components/Silder.tsx",
+      "from_func": "handleKeyDown",
+      "to_file": "src/components/Silder.tsx",
+      "to_func": "getNormalizedIndex"
+    },
+    {
+      "from_file": "src/components/Noise.tsx",
+      "from_func": "Noise",
+      "to_file": "src/components/Noise.tsx",
+      "to_func": "resize"
+    },
+    {
+      "from_file": "src/hooks/useAnalytics.ts",
+      "from_func": "useAnalytics",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "identifyUser"
+    },
+    {
+      "from_file": "src/hooks/useLocalEnvironment.ts",
+      "from_func": "useLocalEnvironment",
+      "to_file": "src/hooks/useLocalEnvironment.ts",
+      "to_func": "fetchWeather"
+    },
+    {
+      "from_file": "src/hooks/useLocalEnvironment.ts",
+      "from_func": "useLocalEnvironment",
+      "to_file": "src/hooks/useLocalEnvironment.ts",
+      "to_func": "formatCityName"
+    },
+    {
+      "from_file": "src/components/Silder.tsx",
+      "from_func": "preloadRemaining",
+      "to_file": "src/components/media.ts",
+      "to_func": "isVideoMedia"
+    },
+    {
+      "from_file": "src/hooks/useGetLocation.tsx",
+      "from_func": "useGetLocation",
+      "to_file": "src/hooks/useGetLocation.tsx",
+      "to_func": "formatCityName"
+    },
+    {
+      "from_file": "src/hooks/useLocalEnvironment.ts",
+      "from_func": "fetchCity",
+      "to_file": "src/hooks/useLocalEnvironment.ts",
+      "to_func": "formatCityName"
+    },
+    {
+      "from_file": "src/views/novella/Games/WhackAMole/components/WhackAMoleGame.tsx",
+      "from_func": "handleRabbitClick",
+      "to_file": "src/views/novella/Games/WhackAMole/logic/whackAMoleLogic.ts",
+      "to_func": "calculateNewSpeed"
+    },
+    {
+      "from_file": "src/views/novella/Games/WhackAMole/components/WhackAMoleGame.tsx",
+      "from_func": "moveRabbit",
+      "to_file": "src/views/novella/Games/WhackAMole/logic/whackAMoleLogic.ts",
+      "to_func": "getRandomPosition"
+    },
+    {
+      "from_file": "src/hooks/useAnalytics.ts",
+      "from_func": "useAnalytics",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "trackEvent"
+    },
+    {
+      "from_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "from_func": "RedLightGreenLight",
+      "to_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "to_func": "finishRound"
+    },
+    {
+      "from_file": "src/components/Silder.tsx",
+      "from_func": "preloadRemaining",
+      "to_file": "src/components/Silder.tsx",
+      "to_func": "preloadImage"
+    },
+    {
+      "from_file": "src/components/Layout.tsx",
+      "from_func": "Layout",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "useAnalytics"
+    },
+    {
+      "from_file": "src/hooks/useLocalEnvironment.ts",
+      "from_func": "useLocalEnvironment",
+      "to_file": "src/hooks/useLocalEnvironment.ts",
+      "to_func": "parseCachedWeather"
+    },
+    {
+      "from_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "from_func": "moveForward",
+      "to_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "to_func": "finishRound"
+    },
+    {
+      "from_file": "src/hooks/useLocalEnvironment.ts",
+      "from_func": "useLocalEnvironment",
+      "to_file": "src/hooks/useLocalEnvironment.ts",
+      "to_func": "isValidCityValue"
+    },
+    {
+      "from_file": "src/components/Noise.tsx",
+      "from_func": "Noise",
+      "to_file": "src/components/Noise.tsx",
+      "to_func": "clamp"
+    },
+    {
+      "from_file": "src/hooks/useLocalEnvironment.ts",
+      "from_func": "useLocalEnvironment",
+      "to_file": "src/hooks/useLocalEnvironment.ts",
+      "to_func": "fetchCity"
+    },
+    {
+      "from_file": "src/hooks/useLocalEnvironment.ts",
+      "from_func": "fetchCity",
+      "to_file": "src/hooks/useLocalEnvironment.ts",
+      "to_func": "isValidCityValue"
+    },
+    {
+      "from_file": "src/hooks/useGetLocation.tsx",
+      "from_func": "useGetLocation",
+      "to_file": "src/hooks/useGetLocation.tsx",
+      "to_func": "isValidCityValue"
+    },
+    {
+      "from_file": "src/hooks/useGetLocation.tsx",
+      "from_func": "useGetLocation",
+      "to_file": "src/hooks/useGetLocation.tsx",
+      "to_func": "fetchCity"
+    },
+    {
+      "from_file": "src/views/Home.tsx",
+      "from_func": "onKeyDown",
+      "to_file": "src/views/Home.tsx",
+      "to_func": "enterSite"
+    },
+    {
+      "from_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "from_func": "RedLightGreenLight",
+      "to_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "to_func": "randomBetween"
+    },
+    {
+      "from_file": "src/components/media.ts",
+      "from_func": "getMediaSourceKey",
+      "to_file": "src/components/media.ts",
+      "to_func": "isVideoMedia"
+    },
+    {
+      "from_file": "src/components/WorkGridItem.tsx",
+      "from_func": "WorkGridItem",
+      "to_file": "src/components/WorkGridItem.tsx",
+      "to_func": "navigate"
+    },
+    {
+      "from_file": "src/components/Noise.tsx",
+      "from_func": "loop",
+      "to_file": "src/components/Noise.tsx",
+      "to_func": "drawNoise"
+    },
+    {
+      "from_file": "src/components/Noise.tsx",
+      "from_func": "Noise",
+      "to_file": "src/components/Noise.tsx",
+      "to_func": "drawNoise"
+    },
+    {
+      "from_file": "src/views/NotFound.tsx",
+      "from_func": "NotFound",
+      "to_file": "src/hooks/useAnalytics.ts",
+      "to_func": "useAnalytics"
+    },
+    {
+      "from_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "from_func": "moveForward",
+      "to_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "to_func": "randomBetween"
+    },
+    {
+      "from_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "from_func": "RedLightGreenLight",
+      "to_file": "src/views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx",
+      "to_func": "persistBestProgress"
+    },
+    {
+      "from_file": "src/hooks/useGetLocation.tsx",
+      "from_func": "fetchCity",
+      "to_file": "src/hooks/useGetLocation.tsx",
+      "to_func": "formatCityName"
+    },
+    {
+      "from_file": "src/views/novella/Games/Maze/logic/maze_logic.ts",
+      "from_func": "solve",
+      "to_file": "src/views/novella/Games/Maze/logic/maze_logic.ts",
+      "to_func": "getOptions"
+    },
+    {
+      "from_file": "src/views/NotFound.tsx",
+      "from_func": "NotFound",
+      "to_file": "src/views/NotFound.tsx",
+      "to_func": "navigate"
+    }
+  ],
+  "languages": [
+    "javascript",
+    "typescript"
+  ],
+  "timestamp": 1783439015.911901
+}

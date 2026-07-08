@@ -11,9 +11,9 @@ import type { MediaItem } from "../components/media";
 import arbiterThumbMp4 from "../assets/works/arbiter/arbiter_home.mp4";
 import arbiterThumbPoster from "../assets/works/arbiter/arbiter_home_poster.jpg";
 import arbiterThumbWebm from "../assets/works/arbiter/arbiter_home.webm";
-import aiThumbPoster from "../assets/works/aiknowledgeassistant/ai_chat_thumb.png";
-import aiThumbMp4 from "../assets/works/aiknowledgeassistant/ai_chat_demo.mp4";
-import aiThumbWebm from "../assets/works/aiknowledgeassistant/ai_chat_demo.webm";
+// import aiThumbPoster from "../assets/works/aiknowledgeassistant/ai_chat_thumb.png";
+// import aiThumbMp4 from "../assets/works/aiknowledgeassistant/ai_chat_demo.mp4";
+// import aiThumbWebm from "../assets/works/aiknowledgeassistant/ai_chat_demo.webm";
 import modWorldwideThumbMp4 from "../assets/works/modworldwide/mod_thumb_animated.mp4";
 import modWorldwideThumbPoster from "../assets/works/modworldwide/mod_thumb_animated_poster.jpg";
 import modWorldwideThumbWebm from "../assets/works/modworldwide/mod_thumb_animated.webm";
@@ -27,15 +27,15 @@ const modWorldwideMedia: MediaItem = {
     { src: modWorldwideThumbMp4, type: "video/mp4" },
   ],
 };
-const aiThumbMedia: MediaItem = {
-  kind: "video",
-  alt: "Screenshot of AI Knowledge Assistant",
-  poster: aiThumbPoster,
-  sources: [
-    { src: aiThumbWebm, type: "video/webm" },
-    { src: aiThumbMp4, type: "video/mp4" },
-  ],
-};
+// const aiThumbMedia: MediaItem = {
+//   kind: "video",
+//   alt: "Screenshot of AI Knowledge Assistant",
+//   poster: aiThumbPoster,
+//   sources: [
+//     { src: aiThumbWebm, type: "video/webm" },
+//     { src: aiThumbMp4, type: "video/mp4" },
+//   ],
+// };
 const arbiterThumbMedia: MediaItem = {
   kind: "video",
   alt: "Screenshot of Arbiter",
@@ -103,12 +103,12 @@ export const Works: React.FC = () => {
               link="/works/modworldwide"
             />
 
-            <WorkGridItem
+            {/* <WorkGridItem
               title="AI Knowledge Assistant"
               description="AI-powered knowledge assistant embedded into a CMS platform, enabling instant document retrieval and reducing manual search time for internal teams."
               media={aiThumbMedia}
               link="/works/ai-knowledge-assistant"
-            />
+            /> */}
           </div>
 
           <SectionHeading symbol="plus">Personal Work</SectionHeading>
