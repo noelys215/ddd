@@ -1,5 +1,6 @@
 import { Suspense, StrictMode, lazy } from "react";
 import { createRoot } from "react-dom/client";
+import { Analytics } from "@vercel/analytics/react";
 import "./index.css";
 import { Home } from "./views/Home.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -140,6 +141,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HelmetProvider>
       <RouterProvider router={router} />
+      <Analytics />
     </HelmetProvider>
   </StrictMode>,
 );
