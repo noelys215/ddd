@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /maze
+Disallow: /maze-classic
+Disallow: /mole
+
+Sitemap: https://www.henryb.io//sitemap.xml

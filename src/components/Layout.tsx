@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect } from "react";
 // import backgroundImage from '../assets/static.gif';
-import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { useAnalytics } from "../hooks/useAnalytics";
 import Noise from "./Noise";
+import { Seo } from "./Seo";
 
 interface LayoutProps {
   children: ReactNode;
@@ -83,10 +83,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
         <Noise opacity={0.13} speed={0.04} scale={1.3} color="#ffffff" />
       </div>
       <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_12%,rgba(0,0,0,0.12)_60%,rgba(0,0,0,0.26)_100%)]" />
-      <Helmet>
-        <title>{`_henry [ ${title} ]`}</title>
-        {/* <meta name="description" content={`Page about ${title}`} /> */}
-      </Helmet>
+      <Seo titleKey={title} />
       <div className="relative z-10 flex flex-col justify-center items-center space-y-6 w-full max-w-full">
         {children}
       </div>
