@@ -5,6 +5,7 @@ import { Home } from "./views/Home.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { registerAnalyticsDefaults } from "./hooks/useAnalytics.ts";
+import Noise from "./components/Noise.tsx";
 
 registerAnalyticsDefaults();
 
@@ -47,8 +48,15 @@ const WhackAMole = lazy(
 );
 
 const RouteFallback = () => (
-  <div className="flex min-h-screen w-full items-center justify-center bg-black px-6 font-custom">
-    <div className="w-full max-w-md rounded-md border border-white/15 bg-[#101010] px-6 py-5 text-center">
+  <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-black px-6 font-custom">
+    <div className="site-starfield" aria-hidden="true">
+      <div className="site-starfield-stars" />
+    </div>
+    <div className="absolute inset-0 z-[1] pointer-events-none">
+      <Noise opacity={0.13} speed={0.04} scale={1.3} color="#ffffff" />
+    </div>
+    <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_12%,rgba(0,0,0,0.12)_60%,rgba(0,0,0,0.26)_100%)]" />
+    <div className="relative z-10 w-full max-w-md rounded-md border border-white/15 bg-[#101010]/90 px-6 py-5 text-center backdrop-blur-sm">
       <p className="breadcrumb-font text-sm text-pink-500">loading route</p>
       <p className="mt-2 text-sm text-white/75">One moment.</p>
     </div>

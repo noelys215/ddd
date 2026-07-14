@@ -1,63 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import BioCard from "../components/BioCard";
 import Layout from "../components/Layout";
 import whomImage from "../assets/whom.jpeg";
-import { useAnalytics } from "../hooks/useAnalytics";
-import { AnimatePresence, motion } from "framer-motion";
-import PressStartGate from "../components/PressStartGate";
+import { motion } from "framer-motion";
 import { useLocalEnvironment } from "../hooks/useLocalEnvironment";
 
-const START_GATE_STORAGE_KEY = "portfolio_press_start_seen";
-
-type EntryPhase = "gate" | "entered";
-
-const getStartGateState = (): boolean => {
-  if (typeof window === "undefined") return false;
-  return window.sessionStorage.getItem(START_GATE_STORAGE_KEY) === "1";
-};
-
 export const Home: React.FC = () => {
-  const [phase, setPhase] = useState<EntryPhase>(() =>
-    getStartGateState() ? "entered" : "gate",
-  );
-  const { track } = useAnalytics();
-  const { city, weather, error } = useLocalEnvironment(phase === "entered");
+  const { city, weather, error } = useLocalEnvironment(true);
 
   const locationMessage = city
     ? `Hi human in ${city}, nice to meet you!`
     : "Hi human, nice to meet you!";
-
-  const enterSite = useCallback(
-    (trigger: "pointer" | "keyboard") => {
-      if (phase !== "gate") return;
-      setPhase("entered");
-
-      if (typeof window !== "undefined") {
-        window.sessionStorage.setItem(START_GATE_STORAGE_KEY, "1");
-      }
-      track("start_gate_entered", {
-        destination: "/",
-        trigger,
-      });
-    },
-    [phase, track],
-  );
-
-  useEffect(() => {
-    if (phase === "entered") return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        enterSite("keyboard");
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [enterSite, phase]);
-
-  const showStartGate = phase !== "entered";
 
   return (
     <Layout title="home">
@@ -65,10 +18,10 @@ export const Home: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 12, scale: 0.992, filter: "blur(8px)" }}
           animate={{
-            opacity: phase === "entered" ? 1 : 0,
-            y: phase === "entered" ? 0 : 22,
-            scale: phase === "entered" ? 1 : 0.985,
-            filter: phase === "entered" ? "blur(0px)" : "blur(10px)",
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
           }}
           transition={{
             duration: 0.82,
@@ -96,15 +49,6 @@ So go ahead, click around and explore. There's plenty of nifty stuff here to gee
 [ Round and round the rabbits go—what happens next, only a click will show. ]`}
           />
         </motion.div>
-
-        <AnimatePresence>
-          {showStartGate && (
-            <PressStartGate
-              key="start-gate"
-              onEnter={() => enterSite("pointer")}
-            />
-          )}
-        </AnimatePresence>
       </section>
     </Layout>
   );

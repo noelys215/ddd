@@ -10,6 +10,8 @@ interface LayoutProps {
   title: string;
 }
 
+const SITE_BACKGROUND: "stars" | "legacy" = "stars";
+
 const Layout: React.FC<LayoutProps> = ({ children, title }) => {
   const location = useLocation();
   const { track } = useAnalytics();
@@ -72,6 +74,11 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
         // filter: "brightness(90%)",
       }}
     >
+      {SITE_BACKGROUND === "stars" && (
+        <div className="site-starfield" aria-hidden="true">
+          <div className="site-starfield-stars" />
+        </div>
+      )}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Noise opacity={0.13} speed={0.04} scale={1.3} color="#ffffff" />
       </div>
