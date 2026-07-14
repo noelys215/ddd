@@ -130,6 +130,31 @@ const ArbiterPortfolioCaseStudy = () => {
             </ul>
           </section>
 
+          <section aria-labelledby="overview-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="overview-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                Overview
+              </SectionHeading>
+              <p className="text-white text-sm md:text-base leading-relaxed">
+                Arbiter is a realtime group decision platform for deciding what
+                to watch. The product combines social graph constraints,
+                group-scoped watchlists, AI-assisted deck generation,
+                deterministic voting, and a post-decision Teleparty handoff.
+                <br />
+                <br />
+                The major engineering update was moving collaborative state from
+                polling to websocket-driven invalidation. Session pages and
+                group watchlists now receive lightweight server events after
+                writes, then refresh the authoritative React Query cache.
+              </p>
+            </MotionSection>
+          </section>
+
           <section aria-labelledby="problem-heading">
             <MotionSection delay={0.1}>
               <SectionHeading
@@ -148,97 +173,44 @@ const ArbiterPortfolioCaseStudy = () => {
                 Existing products focus on media discovery, not collaborative
                 coordination. The actual challenge is turning subjective group
                 preference negotiation into a fast, fair, and repeatable
-                decision process.
+                decision process that stays synchronized while several users
+                are adding titles, voting, undoing votes, shuffling, ending
+                sessions, or sharing the final watch-party link.
               </p>
             </MotionSection>
           </section>
 
-          <section aria-labelledby="solution-heading">
+          <section aria-labelledby="technical-stack-heading">
             <MotionSection delay={0.1}>
               <SectionHeading
                 symbol="cross"
-                headingId="solution-heading"
+                headingId="technical-stack-heading"
                 className="my-6"
                 headingClassName="font-bold text-center whitespace-normal"
               >
-                Solution
-              </SectionHeading>
-              <p className="text-white text-sm md:text-base leading-relaxed">
-                Arbiter treats group movie night as a structured decision
-                system. Users add friends, form invite-only groups, build shared
-                watchlists, and run time-boxed sessions where everyone votes on
-                a candidate deck and the system resolves a winner.
-                <br />
-                <br />
-                The goal is not just recommendation, it is consensus, with
-                deterministic outcomes, tie resolution, optional AI assistance,
-                and a clean handoff into the actual watch experience.
-                <br />
-                <br />
-                Once a winner is selected, Arbiter can generate and surface a
-                shared Teleparty join flow so everyone moves from decision to
-                viewing without bouncing back into group texts, link hunting, or
-                manual coordination.
-              </p>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="system-framing-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading
-                symbol="cross"
-                headingId="system-framing-heading"
-                className="my-6"
-                headingClassName="font-bold text-center whitespace-normal"
-              >
-                System Framing
-              </SectionHeading>
-              <p className="text-white text-sm md:text-base leading-relaxed">
-                The implementation treats this as a stateful multiplayer system:
-                collecting preferences, generating personalized decks,
-                synchronizing readiness, enforcing timer windows, resolving
-                ties, and preserving deterministic session outcomes across
-                clients.
-              </p>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="principles-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading
-                symbol="cross"
-                headingId="principles-heading"
-                className="my-6"
-                headingClassName="font-bold text-center whitespace-normal"
-              >
-                Design Principles
+                Technical Stack
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
-                  Social gating keeps collaborative spaces intentional and
-                  abuse-resistant
+                  React 19, TypeScript, Vite 7, HeroUI, Tailwind 4, Framer
+                  Motion, and React Query for the client application
                 </li>
                 <li>
-                  Vague human preferences are translated into structured
-                  constraints for deterministic filtering and optional AI
-                  reranking
+                  FastAPI, async SQLAlchemy, Pydantic, Alembic, and PostgreSQL
+                  for the API and persistence layer
                 </li>
                 <li>
-                  Per-user timers, lock states, and phase transitions prevent
-                  stalled sessions
+                  Native browser WebSocket clients connected to FastAPI
+                  websocket routes for realtime session and watchlist events
                 </li>
                 <li>
-                  Deadlocks resolve through explicit tie-break rules and
-                  deterministic fallback behavior
+                  TMDB for title metadata, OpenAI for optional constraint
+                  parsing and candidate reranking, Google OAuth and magic links
+                  for authentication
                 </li>
                 <li>
-                  UX continuity is preserved through local progress persistence
-                  and backend-driven session polling
-                </li>
-                <li>
-                  The system does not stop at recommendation — it coordinates
-                  the transition from winner selection into a shared Teleparty
-                  join flow
+                  Vercel for the frontend, Render for the API, managed Postgres,
+                  and predeploy migrations
                 </li>
               </ul>
             </MotionSection>
@@ -252,29 +224,33 @@ const ArbiterPortfolioCaseStudy = () => {
                 className="my-6"
                 headingClassName="font-bold text-center whitespace-normal"
               >
-                System Architecture
+                Architecture
               </SectionHeading>
 
               <p className="text-white/75 text-xs md:text-sm leading-relaxed text-center max-w-2xl mx-auto mb-4">
-                High-level flow of the runtime decision pipeline.
+                Authoritative writes still happen through REST. Websockets
+                broadcast invalidation events so every connected client refreshes
+                the same canonical server state.
               </p>
 
               <div className="max-w-2xl mx-auto rounded-md border border-white/10 bg-[#0b0b0b] px-6 py-7 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
                 <div className="text-center space-y-2 text-sm md:text-base text-white/85">
-                  <div className="font-mono tracking-wide">React Client</div>
+                  <div className="font-mono tracking-wide">
+                    React Client + React Query
+                  </div>
                   <div className="text-pink-500 text-sm" aria-hidden="true">
                     ⌖
                   </div>
 
                   <div className="font-mono tracking-wide">
-                    Session State Machine + React Query
+                    REST Mutations + WebSocket Listeners
                   </div>
                   <div className="text-pink-500 text-sm" aria-hidden="true">
                     ⌖
                   </div>
 
                   <div className="font-mono tracking-wide">
-                    FastAPI API Layer
+                    FastAPI Routes + Realtime Hubs
                   </div>
                   <div className="text-pink-500 text-sm" aria-hidden="true">
                     ⌖
@@ -293,16 +269,93 @@ const ArbiterPortfolioCaseStudy = () => {
                   </div>
 
                   <div className="font-mono tracking-wide">
-                    External APIs (TMDB, OpenAI, OAuth, Email)
+                    External APIs: TMDB, OpenAI, OAuth, Email
                   </div>
                 </div>
               </div>
 
               <p className="text-white/75 text-xs md:text-sm leading-relaxed text-center max-w-2xl mx-auto mt-4">
-                Business rules remain authoritative in backend domain services
-                while the frontend orchestrates resilient, query-driven session
-                state under real-time change.
+                The websocket layer deliberately sends small messages like
+                <code> session_updated </code> and
+                <code> watchlist_updated </code>. Clients then invalidate cache
+                keys and refetch typed API responses instead of trusting
+                long-lived pushed payloads.
               </p>
+            </MotionSection>
+          </section>
+
+          <section aria-labelledby="database-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="database-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                Database Design
+              </SectionHeading>
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
+                <li>
+                  Users, friendships, groups, and group memberships model the
+                  social permission boundary before collaboration starts
+                </li>
+                <li>
+                  Titles are canonicalized separately from group watchlist items
+                  so TMDB-backed and manual entries can share product behavior
+                </li>
+                <li>
+                  Watchlist items are group-scoped and can be watched, snoozed,
+                  removed, or filtered for tonight eligibility
+                </li>
+                <li>
+                  Tonight sessions persist constraints, timing, AI metadata,
+                  status, winner fields, and watch-party handoff state
+                </li>
+                <li>
+                  Session candidates freeze an ordered deck, while votes enforce
+                  one mutable yes/no vote per user per session
+                </li>
+              </ul>
+            </MotionSection>
+          </section>
+
+          <section aria-labelledby="api-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="api-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                API Design
+              </SectionHeading>
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
+                <li>
+                  Protected REST routes handle auth, friends, groups, watchlist
+                  operations, TMDB search, session creation, voting, shuffle,
+                  end-session, and watch-party updates
+                </li>
+                <li>
+                  <code>/sessions/:id/ws</code> authorizes the cookie, verifies
+                  the user can read that session, sends a connected event, and
+                  keeps the socket alive with ping/pong
+                </li>
+                <li>
+                  <code>/groups/:id/watchlist/ws</code> uses the same cookie auth
+                  path and verifies group membership before subscribing a client
+                  to group watchlist events
+                </li>
+                <li>
+                  Mutations commit database changes first, then broadcast a
+                  reasoned event such as <code>vote_cast</code>,
+                  <code>item_added</code>, or <code>watch_party_updated</code>
+                </li>
+                <li>
+                  Pydantic response models keep pushed events intentionally
+                  small while the subsequent refetch returns the complete typed
+                  session or watchlist state
+                </li>
+              </ul>
             </MotionSection>
           </section>
 
@@ -322,89 +375,34 @@ const ArbiterPortfolioCaseStudy = () => {
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Group Membership</div>
+                <div>Invite-Only Group</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Shared Watchlist</div>
+                <div>Realtime Shared Watchlist</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Session Start</div>
+                <div>AI-Assisted Session Setup</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Voting Round</div>
+                <div>Frozen Candidate Deck</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Tie-break (if needed)</div>
+                <div>Realtime Vote Updates</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Winner Resolved</div>
+                <div>Deterministic Winner Resolution</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Shared Teleparty Room Generated</div>
-                <div className="text-pink-500" aria-hidden="true">
-                  ↓
-                </div>
-                <div>Group Join Flow</div>
+                <div>Leader-Controlled Teleparty Handoff</div>
               </div>
             </MotionSection>
           </section>
-
-          <section aria-labelledby="handoff-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading
-                symbol="cross"
-                headingId="handoff-heading"
-                className="my-6"
-                headingClassName="font-bold text-center whitespace-normal"
-              >
-                Decision-to-Watch Handoff
-              </SectionHeading>
-              <p className="text-white text-sm md:text-base leading-relaxed">
-                Arbiter does not stop at choosing a winner. Once a title is
-                resolved, the platform can generate a shared Teleparty room link
-                and surface it to the full group as part of the session outcome.
-                <br />
-                <br />
-                That removes one of the most annoying parts of group streaming:
-                somebody manually creating a room, copying a link, and sending
-                it out through text threads or side channels while everyone
-                waits.
-                <br />
-                <br />
-                Instead, Arbiter turns the final step into a coordinated
-                handoff: choose together, resolve once, then let everyone join
-                the same watch session with a single click.
-              </p>
-            </MotionSection>
-          </section>
-
-          {/*
-            Add screenshots here later, before Engineering Highlights.
-
-            <section aria-labelledby="screenshots-heading">
-              <MotionSection delay={0.1}>
-                <SectionHeading
-                  symbol="cross"
-                  headingId="screenshots-heading"
-                  className="my-6"
-                  headingClassName="font-bold text-center whitespace-normal"
-                >
-                  Screenshots
-                </SectionHeading>
-                <p className="text-white/75 text-xs md:text-sm leading-relaxed text-center max-w-2xl mx-auto mb-4">
-                  Selected product views showing session flow, shared voting,
-                  and winner resolution across the app.
-                </p>
-                <Slider array={imageArr} />
-              </MotionSection>
-            </section>
-          */}
 
           <section aria-labelledby="highlights-heading">
             <MotionSection delay={0.1}>
@@ -420,20 +418,77 @@ const ArbiterPortfolioCaseStudy = () => {
               <div className="space-y-10">
                 <div className="space-y-2">
                   <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>Stateful Session Orchestration</span>
+                    <span>Realtime Hub Fanout</span>
                     <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      watch-picker-api/app/services/sessions.py
+                      watch-picker-api/app/services/session_realtime.py
                     </span>
                   </div>
 
                   <CodeBlock
-                    html={codeSnippetHtml.arbiter.statefulSessionOrchestration}
+                    html={codeSnippetHtml.arbiter.websocketHubFanout}
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
-                    Multi-user readiness model that prevents premature deck
-                    start and keeps all participants synchronized before
-                    swiping.
+                    The backend keeps per-session socket sets behind an async
+                    lock, broadcasts compact update events, and prunes dead
+                    sockets without blocking the underlying domain mutation.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+                    <span>Authenticated WebSocket Routes</span>
+                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
+                      watch-picker-api/app/api/routes/sessions.py
+                    </span>
+                  </div>
+
+                  <CodeBlock
+                    html={codeSnippetHtml.arbiter.authenticatedWebsocketRoute}
+                  />
+
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    Websocket access uses the same auth cookie as REST routes
+                    and performs a real session-state permission read before the
+                    socket is accepted.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+                    <span>Client Reconnect + Query Invalidation</span>
+                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
+                      arbiter/src/pages/session/hooks/useSessionRealtime.ts
+                    </span>
+                  </div>
+
+                  <CodeBlock
+                    html={codeSnippetHtml.arbiter.sessionRealtimeHook}
+                  />
+
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    The frontend reconnects after disconnects, sends periodic
+                    pings, and invalidates only the active session-state query
+                    when the server announces a matching session update.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+                    <span>Watchlist Realtime Cache Sync</span>
+                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
+                      arbiter/src/pages/HomePage/hooks/useWatchlistRealtime.ts
+                    </span>
+                  </div>
+
+                  <CodeBlock
+                    html={codeSnippetHtml.arbiter.watchlistRealtimeInvalidation}
+                  />
+
+                  <p className="text-white/70 text-xs leading-relaxed">
+                    Group watchlist changes now propagate to every connected
+                    member by invalidating both the paginated library and the
+                    compact watchlist query keys.
                   </p>
                 </div>
 
@@ -450,67 +505,9 @@ const ArbiterPortfolioCaseStudy = () => {
                   />
 
                   <p className="text-white/70 text-xs leading-relaxed">
-                    Winner logic is transparent, deterministic, and testable:
-                    highest YES, then lowest NO, then seeded random for stable
-                    fallback behavior.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>Frontend Vote Integrity + Persistence</span>
-                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      arbiter/src/pages/session/hooks/useSessionFlow.ts
-                    </span>
-                  </div>
-
-                  <CodeBlock
-                    html={codeSnippetHtml.arbiter.frontendVoteIntegrityPersistence}
-                  />
-
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    Enforces one vote submission per card/round while persisting
-                    per-session card index so refreshes do not break user
-                    progress.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>AI Parsing + Rerank with Safe Fallbacks</span>
-                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      watch-picker-api/app/services/ai.py
-                    </span>
-                  </div>
-
-                  <CodeBlock
-                    html={codeSnippetHtml.arbiter.aiParsingRerankFallbacks}
-                  />
-
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    AI first normalizes free-text intent into structured
-                    constraints, then optionally reranks candidate media. If
-                    parsing or reranking fails, the system falls back to
-                    deterministic logic rather than blocking the session.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>Teleparty Validation + Leader-Only Control</span>
-                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      watch-picker-api/app/services/sessions.py
-                    </span>
-                  </div>
-
-                  <CodeBlock
-                    html={codeSnippetHtml.arbiter.telepartyValidationLeaderControl}
-                  />
-
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    Teleparty is treated as a post-resolution action with strict
-                    host allowlisting and owner-only permissions to prevent
-                    unsafe links and unauthorized session edits.
+                    Winner logic stays transparent and testable: highest YES,
+                    then lowest NO, then seeded random fallback behavior when a
+                    tie remains.
                   </p>
                 </div>
               </div>
@@ -542,12 +539,58 @@ const ArbiterPortfolioCaseStudy = () => {
                   actions, and watch-party link updates
                 </li>
                 <li>
+                  Websocket routes reject unauthorized clients with
+                  <code> WS_1008_POLICY_VIOLATION </code> before accepting a
+                  subscription
+                </li>
+                <li>
+                  Reconnect timers, ping/pong keepalives, and server-side socket
+                  cleanup keep realtime behavior resilient to network drops
+                </li>
+                <li>
                   Input/schema validation via Pydantic and Zod-compatible typed
                   contracts across API boundaries
                 </li>
                 <li>
                   Integration test coverage across auth, watchlist semantics,
                   sessions, votes, AI behavior, and configuration edge cases
+                </li>
+              </ul>
+            </MotionSection>
+          </section>
+
+          <section aria-labelledby="performance-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="performance-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                Performance Considerations
+              </SectionHeading>
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
+                <li>
+                  Websockets remove session and watchlist polling pressure while
+                  preserving REST endpoints as the source of truth
+                </li>
+                <li>
+                  Realtime messages carry IDs and reasons instead of full decks
+                  or watchlist payloads, limiting bandwidth and stale-client
+                  edge cases
+                </li>
+                <li>
+                  React Query invalidation scopes refreshes to affected session
+                  or group cache keys rather than blasting the whole app cache
+                </li>
+                <li>
+                  TMDB search uses short-lived caching, and session candidates
+                  are frozen once created so every user swipes the same deck
+                </li>
+                <li>
+                  Async SQLAlchemy and async route handlers keep external calls,
+                  database work, and realtime broadcasts from serializing the
+                  entire request path unnecessarily
                 </li>
               </ul>
             </MotionSection>
@@ -561,31 +604,31 @@ const ArbiterPortfolioCaseStudy = () => {
                 className="my-6"
                 headingClassName="font-bold text-center whitespace-normal"
               >
-                Engineering Outcomes
+                Technical Outcomes
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-none">
                 <li>
-                  Demonstrates end-to-end ownership across product UX, API
-                  design, data modeling, authentication, and deployment
-                  workflows
+                  Replaced polling-oriented collaborative updates with
+                  websocket-triggered cache invalidation for sessions and shared
+                  watchlists
                 </li>
                 <li>
-                  Shows strong systems thinking through deterministic
-                  algorithms, explicit state transitions, and clear failure-mode
-                  handling
+                  Preserved backend authority by keeping writes and full state
+                  reads on typed REST endpoints
                 </li>
                 <li>
-                  Balances AI assistance with strict validation, retries, and
-                  graceful degradation
+                  Added realtime coverage for vote casting, vote undo, session
+                  creation, shuffle, session end, watch-party updates, and
+                  watchlist mutations
                 </li>
                 <li>
-                  Delivers collaboration-focused product logic rather than
-                  isolated CRUD screens
+                  Kept winner resolution deterministic and auditable even as
+                  clients became realtime
                 </li>
                 <li>
-                  Includes production-grade concerns often skipped in portfolio
-                  projects: legal flows, cookie policy controls, migration
-                  discipline, and test coverage
+                  Expanded the project beyond CRUD into a collaborative product
+                  system with auth, social gating, AI fallback behavior,
+                  migration discipline, and integration tests
                 </li>
               </ul>
             </MotionSection>
@@ -601,6 +644,40 @@ const ArbiterPortfolioCaseStudy = () => {
             </MotionSection>
           </section>
 
+          <section aria-labelledby="lessons-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="lessons-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                Lessons Learned
+              </SectionHeading>
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
+                <li>
+                  Realtime collaboration is easier to reason about when
+                  websocket events invalidate authoritative server state instead
+                  of trying to become the state model themselves
+                </li>
+                <li>
+                  Cookie-authenticated websocket routes need the same permission
+                  checks as REST routes, especially when group membership
+                  controls product access
+                </li>
+                <li>
+                  Small event payloads make reconnects and stale tabs less
+                  risky because the next REST fetch repairs the client view
+                </li>
+                <li>
+                  Deterministic product rules matter more once the UI updates in
+                  realtime because users can immediately see inconsistent
+                  outcomes
+                </li>
+              </ul>
+            </MotionSection>
+          </section>
+
           {/* Future Enhancements */}
           <section aria-labelledby="improvements-heading">
             <MotionSection delay={0.1}>
@@ -613,12 +690,19 @@ const ArbiterPortfolioCaseStudy = () => {
                 Future Enhancements
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
-                <li>WebSocket session updates instead of polling</li>
                 <li>
                   Group preference modeling for personalized candidate decks
                 </li>
+                <li>
+                  Presence indicators that show who is online, idle, or
+                  currently voting in a session
+                </li>
                 <li>Streaming AI rerank to reduce perceived latency</li>
                 <li>Watch-party integrations beyond Teleparty</li>
+                <li>
+                  Durable pub/sub or managed realtime infrastructure for
+                  multi-instance API scaling beyond the current in-memory hub
+                </li>
               </ul>
             </MotionSection>
           </section>

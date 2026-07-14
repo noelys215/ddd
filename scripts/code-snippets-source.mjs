@@ -163,17 +163,58 @@ useMotionValueEvent(scrollProgress, "change", (value: number) => {
     },
   },
   arbiter: {
-    statefulSessionOrchestration: {
+    websocketHubFanout: {
       lang: "py",
-      code: `if phase == "collecting" and (all_dealt or len(member_ids) <= 1):
-    out_candidates = await _finalize_collecting_to_swipe(
-        db,
-        s=sess,
-        runtime=runtime,
-        member_ids=member_ids,
-        now=now,
-    )
-    phase = "swiping"`,
+      code: `async def broadcast_session_updated(self, session_id: UUID, *, reason: str) -> None:
+    async with self._lock:
+        sockets = list(self._connections.get(session_id, set()))
+
+    payload = {
+        "type": "session_updated",
+        "session_id": str(session_id),
+        "reason": reason,
+    }
+    for websocket in sockets:
+        await websocket.send_json(payload)`,
+    },
+    authenticatedWebsocketRoute: {
+      lang: "py",
+      code: `@router.websocket("/sessions/{session_id}/ws")
+async def session_updates_ws(websocket: WebSocket, session_id: UUID):
+    access_token = websocket.cookies.get(COOKIE_NAME)
+    async for db in get_db():
+        user = await get_user_from_access_token(db, access_token)
+        await get_session_state(db, session_id=session_id, user_id=user.id)
+        break
+
+    await session_realtime_hub.connect(session_id, websocket)
+    await websocket.send_json({"type": "session_connected", "session_id": str(session_id)})`,
+    },
+    sessionRealtimeHook: {
+      lang: "ts",
+      code: `socket.onmessage = (event) => {
+  const message = JSON.parse(String(event.data)) as SessionRealtimeMessage;
+
+  if (message?.type === "session_updated" && message.session_id === sessionId) {
+    void queryClient.invalidateQueries({
+      queryKey: ["session-state", sessionId],
+      exact: true,
+    });
+  }
+};
+
+socket.onclose = () => scheduleReconnect();`,
+    },
+    watchlistRealtimeInvalidation: {
+      lang: "ts",
+      code: `if (message?.type === "watchlist_updated" && message.group_id === groupId) {
+  void queryClient.invalidateQueries({
+    queryKey: ["watchlist-library", groupId],
+  });
+  void queryClient.invalidateQueries({
+    queryKey: ["watchlist", groupId],
+  });
+}`,
     },
     deterministicResolutionTieStrategy: {
       lang: "py",
@@ -185,47 +226,6 @@ no_tied = [item_id for item_id in yes_tied if stats[item_id]["no"] == min_no]
 ...
 rng = random.Random(str(s.id))
 return rng.choice(sorted(tied_ids, key=lambda x: str(x)))`,
-    },
-    frontendVoteIntegrityPersistence: {
-      lang: "ts",
-      code: `const voteKey = \`\${sessionRound}:\${card.watchlist_item_id}\`;
-if (processedVotesRef.current.has(voteKey)) return;
-processedVotesRef.current.add(voteKey);
-...
-localStorage.setItem(cardIndexStorageKey, String(currentIndex));`,
-    },
-    aiParsingRerankFallbacks: {
-      lang: "py",
-      code: `if text and text.strip():
-    try:
-        refined = await ai_parse_constraints(baseline=base, text=text.strip())
-    except AIError:
-        refined = base
-
-try:
-    rerank = await ai_rerank_candidates(
-        constraints=refined,
-        candidates=candidates_payload,
-    )
-    if len(valid_ids) >= min_valid:
-        final_order = ordered
-        ai_used = True
-        ai_why = rerank.why
-except AIError:
-    pass`,
-    },
-    telepartyValidationLeaderControl: {
-      lang: "py",
-      code: `if s.group.owner_id != user_id:
-    raise PermissionError("Only the group leader can set the Teleparty link")
-
-normalized = _normalize_watch_party_url(url)
-if normalized and s.result_watchlist_item_id is None:
-    raise ValueError("Pick a winner before sharing a Teleparty link")
-
-if not any(host == allowed or host.endswith(f".{allowed}") 
-    for allowed in WATCH_PARTY_ALLOWED_HOSTS):
-        raise ValueError("watch party URL must be a Teleparty link")`,
     },
   },
 };
