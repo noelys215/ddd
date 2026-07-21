@@ -28,8 +28,8 @@ const imageArr = [
       { src: arbiterHomeMp4, type: "video/mp4" },
     ],
   },
-  { src: arbiterAiSelection, alt: "Arbiter AI selection" },
-  { src: arbiterAiDeckDelt, alt: "Arbiter AI deck dealt" },
+  { src: arbiterAiSelection, alt: "Arbiter movie-night preferences" },
+  { src: arbiterAiDeckDelt, alt: "Arbiter candidate deck" },
   { src: arbiterWaitingRoom, alt: "Arbiter waiting room" },
   {
     kind: "video" as const,
@@ -69,8 +69,8 @@ const ArbiterPortfolioCaseStudy = () => {
               <li>
                 <Meta>Type</Meta>
                 <span>
-                  Full-stack collaborative decision platform for groups choosing
-                  what to watch
+                  Full-stack social movie-night platform for building a shared
+                  shortlist, deciding together, and preserving the result
                 </span>
               </li>
               <li>
@@ -83,37 +83,38 @@ const ArbiterPortfolioCaseStudy = () => {
               <li>
                 <Meta>Role</Meta>
                 <span>
-                  Product engineering across frontend architecture, backend
-                  domain modeling, auth systems, AI integration, and delivery
-                  workflows
+                  End-to-end product ownership: UX, frontend architecture,
+                  backend domain design, realtime systems, security, testing,
+                  and deployment
                 </span>
               </li>
               <li>
                 <Meta>Stack</Meta>
                 <span>
-                  React 19 | TypeScript | Vite 7 | HeroUI | Tailwind 4 | React
-                  Query 5 | Framer Motion | FastAPI | SQLAlchemy (async) |
-                  PostgreSQL | Alembic | Pydantic | OpenAI Responses API
+                  React 19 | TypeScript | Vite 7 | HeroUI 3 | Tailwind 4 |
+                  TanStack Query 5 | Framer Motion | FastAPI | async SQLAlchemy |
+                  PostgreSQL | Redis | Alembic | Pydantic | TMDB | OpenAI
                 </span>
               </li>
               <li>
                 <Meta>Auth</Meta>
                 <span>
-                  HttpOnly JWT cookies + Google OAuth + magic-link email login
+                  Revocable HttpOnly cookie sessions + Google OAuth identity
+                  binding + one-time magic-link login
                 </span>
               </li>
               <li>
                 <Meta>Scale</Meta>
                 <span>
-                  31 API endpoints · 12 SQLAlchemy models · 13 migrations · 12
-                  integration test modules
+                  55 HTTP routes · 3 WebSocket channels · 17 domain models · 24
+                  migrations · 35 backend test modules
                 </span>
               </li>
               <li>
                 <Meta>Infra</Meta>
                 <span>
                   Vercel frontend routing + Render deployment config for API +
-                  managed Postgres + predeploy migrations
+                  managed Postgres + Redis + predeploy migrations
                 </span>
               </li>
               <li>
@@ -141,16 +142,18 @@ const ArbiterPortfolioCaseStudy = () => {
                 Overview
               </SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
-                Arbiter is a realtime group decision platform for deciding what
-                to watch. The product combines social graph constraints,
-                group-scoped watchlists, AI-assisted deck generation,
-                deterministic voting, and a post-decision Teleparty handoff.
+                Arbiter turns the recurring “what should we watch?” argument
+                into a shared ritual. Friends maintain a private group
+                watchlist, describe what the night should feel like, and vote
+                through the same synchronized deck until Arbiter resolves a
+                winner.
                 <br />
                 <br />
-                The major engineering update was moving collaborative state from
-                polling to websocket-driven invalidation. Session pages and
-                group watchlists now receive lightweight server events after
-                writes, then refresh the authoritative React Query cache.
+                The decision is not disposable. Arbiter freezes a durable
+                historical snapshot of the group, participants, candidates,
+                mood, constraints, and outcome. Completed nights become an
+                editorial archive, deterministic group insights, and private
+                high-resolution cards that can be downloaded or shared.
               </p>
             </MotionSection>
           </section>
@@ -166,17 +169,127 @@ const ArbiterPortfolioCaseStudy = () => {
                 Problem
               </SectionHeading>
               <p className="text-white text-sm md:text-base leading-relaxed">
-                Choosing what to watch in a group usually devolves into chaotic
-                messaging threads, uneven participation, and decision fatigue.
+                Streaming catalogues solve discovery, but not coordination.
+                Group movie nights still break down across scattered text
+                threads, duplicated suggestions, dominant voices, forgotten
+                recommendations, and an exhausting final choice.
                 <br />
                 <br />
-                Existing products focus on media discovery, not collaborative
-                coordination. The actual challenge is turning subjective group
-                preference negotiation into a fast, fair, and repeatable
-                decision process that stays synchronized while several users
-                are adding titles, voting, undoing votes, shuffling, ending
-                sessions, or sharing the final watch-party link.
+                Arbiter creates one trusted source of truth: who is in the
+                group, what everyone is willing to watch, what tonight calls
+                for, and how the winner was chosen. The product reduces decision
+                fatigue without replacing taste with a black-box recommendation
+                engine, then preserves the night so the group builds a shared
+                identity over time.
               </p>
+            </MotionSection>
+          </section>
+
+          <section aria-labelledby="features-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="features-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                Product Features
+              </SectionHeading>
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
+                <li>
+                  Google OAuth and one-time magic-link authentication, unique
+                  public usernames, customizable avatars, and a discreet
+                  first-time product tour
+                </li>
+                <li>
+                  Persistent friendships with username/email discovery,
+                  privacy-preserving requests, blocking, in-app invitations,
+                  and realtime notification badges
+                </li>
+                <li>
+                  Private groups with friend-based membership, owner controls,
+                  ownership transfer, and authorization enforced on every
+                  group-scoped operation
+                </li>
+                <li>
+                  Realtime shared watchlists with TMDB search, manual titles,
+                  contributor attribution, filtering, snoozing, watched state,
+                  and removal workflows
+                </li>
+                <li>
+                  “Tonight Feels Like…” emotional cues, genre/runtime
+                  constraints, optional custom context, and an explainable deck
+                  built from the group’s own shortlist
+                </li>
+                <li>
+                  Synchronized voting, vote undo, waiting-room state, tie
+                  resolution, leader controls, deterministic winners, and a
+                  safe Teleparty handoff
+                </li>
+                <li>
+                  Durable Movie Night History with participant and candidate
+                  snapshots, watched confirmation, completed-night details,
+                  and graceful handling of mutable or deleted source data
+                </li>
+                <li>
+                  Rich movie details with group-specific context, historical
+                  appearances, missing-artwork fallbacks, and active-vote
+                  privacy
+                </li>
+                <li>
+                  Server-calculated Insights and Group Personality: activity,
+                  taste, decision patterns, records, positive member
+                  highlights, sample thresholds, and explainable supporting
+                  facts
+                </li>
+                <li>
+                  Three adaptive Movie Night Card templates in square and
+                  portrait formats, deterministic artwork/typography, strict
+                  privacy sanitization, 1080px PNG export, native sharing, and
+                  download fallback
+                </li>
+                <li>
+                  In-app feedback with explicit diagnostic consent, hidden
+                  recipient configuration, honeypot protection, idempotent
+                  Resend delivery, and distributed rate limiting
+                </li>
+              </ul>
+            </MotionSection>
+          </section>
+
+          <section aria-labelledby="how-to-use-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="how-to-use-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                How It Works
+              </SectionHeading>
+              <ol className="text-white text-sm md:text-base leading-relaxed space-y-3 list-decimal pl-5">
+                <li>
+                  Sign in, connect with friends by username or email, then
+                  create a private movie-night group.
+                </li>
+                <li>
+                  Build the shared shortlist together by searching TMDB or
+                  adding a title manually.
+                </li>
+                <li>
+                  Start a Movie Night, choose up to three mood cues, and add
+                  optional genre, runtime, or custom context.
+                </li>
+                <li>
+                  Everyone votes through the same realtime deck. Arbiter keeps
+                  clients synchronized and resolves the winner consistently.
+                </li>
+                <li>
+                  Confirm whether the group watched it, revisit the night in
+                  History, explore evolving Insights, or create a private
+                  shareable card.
+                </li>
+              </ol>
             </MotionSection>
           </section>
 
@@ -192,25 +305,25 @@ const ArbiterPortfolioCaseStudy = () => {
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
-                  React 19, TypeScript, Vite 7, HeroUI, Tailwind 4, Framer
-                  Motion, and React Query for the client application
+                  React 19, TypeScript, Vite 7, HeroUI 3, Tailwind 4, Framer
+                  Motion, Driver.js, and TanStack Query for the client
                 </li>
                 <li>
                   FastAPI, async SQLAlchemy, Pydantic, Alembic, and PostgreSQL
                   for the API and persistence layer
                 </li>
                 <li>
-                  Native browser WebSocket clients connected to FastAPI
-                  websocket routes for realtime session and watchlist events
+                  FastAPI WebSocket hubs for account notifications, shared
+                  watchlists, and synchronized voting sessions
                 </li>
                 <li>
-                  TMDB for title metadata, OpenAI for optional constraint
-                  parsing and candidate reranking, Google OAuth and magic links
-                  for authentication
+                  TMDB for movie metadata, OpenAI as an optional bounded
+                  constraint/reranking layer, Resend for transactional email,
+                  and Redis for distributed abuse controls
                 </li>
                 <li>
-                  Vercel for the frontend, Render for the API, managed Postgres,
-                  and predeploy migrations
+                  Vercel for the frontend; Render for the API, managed Postgres,
+                  Redis, health checks, and Alembic predeploy migrations
                 </li>
               </ul>
             </MotionSection>
@@ -269,7 +382,7 @@ const ArbiterPortfolioCaseStudy = () => {
                   </div>
 
                   <div className="font-mono tracking-wide">
-                    External APIs: TMDB, OpenAI, OAuth, Email
+                    External Services: TMDB, OpenAI, OAuth, Resend, Redis
                   </div>
                 </div>
               </div>
@@ -296,8 +409,9 @@ const ArbiterPortfolioCaseStudy = () => {
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
-                  Users, friendships, groups, and group memberships model the
-                  social permission boundary before collaboration starts
+                  Users, revocable auth sessions, OAuth identities, one-time
+                  magic-link grants, friendships, blocks, groups, invitations,
+                  and memberships model identity and social permissions
                 </li>
                 <li>
                   Titles are canonicalized separately from group watchlist items
@@ -308,12 +422,24 @@ const ArbiterPortfolioCaseStudy = () => {
                   removed, or filtered for tonight eligibility
                 </li>
                 <li>
-                  Tonight sessions persist constraints, timing, AI metadata,
-                  status, winner fields, and watch-party handoff state
+                  Movie-night sessions use explicit lifecycle states and persist
+                  structured mood/genre/runtime criteria, timing, winner fields,
+                  and safe watch-party handoff facts
                 </li>
                 <li>
-                  Session candidates freeze an ordered deck, while votes enforce
-                  one mutable yes/no vote per user per session
+                  Session candidates freeze an ordered deck, while database
+                  constraints enforce one mutable yes/no vote per user and
+                  candidate
+                </li>
+                <li>
+                  Completion is transactional and idempotent. Historical
+                  participant, candidate, group, criteria, and outcome snapshots
+                  remain intelligible after current records change
+                </li>
+                <li>
+                  Partial unique indexes and row-level transaction boundaries
+                  protect pending requests, active sessions, membership, voting,
+                  completion, and concurrent acceptance flows
                 </li>
               </ul>
             </MotionSection>
@@ -331,9 +457,10 @@ const ArbiterPortfolioCaseStudy = () => {
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
-                  Protected REST routes handle auth, friends, groups, watchlist
-                  operations, TMDB search, session creation, voting, shuffle,
-                  end-session, and watch-party updates
+                  Explicit Pydantic request/response contracts cover auth,
+                  profiles, friends, blocks, groups, invitations, watchlists,
+                  sessions, completion, History, movie context, Insights, and
+                  feedback
                 </li>
                 <li>
                   <code>/sessions/:id/ws</code> authorizes the cookie, verifies
@@ -347,13 +474,15 @@ const ArbiterPortfolioCaseStudy = () => {
                 </li>
                 <li>
                   Mutations commit database changes first, then broadcast a
-                  reasoned event such as <code>vote_cast</code>,
-                  <code>item_added</code>, or <code>watch_party_updated</code>
+                  semantic event such as <code>vote_cast</code>,
+                  <code>session_completed</code>, or
+                  <code>history_updated</code>
                 </li>
                 <li>
-                  Pydantic response models keep pushed events intentionally
-                  small while the subsequent refetch returns the complete typed
-                  session or watchlist state
+                  Server-side analytics centralize metric definitions,
+                  eligibility thresholds, deterministic personality rules, and
+                  data-quality notes instead of duplicating calculations in
+                  React
                 </li>
               </ul>
             </MotionSection>
@@ -371,11 +500,11 @@ const ArbiterPortfolioCaseStudy = () => {
               </SectionHeading>
 
               <div className="text-center space-y-2 text-sm md:text-base text-white/85">
-                <div>Friendship Invite</div>
+                <div>Connect with Friends</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>Invite-Only Group</div>
+                <div>Create a Private Group</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
@@ -383,7 +512,7 @@ const ArbiterPortfolioCaseStudy = () => {
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
-                <div>AI-Assisted Session Setup</div>
+                <div>Choose Tonight’s Mood + Constraints</div>
                 <div className="text-pink-500" aria-hidden="true">
                   ↓
                 </div>
@@ -400,6 +529,14 @@ const ArbiterPortfolioCaseStudy = () => {
                   ↓
                 </div>
                 <div>Leader-Controlled Teleparty Handoff</div>
+                <div className="text-pink-500" aria-hidden="true">
+                  ↓
+                </div>
+                <div>Durable History + Watched Confirmation</div>
+                <div className="text-pink-500" aria-hidden="true">
+                  ↓
+                </div>
+                <div>Group Insights + Shareable Keepsake</div>
               </div>
             </MotionSection>
           </section>
@@ -526,17 +663,19 @@ const ArbiterPortfolioCaseStudy = () => {
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
-                  Cookie-based authentication with <code>HttpOnly</code>,
-                  configurable <code>SameSite</code>, secure cookie defaults in
-                  production, and JWT expiry controls
+                  Database-backed auth sessions use typed JWT claims, rotation
+                  identifiers, expiry, server-side revocation, and production
+                  <code> HttpOnly </code>/<code> Secure </code> cookie policy
                 </li>
                 <li>
-                  Multiple auth strategies: email/password, Google OAuth, and
-                  one-time expiring magic links
+                  Google accounts bind to verified provider subjects; magic
+                  links use short-lived, hashed, one-time grants with replay
+                  prevention
                 </li>
                 <li>
-                  Explicit permission checks for group membership, owner-only
-                  actions, and watch-party link updates
+                  Object-level authorization covers friendships, group
+                  membership, owner-only mutations, sessions, History,
+                  Insights, artwork, cards, and watch-party updates
                 </li>
                 <li>
                   Websocket routes reject unauthorized clients with
@@ -548,12 +687,20 @@ const ArbiterPortfolioCaseStudy = () => {
                   cleanup keep realtime behavior resilient to network drops
                 </li>
                 <li>
-                  Input/schema validation via Pydantic and Zod-compatible typed
-                  contracts across API boundaries
+                  Strict schemas, body/field limits, URL allowlists, CORS and
+                  Origin checks, security headers, privacy-minimized response
+                  models, and generic public errors harden browser/API boundaries
                 </li>
                 <li>
-                  Integration test coverage across auth, watchlist semantics,
-                  sessions, votes, AI behavior, and configuration edge cases
+                  Redis-backed rate limits cover authentication, social
+                  mutations, TMDB search, and feedback without pretending that
+                  per-process memory is production-safe
+                </li>
+                <li>
+                  Automated coverage includes cross-user authorization, auth
+                  replay/revocation, WebSocket origin and room isolation,
+                  injection/URL handling, privacy sanitization, and migration
+                  behavior
                 </li>
               </ul>
             </MotionSection>
@@ -581,7 +728,8 @@ const ArbiterPortfolioCaseStudy = () => {
                 </li>
                 <li>
                   React Query invalidation scopes refreshes to affected session
-                  or group cache keys rather than blasting the whole app cache
+                  History, Insights, account, or group cache keys rather than
+                  invalidating the whole application
                 </li>
                 <li>
                   TMDB search uses short-lived caching, and session candidates
@@ -591,6 +739,16 @@ const ArbiterPortfolioCaseStudy = () => {
                   Async SQLAlchemy and async route handlers keep external calls,
                   database work, and realtime broadcasts from serializing the
                   entire request path unnecessarily
+                </li>
+                <li>
+                  Route-level code splitting keeps Insights, Movie Detail,
+                  feedback, avatar editing, card creation, Driver.js, and image
+                  export outside the initial entry bundle until needed
+                </li>
+                <li>
+                  High-resolution card generation loads on demand, waits for
+                  fonts/artwork, bounds canvas work, and releases object URLs
+                  instead of generating a PNG after every preview change
                 </li>
               </ul>
             </MotionSection>
@@ -608,27 +766,80 @@ const ArbiterPortfolioCaseStudy = () => {
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-none">
                 <li>
-                  Replaced polling-oriented collaborative updates with
-                  websocket-triggered cache invalidation for sessions and shared
-                  watchlists
+                  Evolved a movie picker into a coherent social product spanning
+                  identity, friendships, groups, shared libraries, synchronized
+                  decisions, memories, and group-level interpretation
                 </li>
                 <li>
                   Preserved backend authority by keeping writes and full state
                   reads on typed REST endpoints
                 </li>
                 <li>
-                  Added realtime coverage for vote casting, vote undo, session
-                  creation, shuffle, session end, watch-party updates, and
-                  watchlist mutations
+                  Designed a durable completion architecture so historical
+                  nights survive watchlist removals, changed profiles, departed
+                  members, metadata drift, and retried requests
                 </li>
                 <li>
-                  Kept winner resolution deterministic and auditable even as
-                  clients became realtime
+                  Built explainable Insights and Group Personality on centralized
+                  definitions, minimum sample thresholds, missing-data handling,
+                  and deterministic rules rather than opaque AI claims
                 </li>
                 <li>
-                  Expanded the project beyond CRUD into a collaborative product
-                  system with auth, social gating, AI fallback behavior,
-                  migration discipline, and integration tests
+                  Delivered a reusable cinematic presentation/export system with
+                  adaptive artwork, title fitting, privacy-safe payloads, exact
+                  output dimensions, native sharing, and browser fallbacks
+                </li>
+                <li>
+                  Completed a controlled HeroUI 2-to-3 migration, bundle/code
+                  splitting pass, accessibility regression audit, and full-stack
+                  security hardening without rewriting the product architecture
+                </li>
+              </ul>
+            </MotionSection>
+          </section>
+
+          <section aria-labelledby="ownership-heading">
+            <MotionSection delay={0.1}>
+              <SectionHeading
+                symbol="cross"
+                headingId="ownership-heading"
+                className="my-6"
+                headingClassName="font-bold text-center whitespace-normal"
+              >
+                What This Project Demonstrates
+              </SectionHeading>
+              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
+                <li>
+                  Product judgment: turning an ambiguous social problem into a
+                  focused loop that balances fairness, privacy, delight, and
+                  progressive disclosure
+                </li>
+                <li>
+                  Systems design: transactional domain invariants, durable
+                  snapshots, idempotency, realtime recovery, distributed rate
+                  limiting, and safe external-service boundaries
+                </li>
+                <li>
+                  Frontend depth: React architecture, cache ownership, responsive
+                  editorial UI, accessible overlays/forms, reduced motion,
+                  deterministic image export, and route-level performance work
+                </li>
+                <li>
+                  Backend depth: FastAPI contracts, async SQLAlchemy, Alembic
+                  migration discipline, authorization, WebSocket isolation,
+                  analytics aggregation, and concurrency-aware services
+                </li>
+                <li>
+                  Operational ownership: Vercel/Render deployment, predeploy
+                  migrations, production configuration validation, security
+                  headers, secret boundaries, Redis-backed abuse controls, and
+                  provider failure handling
+                </li>
+                <li>
+                  Quality discipline: 100 frontend tests and 275 backend tests,
+                  plus TypeScript, ESLint, Ruff, production builds, accessibility
+                  scans, responsive Playwright journeys, and security regression
+                  coverage
                 </li>
               </ul>
             </MotionSection>
@@ -674,6 +885,26 @@ const ArbiterPortfolioCaseStudy = () => {
                   realtime because users can immediately see inconsistent
                   outcomes
                 </li>
+                <li>
+                  Historical products need immutable presentation snapshots, not
+                  joins against today’s mutable names, memberships, artwork, and
+                  watchlist rows
+                </li>
+                <li>
+                  Playful analytics earn trust when every label maps to explicit
+                  metrics, minimum sample sizes, stable tie-breaking, and visible
+                  supporting facts
+                </li>
+                <li>
+                  Framework migrations and security passes are safest when
+                  treated as controlled inventories with before/after browser
+                  journeys, not broad mechanical replacements
+                </li>
+                <li>
+                  Privacy is strongest as a data-shaping rule: cards, realtime
+                  events, diagnostics, logs, and API responses should never
+                  receive fields they do not need
+                </li>
               </ul>
             </MotionSection>
           </section>
@@ -691,17 +922,17 @@ const ArbiterPortfolioCaseStudy = () => {
               </SectionHeading>
               <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
                 <li>
-                  Group preference modeling for personalized candidate decks
+                  Annual Recap built from the existing durable History, Insights,
+                  artwork, typography, privacy, and export foundations
                 </li>
                 <li>
                   Presence indicators that show who is online, idle, or
                   currently voting in a session
                 </li>
-                <li>Streaming AI rerank to reduce perceived latency</li>
                 <li>Watch-party integrations beyond Teleparty</li>
                 <li>
-                  Durable pub/sub or managed realtime infrastructure for
-                  multi-instance API scaling beyond the current in-memory hub
+                  Managed pub/sub for WebSocket fanout across multiple API
+                  instances when usage requires horizontal realtime scaling
                 </li>
               </ul>
             </MotionSection>
