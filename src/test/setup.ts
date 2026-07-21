@@ -39,3 +39,19 @@ Object.defineProperties(window.HTMLMediaElement.prototype, {
     value: vi.fn(),
   },
 });
+
+Object.defineProperties(window.HTMLDialogElement.prototype, {
+  showModal: {
+    configurable: true,
+    value() {
+      this.setAttribute("open", "");
+    },
+  },
+  close: {
+    configurable: true,
+    value() {
+      this.removeAttribute("open");
+      this.dispatchEvent(new Event("close"));
+    },
+  },
+});

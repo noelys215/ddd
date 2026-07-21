@@ -1,5 +1,6 @@
+import { ArrowsOutSimpleIcon, XIcon } from "@phosphor-icons/react";
 import { useReducedMotion } from "framer-motion";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import CodeBlock from "../../../components/CodeBlock";
@@ -48,6 +49,120 @@ type MediaFrameProps = {
   className?: string;
 };
 
+function VideoLightbox({
+  media,
+  reducedMotion,
+  children,
+}: {
+  media: Extract<MediaItem, { kind: "video" }>;
+  reducedMotion: boolean;
+  children: ReactNode;
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const modalVideoRef = useRef<HTMLVideoElement>(null);
+  const previousBodyOverflow = useRef("");
+
+  const restorePage = () => {
+    document.body.style.overflow = previousBodyOverflow.current;
+    const modalVideo = modalVideoRef.current;
+    if (modalVideo) {
+      modalVideo.pause();
+      modalVideo.currentTime = 0;
+    }
+    if (!reducedMotion) {
+      void previewRef.current
+        ?.querySelector("video")
+        ?.play()
+        .catch(() => undefined);
+    }
+    triggerRef.current?.focus();
+  };
+
+  const openDialog = () => {
+    const dialog = dialogRef.current;
+    if (!dialog || dialog.open) return;
+
+    previousBodyOverflow.current = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    previewRef.current?.querySelector("video")?.pause();
+    dialog.showModal();
+    if (!reducedMotion) {
+      void modalVideoRef.current?.play().catch(() => undefined);
+    }
+  };
+
+  const closeDialog = () => {
+    dialogRef.current?.close();
+  };
+
+  useEffect(
+    () => () => {
+      if (dialogRef.current?.open) {
+        document.body.style.overflow = previousBodyOverflow.current;
+      }
+    },
+    [],
+  );
+
+  return (
+    <>
+      <div
+        ref={previewRef}
+        className="case-study-video-lightbox-trigger relative"
+        data-lightbox="case-study-video"
+      >
+        {children}
+        <button
+          ref={triggerRef}
+          type="button"
+          aria-label="Open video in lightbox"
+          className="group absolute inset-0 flex items-start justify-end p-3 text-white focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-pink-400"
+          onClick={openDialog}
+        >
+          <span className="flex size-11 items-center justify-center rounded-full border border-white/55 bg-black/65 shadow-lg transition-colors group-hover:border-pink-400 group-hover:bg-black/85 motion-reduce:transition-none">
+            <ArrowsOutSimpleIcon aria-hidden="true" size={20} weight="bold" />
+          </span>
+        </button>
+      </div>
+      <dialog
+        ref={dialogRef}
+        aria-label={`Expanded video: ${media.alt}`}
+        className="case-study-video-lightbox m-auto max-h-[calc(100dvh-2rem)] w-[min(94vw,80rem)] overflow-visible border-0 bg-transparent p-0 text-white"
+        onClose={restorePage}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) closeDialog();
+        }}
+      >
+        <div className="relative overflow-hidden rounded-md border border-white/20 bg-black shadow-[0_2rem_7rem_rgba(0,0,0,0.75)]">
+          <button
+            type="button"
+            aria-label="Close video"
+            className="absolute right-3 top-3 z-10 flex size-11 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white transition-colors hover:border-pink-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400 motion-reduce:transition-none"
+            onClick={closeDialog}
+          >
+            <XIcon aria-hidden="true" size={20} weight="bold" />
+          </button>
+          <video
+            ref={modalVideoRef}
+            className="block max-h-[calc(100dvh-2rem)] w-full bg-black object-contain"
+            controls
+            muted
+            playsInline
+            poster={media.poster}
+            preload="metadata"
+          >
+            {media.sources.map((source) => (
+              <source key={source.src} src={source.src} type={source.type} />
+            ))}
+          </video>
+        </div>
+      </dialog>
+    </>
+  );
+}
+
 export function MediaFrame({
   media,
   caption,
@@ -72,7 +187,9 @@ export function MediaFrame({
     <figure className={`min-w-0 ${className}`}>
       <div className="overflow-hidden rounded-md border border-white/15 bg-black/50 shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
         {isVideoMedia(media) ? (
-          mediaAsset
+          <VideoLightbox media={media} reducedMotion={Boolean(reducedMotion)}>
+            {mediaAsset}
+          </VideoLightbox>
         ) : (
           <div
             className="arbiter-image-lightbox-trigger"

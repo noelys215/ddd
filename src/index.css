@@ -273,6 +273,14 @@ summary:hover,
 	cursor: url("/src/assets/cursor/reticle-lock.svg") 32 32, zoom-in !important;
 }
 
+.case-study-video-lightbox-trigger > button {
+	cursor: url("/src/assets/cursor/reticle-lock.svg") 32 32, zoom-in;
+}
+
+.case-study-video-lightbox::backdrop {
+	background: rgba(3, 3, 3, 0.92);
+}
+
 .code-block {
 	min-width: 0;
 	width: 100%;

@@ -29,6 +29,15 @@ describe("MOD Worldwide portfolio case study", () => {
     expect(
       screen.getByRole("heading", { level: 2, name: "Platform Walkthrough" }),
     ).toBeInTheDocument();
+
+    const openVideo = screen.getByRole("button", {
+      name: "Open video in lightbox",
+    });
+    fireEvent.click(openVideo);
+    const dialog = screen.getByRole("dialog", { name: /expanded video/i });
+    expect(dialog).toHaveAttribute("open");
+    fireEvent.click(screen.getByRole("button", { name: "Close video" }));
+    expect(dialog).not.toHaveAttribute("open");
   });
 
   it("features three product moments and three engineering challenges", () => {
