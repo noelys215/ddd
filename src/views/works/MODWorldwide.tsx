@@ -1,390 +1,347 @@
-import { Badge } from "../../components/Badge";
-import Layout from "../../components/Layout";
-import { Meta } from "../../components/Meta";
-import MotionSection from "../../components/MotionSection";
-import { Slider } from "../../components/Silder";
-import { Title } from "../../components/Title";
+import { Link } from "react-router-dom";
 import CybersigilFrame from "../../components/CybersigilFrame";
-import modShot1 from "../../assets/works/modworldwide/MacBook Pro-1773000445376.jpeg";
-import modShot2 from "../../assets/works/modworldwide/MacBook Pro-1773000487175.jpeg";
-import modShot4 from "../../assets/works/modworldwide/MacBook Pro-1773000519270.jpeg";
-import CodeBlock from "../../components/CodeBlock";
-import SectionHeading from "../../components/SectionHeading";
-import { codeSnippetHtml } from "../../generated/codeSnippetHtml";
+import Layout from "../../components/Layout";
+import {
+  CaseStudySection,
+  EngineeringChallenge,
+  FlowDiagram,
+  MediaFrame,
+  ProductMoment,
+} from "./arbiter/ArbiterCaseStudyParts";
+import {
+  challenges,
+  engineeringNotes,
+  heroMedia,
+  productMoments,
+  qualityItems,
+} from "./modworldwide/modWorldwideContent";
+import {
+  MODArchitectureDiagram,
+  MODEngineeringNotes,
+} from "./modworldwide/MODWorldwideCaseStudyParts";
 
-const imageArr = [
-  { src: modShot1, alt: "MOD Worldwide portfolio homepage" },
-  { src: modShot2, alt: "MOD Worldwide work listing section" },
-  { src: modShot4, alt: "MOD Worldwide branded section layout" },
+const highlights = [
+  {
+    label: "Content system",
+    value: "16 JSON-defined routes from one rendering pipeline",
+  },
+  {
+    label: "Design system",
+    value: "20+ reusable blocks for layout, media, and motion",
+  },
+  {
+    label: "Delivery",
+    value: "Static generation with structured SEO and telemetry",
+  },
 ];
 
 const MODWorldwide = () => {
   return (
-    <Layout title="mod_worldwide">
-      <MotionSection delay={0.1}>
+    <Layout title="mod_worldwide_content_platform">
+      <main className="w-full">
         <CybersigilFrame
-          className="rounded-md min-w-0 max-w-4xl w-full p-4 md:p-8 lg:p-12 bg-black shadow-md mx-auto opacity-95"
-          style={{ backgroundColor: "#101010" }}
+          className="mx-auto min-w-0 w-full max-w-5xl rounded-md bg-black p-4 shadow-md opacity-95 sm:p-6 md:p-10 lg:p-14"
+          style={{ backgroundColor: "#0f0f0f" }}
           aria-labelledby="modworldwide-title"
         >
-          <Title title="Works">
-            MOD Worldwide<Badge>2025</Badge>
-          </Title>
+          <header>
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-10 flex flex-wrap items-center gap-2 text-sm text-white/55"
+            >
+              <Link
+                to="/"
+                className="text-pink-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
+              >
+                Home
+              </Link>
+              <span aria-hidden="true">/</span>
+              <Link
+                to="/works"
+                className="text-pink-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
+              >
+                Works
+              </Link>
+              <span aria-hidden="true">/</span>
+              <span aria-current="page">MOD Worldwide</span>
+            </nav>
 
-          <section
-            aria-labelledby="modworldwide-details"
-            className="my-4 text-white"
-          >
-            <ul className="space-y-1">
-              <li>
-                <Meta>Status</Meta>
-                <span className="text-green-50 text-xs uppercase font-semibold px-1.5 py-0.5 rounded-sm bg-green-700">
-                  Online
-                </span>
-              </li>
-              <li>
-                <Meta>Type</Meta>
-                <span>Marketing + case-study showcase platform</span>
-              </li>
-              <li>
-                <Meta>Role</Meta>
-                <span>
-                  Frontend architecture, block system, routing pipeline, and
-                  interaction engineering
-                </span>
-              </li>
-              <li>
-                <Meta>Impact</Meta>
-                <span>
-                  Reduced engineering involvement in content publishing by
-                  shifting the site to a JSON-driven content architecture.
-                </span>
-              </li>
-              <li>
-                <Meta>Scale</Meta>
-                <span>16 JSON-defined routes + 20+ reusable block types</span>
-              </li>
-              <li>
-                <Meta>Stack</Meta>
-                <span>
-                  Next.js 15 | React 19 | TypeScript | Tailwind CSS 4 | Motion |
-                  Lenis | PostHog
-                </span>
-              </li>
-              <li>
-                <Meta>Rendering</Meta>
-                <span>
-                  Static generation with structured JSON content routes
-                </span>
-              </li>
-              <li>
-                <Meta>Perf</Meta>
-                <span>
-                  ~102 KB shared first-load JS · ~183 KB dynamic route shell
-                </span>
-              </li>
-              <li>
-                <Meta>Visit</Meta>
+            <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12">
+              <div>
+                <p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-pink-400">
+                  Agency platform · 2025
+                </p>
+                <h1
+                  id="modworldwide-title"
+                  className="text-5xl font-semibold leading-none text-white sm:text-6xl md:text-7xl"
+                >
+                  MOD Worldwide
+                </h1>
+                <p className="mt-5 text-xl leading-tight text-white md:text-2xl">
+                  A modular publishing platform for an independent creative
+                  agency.
+                </p>
+                <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 md:text-base">
+                  MOD’s website turns structured JSON content into expressive
+                  case studies through a reusable React block system, giving
+                  creative teams more control without trading away motion,
+                  accessibility, or production consistency.
+                </p>
+
+                <dl className="mt-8 grid gap-x-6 gap-y-4 border-y border-white/10 py-5 text-sm sm:grid-cols-2">
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.16em] text-white/45">
+                      Role
+                    </dt>
+                    <dd className="mt-1 text-white/80">
+                      Frontend architecture and interaction engineering
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.16em] text-white/45">
+                      Scope
+                    </dt>
+                    <dd className="mt-1 text-white/80">
+                      Agency website and case-study platform
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.16em] text-white/45">
+                      Core stack
+                    </dt>
+                    <dd className="mt-1 text-white/80">
+                      Next.js · React · TypeScript · Tailwind CSS
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.16em] text-white/45">
+                      Status
+                    </dt>
+                    <dd className="mt-1 text-white/80">Live</dd>
+                  </div>
+                </dl>
+
                 <a
                   href="https://themoderati.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-pink-500 hover:underline"
+                  className="mt-7 inline-flex min-h-11 items-center rounded border border-pink-500/70 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-pink-500/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400 motion-reduce:transition-none"
                 >
-                  themoderati.com
+                  Visit MOD Worldwide ↗
                 </a>
-              </li>
-            </ul>
-          </section>
+              </div>
 
-          <section aria-labelledby="overview-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">Project Overview</SectionHeading>
-              <p className="text-white text-sm md:text-base leading-relaxed">
-                This project is MOD’s official website and case-study platform,
-                built from scratch through close collaboration between
-                engineering, designers, filmmakers, digital artists, project
-                managers, and agency stakeholders.
-                <br />
-                <br />
-                Instead of a traditional hardcoded marketing site, the platform
-                runs on structured JSON content, reusable React blocks, and a
-                routing pipeline that maps content definitions directly to URLs.
-                <br />
-                <br />
-                The result is a system that lets non-engineering teams publish
-                and iterate quickly while keeping design, motion, and
-                implementation quality consistent across the entire site.
-                <br />
-                <br />
-                This approach turns the website into a maintainable content
-                platform rather than a collection of static marketing pages.
-              </p>
-            </MotionSection>
-          </section>
+              <MediaFrame
+                media={heroMedia}
+                eager
+                caption="MOD’s live site combines editorial layouts, cinematic media, and a shared content-rendering system."
+              />
+            </div>
 
-          <section aria-labelledby="architecture-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">How It Works</SectionHeading>
-              <p className="text-white text-sm md:text-base leading-relaxed">
-                Request flow:
-              </p>
-              <p className="text-white text-sm md:text-base leading-relaxed mt-2">
-                Slug → JSON definition → ContentTransformer → React blocks →
-                Rendered page
-              </p>
-            </MotionSection>
-          </section>
+            <div className="mt-10 grid border-y border-white/10 sm:grid-cols-3">
+              {highlights.map((highlight) => (
+                <div
+                  key={highlight.label}
+                  className="border-b border-white/10 py-5 last:border-b-0 sm:border-b-0 sm:border-r sm:px-5 sm:first:pl-0 sm:last:border-r-0 sm:last:pr-0"
+                >
+                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-pink-400">
+                    {highlight.label}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                    {highlight.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </header>
 
-          <section aria-labelledby="system-architecture-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">System Architecture</SectionHeading>
-              <h3
-                id="system-architecture-heading"
-                className="text-white text-md font-semibold text-center my-2"
+          <CaseStudySection id="mod-problem-heading" title="The Problem">
+            <div className="mx-auto max-w-3xl space-y-5 text-base leading-relaxed text-white/75 md:text-lg">
+              <p>
+                A creative agency’s website has to support very different
+                stories, media, and campaign structures. Building every case
+                study as a custom page gives designers freedom, but makes
+                publishing dependent on engineering and allows interaction
+                patterns to drift over time.
+              </p>
+              <p>
+                MOD needed a system that could preserve strong art direction
+                while making new pages repeatable. The response was a structured
+                content model, a deterministic block renderer, and one routing
+                pipeline that turns page definitions into production URLs.
+              </p>
+            </div>
+            <FlowDiagram
+              label="MOD Worldwide publishing journey"
+              items={[
+                "Define the content",
+                "Compose the blocks",
+                "Generate the route",
+                "Publish the story",
+              ]}
+            />
+          </CaseStudySection>
+
+          <CaseStudySection
+            id="mod-walkthrough-heading"
+            title="Platform Walkthrough"
+          >
+            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+              The platform separates content structure from presentation, then
+              reconnects them through a controlled vocabulary of reusable
+              blocks.
+            </p>
+            <div className="mt-7">
+              {productMoments.map((moment, index) => (
+                <ProductMoment
+                  key={moment.number}
+                  moment={moment}
+                  reverse={index % 2 === 1}
+                />
+              ))}
+            </div>
+          </CaseStudySection>
+
+          <CaseStudySection
+            id="mod-challenges-heading"
+            title="Featured Engineering Challenges"
+          >
+            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+              Three architectural decisions turned a visually ambitious agency
+              site into a maintainable publishing platform.
+            </p>
+            <div className="mt-10">
+              {challenges.map((challenge) => (
+                <EngineeringChallenge
+                  key={challenge.number}
+                  challenge={challenge}
+                />
+              ))}
+            </div>
+          </CaseStudySection>
+
+          <CaseStudySection
+            id="mod-architecture-heading"
+            title="Architecture"
+          >
+            <div className="mx-auto max-w-3xl space-y-4 text-center text-sm leading-relaxed text-white/70 md:text-base">
+              <p>
+                A slug resolves its JSON page definition, then
+                ContentTransformer maps each declared section to a known React
+                block. Presentation logic stays inside those reusable blocks
+                instead of accumulating in route-specific templates.
+              </p>
+              <p>
+                Next.js statically generates the resulting routes alongside
+                structured metadata and sitemap entries. Motion, smooth
+                scrolling, analytics hooks, and fullscreen media remain shared
+                platform behavior rather than isolated page features.
+              </p>
+            </div>
+            <MODArchitectureDiagram />
+          </CaseStudySection>
+
+          <CaseStudySection
+            id="mod-quality-heading"
+            title="Quality & Production Readiness"
+          >
+            <p className="mx-auto max-w-3xl text-center text-sm leading-relaxed text-white/70 md:text-base">
+              The platform pairs visual ambition with static delivery,
+              structured publishing, accessible interaction states, and a
+              bounded component vocabulary that remains practical to operate.
+            </p>
+            <dl className="mt-10 grid border-y border-white/10 sm:grid-cols-2">
+              {qualityItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="border-b border-white/10 py-6 sm:px-6 sm:odd:border-r sm:[&:nth-last-child(-n+2)]:border-b-0"
+                >
+                  <dt className="font-mono text-xs uppercase tracking-[0.16em] text-pink-400">
+                    {item.label}
+                  </dt>
+                  <dd className="mt-2 text-lg font-semibold text-white">
+                    {item.value}
+                  </dd>
+                  <dd className="mt-2 text-sm leading-relaxed text-white/60">
+                    {item.detail}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </CaseStudySection>
+
+          <CaseStudySection
+            id="mod-notes-heading"
+            title="Engineering Notes"
+          >
+            <p className="mx-auto mb-8 max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+              The main narrative stays visual; these notes retain the existing
+              implementation evidence and archived excerpts for deeper review.
+            </p>
+            <MODEngineeringNotes notes={engineeringNotes} />
+          </CaseStudySection>
+
+          <CaseStudySection
+            id="mod-reflection-heading"
+            title="Outcome & Reflection"
+          >
+            <div className="grid gap-10 md:grid-cols-2 md:gap-14">
+              <div>
+                <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-pink-400">
+                  What MOD became
+                </p>
+                <p className="text-sm leading-relaxed text-white/75 md:text-base">
+                  MOD’s site became a maintainable content platform rather than
+                  a collection of static marketing pages. One structured model
+                  now supports branded storytelling, cinematic media, route
+                  generation, SEO metadata, and shared interaction behavior.
+                </p>
+              </div>
+              <div>
+                <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-pink-400">
+                  What the work demonstrated
+                </p>
+                <p className="text-sm leading-relaxed text-white/75 md:text-base">
+                  The project showed how a strict technical boundary can create
+                  more creative freedom. By separating structured content from
+                  reusable presentation logic, the team could move faster
+                  without reducing every page to the same template or making
+                  every visual change an engineering task.
+                </p>
+              </div>
+            </div>
+          </CaseStudySection>
+
+          <section
+            aria-labelledby="mod-cta-heading"
+            className="border-t border-white/10 py-12 text-center md:py-14"
+          >
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-pink-400">
+              See the platform in context
+            </p>
+            <h2
+              id="mod-cta-heading"
+              className="text-3xl font-semibold text-white md:text-4xl"
+            >
+              Visit MOD Worldwide.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/65 md:text-base">
+              Explore the live site and see how the content system supports the
+              agency’s work, culture, and point of view.
+            </p>
+            <div className="mt-8 flex items-center justify-center">
+              <a
+                href="https://themoderati.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center rounded bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-pink-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
               >
-                High-level flow of the content rendering pipeline:
-              </h3>
-
-              <div className="max-w-xl mx-auto rounded-md border border-white/10 bg-[#0b0b0b] px-6 py-7 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
-                <div className="text-center space-y-2 text-sm md:text-base text-white/85">
-                  <div className="font-mono tracking-wide">
-                    JSON Page Definition
-                  </div>
-                  <div
-                    className="text-pink-500 text-sm"
-                    style={{ textShadow: "0 0 6px rgba(255,42,138,0.3)" }}
-                    aria-hidden="true"
-                  >
-                    ✦
-                  </div>
-
-                  <div className="font-mono tracking-wide">
-                    File-Based Routing
-                  </div>
-                  <div
-                    className="text-pink-500 text-sm"
-                    style={{ textShadow: "0 0 6px rgba(255,42,138,0.3)" }}
-                    aria-hidden="true"
-                  >
-                    ✦
-                  </div>
-
-                  <div className="font-mono tracking-wide">
-                    ContentTransformer
-                  </div>
-                  <div
-                    className="text-pink-500 text-sm"
-                    style={{ textShadow: "0 0 6px rgba(255,42,138,0.3)" }}
-                    aria-hidden="true"
-                  >
-                    ✦
-                  </div>
-
-                  <div className="font-mono tracking-wide">
-                    React Block Components
-                  </div>
-                  <div
-                    className="text-pink-500 text-sm"
-                    style={{ textShadow: "0 0 6px rgba(255,42,138,0.3)" }}
-                    aria-hidden="true"
-                  >
-                    ✦
-                  </div>
-
-                  <div className="font-mono tracking-wide">Rendered Page</div>
-                </div>
-              </div>
-
-              <p className="text-white/75 text-xs md:text-sm leading-relaxed text-center max-w-2xl mx-auto mt-4">
-                A JSON-driven content model feeds a reusable rendering pipeline,
-                allowing the site to scale as a platform instead of a set of
-                hardcoded pages.
-              </p>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="features-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">Why It Stands Out</SectionHeading>
-              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-none">
-                <li>
-                  Demonstrates product thinking and system design maturity, not
-                  one-off page building
-                </li>
-                <li>
-                  Ships advanced interaction engineering with choreographed
-                  motion, smooth scrolling, and fullscreen media flows across
-                  reusable blocks
-                </li>
-                <li>
-                  Production-safe accessibility with focus management, keyboard
-                  interactions, ARIA labeling, and reduced-motion fallbacks
-                </li>
-                <li>
-                  Operational completeness through JSON-driven SEO metadata,
-                  sitemap generation, telemetry hooks, and static pre-rendering
-                  at route scale
-                </li>
-              </ul>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="challenges-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">
-                Engineering Challenges
-              </SectionHeading>
-              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
-                <li>
-                  Designing a deterministic block renderer that allows flexible
-                  page composition while keeping bundle size small
-                </li>
-                <li>
-                  Coordinating animation choreography across reusable blocks
-                  without layout thrashing
-                </li>
-                <li>
-                  Ensuring accessibility and motion-reduction fallbacks for
-                  animation-heavy sections
-                </li>
-              </ul>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="decisions-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">
-                Key Engineering Decisions
-              </SectionHeading>
-              <ul className="text-white text-sm md:text-base leading-relaxed space-y-2 list-disc pl-5">
-                <li>
-                  Use JSON as the source of truth for route-driven content
-                  composition
-                </li>
-                <li>
-                  Keep presentation logic inside reusable block components
-                  rather than page-specific templates
-                </li>
-                <li>
-                  Prefer static generation for content-heavy routes to preserve
-                  performance and operational simplicity
-                </li>
-              </ul>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="highlights-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">
-                Engineering Highlights
-              </SectionHeading>
-
-              <p className="text-white/80 text-sm text-center max-w-2xl mx-auto mb-6">
-                Selected excerpts from the production codebase illustrating the
-                routing system, JSON-driven CMS architecture, and animation
-                engine powering the platform.
-              </p>
-
-              <div className="space-y-10">
-                <div className="space-y-2">
-                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>File-Based CMS Routing</span>
-                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      src/app/[[...slug]]/pageData.ts
-                    </span>
-                  </div>
-                  <CodeBlock
-                    html={codeSnippetHtml.modWorldwide.fileBasedCmsRouting}
-                  />
-
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    Demonstrates scalable routing architecture with static
-                    generation and no hardcoded page registry.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>Dynamic Block Renderer</span>
-                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      src/components/ContentTransformer.tsx
-                    </span>
-                  </div>
-
-                  <CodeBlock
-                    html={codeSnippetHtml.modWorldwide.dynamicBlockRenderer}
-                  />
-
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    Shows reusable system composition where CMS content
-                    definitions dynamically resolve to React blocks.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>CMS Page Definition</span>
-                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      src/app/data/pages/index.json
-                    </span>
-                  </div>
-
-                  <CodeBlock
-                    html={codeSnippetHtml.modWorldwide.cmsPageDefinition}
-                  />
-
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    JSON-driven page structure that allows designers and content
-                    teams to assemble complex layouts without modifying
-                    application code.
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="grid min-w-0 grid-cols-1 gap-1 px-1 text-xs text-white/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span>Scroll-Reveal Motion Engine</span>
-                    <span className="min-w-0 break-all sm:break-normal sm:text-right">
-                      src/utils/hooks/useScrollReveal.tsx
-                    </span>
-                  </div>
-
-                  <CodeBlock
-                    html={codeSnippetHtml.modWorldwide.scrollRevealMotionEngine}
-                  />
-
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    Custom motion logic orchestrating staged scroll-driven
-                    animation rather than simple utility transitions.
-                  </p>
-                </div>
-              </div>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="collab-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">
-                In-House Delivery Model
-              </SectionHeading>
-              <p className="text-white text-sm md:text-base leading-relaxed">
-                The build reflects real cross-functional delivery: designers
-                define art direction and interaction rhythm, account managers
-                shape narrative clarity and business framing, and developers
-                translate both into a scalable block system that ships in
-                production.
-              </p>
-            </MotionSection>
-          </section>
-
-          <section aria-labelledby="screenshots-heading">
-            <MotionSection delay={0.1}>
-              <SectionHeading symbol="plus">Selected Screens</SectionHeading>
-              <Slider array={imageArr} />
-            </MotionSection>
+                Visit MOD Worldwide ↗
+              </a>
+            </div>
           </section>
         </CybersigilFrame>
-      </MotionSection>
+      </main>
     </Layout>
   );
 };

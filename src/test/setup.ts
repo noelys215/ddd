@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
-import { afterEach } from "vitest";
+import { afterEach, vi } from "vitest";
 
 afterEach(cleanup);
 
@@ -27,4 +27,15 @@ Object.defineProperty(window, "matchMedia", {
     removeListener: () => undefined,
     dispatchEvent: () => false,
   }),
+});
+
+Object.defineProperties(window.HTMLMediaElement.prototype, {
+  play: {
+    configurable: true,
+    value: vi.fn().mockResolvedValue(undefined),
+  },
+  pause: {
+    configurable: true,
+    value: vi.fn(),
+  },
 });

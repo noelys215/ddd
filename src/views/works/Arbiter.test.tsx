@@ -60,7 +60,7 @@ describe("Arbiter portfolio case study", () => {
       </MemoryRouter>,
     );
 
-    expect(container.querySelectorAll("details")).toHaveLength(8);
+    expect(container.querySelectorAll("details")).toHaveLength(7);
     expect(container.querySelectorAll('[data-lightbox="case-study-image"]')).toHaveLength(
       8,
     );
