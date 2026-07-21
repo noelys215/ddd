@@ -1,5 +1,6 @@
 import CybersigilFrame from "../../components/CybersigilFrame";
 import Layout from "../../components/Layout";
+import MotionSection from "../../components/MotionSection";
 import {
   ArchitectureDiagram,
   CaseStudyBreadcrumb,
@@ -37,7 +38,8 @@ const ArbiterPortfolioCaseStudy = () => {
   return (
     <Layout title="arbiter_fullstack_platform">
       <main className="w-full">
-        <CybersigilFrame
+        <MotionSection delay={0.1}>
+          <CybersigilFrame
           className="mx-auto min-w-0 w-full max-w-5xl rounded-md bg-black p-4 shadow-md opacity-95 sm:p-6 md:p-10 lg:p-14"
           style={{ backgroundColor: "#0f0f0f" }}
           aria-labelledby="arbiter-title"
@@ -346,7 +348,8 @@ const ArbiterPortfolioCaseStudy = () => {
             </a> */}
             </div>
           </section>
-        </CybersigilFrame>
+          </CybersigilFrame>
+        </MotionSection>
       </main>
     </Layout>
   );
