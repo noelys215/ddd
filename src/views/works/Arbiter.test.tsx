@@ -18,6 +18,9 @@ describe("Arbiter portfolio case study", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Arbiter" }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "breadcrumb" })).toHaveClass(
+      "breadcrumb-font",
+    );
     expect(
       screen.getByText("A realtime movie-night decision platform."),
     ).toBeInTheDocument();

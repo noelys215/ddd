@@ -18,6 +18,9 @@ describe("MOD Worldwide portfolio case study", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "MOD Worldwide" }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "breadcrumb" })).toHaveClass(
+      "breadcrumb-font",
+    );
     expect(
       screen.getByText(
         "A modular publishing platform for an independent creative agency.",

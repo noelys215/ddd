@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import CybersigilFrame from "../../components/CybersigilFrame";
 import Layout from "../../components/Layout";
 import {
+  CaseStudyBreadcrumb,
   CaseStudySection,
   EngineeringChallenge,
   FlowDiagram,
@@ -45,26 +45,7 @@ const MODWorldwide = () => {
           aria-labelledby="modworldwide-title"
         >
           <header>
-            <nav
-              aria-label="Breadcrumb"
-              className="mb-10 flex flex-wrap items-center gap-2 text-sm text-white/55"
-            >
-              <Link
-                to="/"
-                className="text-pink-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
-              >
-                Home
-              </Link>
-              <span aria-hidden="true">/</span>
-              <Link
-                to="/works"
-                className="text-pink-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
-              >
-                Works
-              </Link>
-              <span aria-hidden="true">/</span>
-              <span aria-current="page">MOD Worldwide</span>
-            </nav>
+            <CaseStudyBreadcrumb currentPage="MOD Worldwide" />
 
             <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12">
               <div>

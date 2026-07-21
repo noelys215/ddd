@@ -3,6 +3,7 @@ import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import { Link } from "react-router-dom";
 import CodeBlock from "../../../components/CodeBlock";
 import { MediaAsset } from "../../../components/MediaAsset";
 import SectionHeading from "../../../components/SectionHeading";
@@ -20,6 +21,37 @@ type CaseStudySectionProps = {
   className?: string;
   spacing?: "default" | "compact";
 };
+
+export function CaseStudyBreadcrumb({ currentPage }: { currentPage: string }) {
+  return (
+    <nav aria-label="breadcrumb" className="breadcrumb-font mb-5">
+      <Link
+        to="/"
+        className="cursor-pointer text-pink-500 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
+      >
+        Home
+      </Link>
+      <span aria-hidden="true" className="mx-1 inline-block text-pink-500">
+        /
+      </span>
+      <Link
+        to="/works"
+        className="cursor-pointer text-pink-500 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
+      >
+        Works
+      </Link>
+      <span aria-hidden="true" className="mx-1 inline-block text-pink-500">
+        /
+      </span>
+      <span
+        aria-current="page"
+        className="inline-block text-2xl font-medium text-white"
+      >
+        {currentPage}
+      </span>
+    </nav>
+  );
+}
 
 export function CaseStudySection({
   id,
