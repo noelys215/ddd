@@ -202,11 +202,6 @@ export const engineeringNotes: EngineeringNote[] = [
       "The lazy-loaded card studio supports three deterministic templates at 1080×1080 and 1080×1920. Artwork selection, luminance classification, crop rules, title fitting, font readiness, and a final privacy sanitizer keep browser-generated PNGs sharp and safe. Web Share uses a generated file with download fallback.",
   },
   {
-    title: "HeroUI v3 migration and bundle strategy",
-    body:
-      "A controlled v2-to-v3 migration inventoried every component, overlay, slot override, and accessibility contract before removing v2. A later bundle pass introduced route and overlay boundaries for Insights, Movie Detail, feedback, avatars, cards, export, and onboarding without relocating WebSocket ownership or Query state.",
-  },
-  {
     title: "Accessibility and responsive validation",
     body:
       "The product uses semantic labels, visible focus, focus trapping/restoration, accessible errors and loading states, 44px mobile targets, reduced-motion paths, and contrast-tested warm-dark tokens. Playwright journeys cover keyboard use, mobile reflow, short viewports, zoom-equivalent layouts, and multi-user workflows.",

@@ -25,20 +25,13 @@ export function CaseStudySection({
   title,
   children,
   className = "",
-  spacing = "default",
 }: CaseStudySectionProps) {
-  const spacingClass =
-    spacing === "compact" ? "py-10 md:py-14" : "py-14 md:py-20";
-
   return (
-    <section
-      aria-labelledby={id}
-      className={`${spacingClass} ${className}`}
-    >
+    <section aria-labelledby={id} className={`py-12 md:py-14 ${className}`}>
       <SectionHeading
         symbol="cross"
         headingId={id}
-        className="mb-8"
+        className="!mt-0 mb-8"
         headingClassName="font-bold text-center whitespace-normal"
       >
         {title}
@@ -242,7 +235,10 @@ export function ArchitectureDiagram() {
   ];
 
   return (
-    <figure className="mx-auto mt-10 max-w-3xl" aria-labelledby="architecture-caption">
+    <figure
+      className="mx-auto mt-10 max-w-3xl"
+      aria-labelledby="architecture-caption"
+    >
       <div className="space-y-3 rounded-md border border-white/15 bg-black/40 p-4 sm:p-6">
         <div className="rounded border border-pink-500/35 px-4 py-4 text-center">
           <strong className="block text-white">React + TanStack Query</strong>
