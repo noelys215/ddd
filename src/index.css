@@ -244,8 +244,33 @@ body {
 
 a:hover,
 button:hover,
-[role="button"]:hover {
+[role="button"]:hover,
+summary:hover,
+[data-rmiz-content="found"]:hover,
+[data-rmiz-content="found"] img:hover {
   cursor: url("/src/assets/cursor/reticle-lock.svg") 32 32, pointer;
+}
+
+.arbiter-image-lightbox [data-rmiz-modal-img] {
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	border-radius: 0.375rem;
+	box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.6);
+}
+
+.arbiter-image-lightbox [data-rmiz-btn-unzoom] {
+	background: rgba(15, 15, 15, 0.88);
+	border: 1px solid rgba(255, 42, 138, 0.5);
+	color: #fff;
+}
+
+.arbiter-image-lightbox [data-rmiz-btn-unzoom]:focus-visible {
+	outline: 2px solid #ff2a8a;
+	outline-offset: 4px;
+}
+
+.arbiter-image-lightbox-trigger [data-rmiz-content="found"],
+.arbiter-image-lightbox-trigger [data-rmiz-content="found"] img {
+	cursor: url("/src/assets/cursor/reticle-lock.svg") 32 32, zoom-in !important;
 }
 
 .code-block {

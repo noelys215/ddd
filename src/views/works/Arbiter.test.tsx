@@ -61,6 +61,14 @@ describe("Arbiter portfolio case study", () => {
     );
 
     expect(container.querySelectorAll("details")).toHaveLength(8);
+    expect(container.querySelectorAll('[data-lightbox="case-study-image"]')).toHaveLength(
+      8,
+    );
+    expect(
+      [...container.querySelectorAll("main section")].filter((section) =>
+        section.classList.contains("border-t"),
+      ),
+    ).toHaveLength(1);
     expect(
       screen.getByRole("heading", { level: 2, name: "See Arbiter in motion." }),
     ).toBeInTheDocument();
@@ -68,10 +76,8 @@ describe("Arbiter portfolio case study", () => {
       "href",
       "https://arbitertv.com",
     );
-    expect(screen.getByRole("link", { name: /next project/i })).toHaveAttribute(
-      "href",
-      "/works/ai-knowledge-assistant",
-    );
+    expect(screen.queryByRole("link", { name: /next project/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Contact" })).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /source/i })).not.toBeInTheDocument();
   });
 });

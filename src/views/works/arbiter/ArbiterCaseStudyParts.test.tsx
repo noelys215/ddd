@@ -52,6 +52,11 @@ describe("Arbiter case-study components", () => {
       "loading",
       "eager",
     );
+    expect(
+      screen
+        .getByRole("img", { name: "Arbiter watchlist" })
+        .closest('[data-lightbox="case-study-image"]'),
+    ).toBeInTheDocument();
 
     rerender(
       <MediaFrame media={{ src: "/history.webp", alt: "Movie Night History" }} />,

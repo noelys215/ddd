@@ -66,12 +66,12 @@ const ArbiterPortfolioCaseStudy = () => {
 
           <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.22em] text-pink-400">
+              <p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-pink-400">
                 Independent product · Live
               </p>
               <h1
                 id="arbiter-title"
-                className="mt-4 text-5xl font-semibold leading-none text-white sm:text-6xl md:text-7xl"
+                className="text-5xl font-semibold leading-none text-white sm:text-6xl md:text-7xl"
               >
                 Arbiter
               </h1>
@@ -210,7 +210,11 @@ const ArbiterPortfolioCaseStudy = () => {
           </div>
         </CaseStudySection>
 
-        <CaseStudySection id="architecture-heading" title="Architecture">
+        <CaseStudySection
+          id="architecture-heading"
+          title="Architecture"
+          spacing="compact"
+        >
           <div className="mx-auto max-w-3xl space-y-4 text-center text-sm leading-relaxed text-white/70 md:text-base">
             <p>
               FastAPI owns authentication, authorization, session transitions,
@@ -300,15 +304,15 @@ const ArbiterPortfolioCaseStudy = () => {
           aria-labelledby="cta-heading"
           className="border-t border-white/10 py-14 text-center md:py-20"
         >
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-pink-400">
+          <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-pink-400">
             The product, not just the system
           </p>
-          <h2 id="cta-heading" className="mt-4 text-3xl font-semibold text-white md:text-4xl">
+          <h2 id="cta-heading" className="text-3xl font-semibold text-white md:text-4xl">
             See Arbiter in motion.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/65 md:text-base">
-            Explore the live product, continue to another case study, or get in
-            touch about full-stack product engineering.
+            Explore the live product and see the full movie-night loop in
+            context.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
@@ -319,18 +323,18 @@ const ArbiterPortfolioCaseStudy = () => {
             >
               Visit Arbiter ↗
             </a>
-            <Link
+            {/* <Link
               to="/works/ai-knowledge-assistant"
               className="inline-flex min-h-11 items-center rounded border border-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:border-white/45 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
             >
               Next project →
-            </Link>
-            <a
+            </Link> */}
+            {/* <a
               href="mailto:betanch@gmail.com?subject=Arbiter%20case%20study"
               className="inline-flex min-h-11 items-center px-4 py-2.5 text-sm font-semibold text-white/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
             >
               Contact
-            </a>
+            </a> */}
           </div>
         </section>
         </CybersigilFrame>

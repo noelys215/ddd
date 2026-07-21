@@ -10,6 +10,7 @@ interface MediaAssetProps {
   fetchPriority?: "high" | "low" | "auto";
   decoding?: "async" | "auto" | "sync";
   preload?: "none" | "metadata" | "auto";
+  onLoad?: React.ReactEventHandler<HTMLImageElement>;
 }
 
 export const MediaAsset: React.FC<MediaAssetProps> = ({
@@ -21,6 +22,7 @@ export const MediaAsset: React.FC<MediaAssetProps> = ({
   fetchPriority = "auto",
   decoding = "async",
   preload = "metadata",
+  onLoad,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -70,6 +72,7 @@ export const MediaAsset: React.FC<MediaAssetProps> = ({
       loading={loading}
       fetchPriority={fetchPriority}
       decoding={decoding}
+      onLoad={onLoad}
     />
   );
 };
