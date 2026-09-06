@@ -1,3 +1,4 @@
+import { GithubLogo } from "@phosphor-icons/react";
 import CybersigilFrame from "../../components/CybersigilFrame";
 import Layout from "../../components/Layout";
 import MotionSection from "../../components/MotionSection";
@@ -33,6 +34,27 @@ const highlights = [
     value: "React, FastAPI, PostgreSQL, and WebSockets",
   },
 ];
+
+const RepositoryLinks = () => (
+  <>
+    {[
+      { label: "Frontend", href: "https://github.com/noelys215/arbiter-frontend" },
+      { label: "API", href: "https://github.com/noelys215/arbiter-api" },
+    ].map(({ label, href }) => (
+      <a
+        key={href}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${label} repository on GitHub`}
+        className="inline-flex min-h-11 items-center gap-2 rounded border border-white/20 px-5 py-2.5 text-sm font-semibold text-white/80 transition-colors hover:border-pink-500/70 hover:bg-pink-500/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400 motion-reduce:transition-none"
+      >
+        <GithubLogo size={18} aria-hidden="true" />
+        {label} ↗
+      </a>
+    ))}
+  </>
+);
 
 const ArbiterPortfolioCaseStudy = () => {
   return (
@@ -100,14 +122,17 @@ const ArbiterPortfolioCaseStudy = () => {
                   </div>
                 </dl>
 
-                <a
-                  href="https://arbitertv.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-7 inline-flex min-h-11 items-center rounded border border-pink-500/70 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-pink-500/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400 motion-reduce:transition-none"
-                >
-                  Visit Arbiter ↗
-                </a>
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <a
+                    href="https://arbitertv.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center rounded border border-pink-500/70 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-pink-500/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400 motion-reduce:transition-none"
+                  >
+                    Visit Arbiter ↗
+                  </a>
+                  <RepositoryLinks />
+                </div>
               </div>
 
               <MediaFrame
@@ -325,7 +350,7 @@ const ArbiterPortfolioCaseStudy = () => {
               Explore the live product and see the full movie-night loop in
               context.
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
               <a
                 href="https://arbitertv.com"
                 target="_blank"
@@ -334,18 +359,7 @@ const ArbiterPortfolioCaseStudy = () => {
               >
                 Visit Arbiter ↗
               </a>
-              {/* <Link
-              to="/works/ai-knowledge-assistant"
-              className="inline-flex min-h-11 items-center rounded border border-white/20 px-5 py-2.5 text-sm font-semibold text-white hover:border-white/45 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
-            >
-              Next project →
-            </Link> */}
-              {/* <a
-              href="mailto:betanch@gmail.com?subject=Arbiter%20case%20study"
-              className="inline-flex min-h-11 items-center px-4 py-2.5 text-sm font-semibold text-white/70 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink-400"
-            >
-              Contact
-            </a> */}
+              <RepositoryLinks />
             </div>
           </section>
           </CybersigilFrame>
