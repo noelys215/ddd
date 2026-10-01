@@ -1,3 +1,4 @@
+import { CaseStudyNavigation, CaseStudyFooter } from "../../components/CaseStudyNavigation";
 import CybersigilFrame from "../../components/CybersigilFrame";
 import Layout from "../../components/Layout";
 import MotionSection from "../../components/MotionSection";
@@ -42,7 +43,7 @@ const MODWorldwide = () => {
       <main className="w-full">
         <MotionSection delay={0.1}>
           <CybersigilFrame
-          className="mx-auto min-w-0 w-full max-w-5xl rounded-md bg-black p-4 shadow-md opacity-95 sm:p-6 md:p-10 lg:p-14"
+          className="case-study mx-auto min-w-0 w-full max-w-5xl rounded-md bg-black p-4 shadow-md opacity-95 sm:p-6 md:p-10 lg:p-14"
           style={{ backgroundColor: "#0f0f0f" }}
           aria-labelledby="modworldwide-title"
         >
@@ -56,7 +57,7 @@ const MODWorldwide = () => {
                 </p>
                 <h1
                   id="modworldwide-title"
-                  className="text-5xl font-semibold leading-none text-white sm:text-6xl md:text-7xl"
+                  className="text-[clamp(1.75rem,7vw,3rem)] font-semibold leading-tight text-white sm:text-6xl md:text-7xl"
                 >
                   MOD Worldwide
                 </h1>
@@ -138,6 +139,8 @@ const MODWorldwide = () => {
             </div>
           </header>
 
+          <CaseStudyNavigation prefix="mod-" />
+
           <CaseStudySection id="mod-problem-heading" title="The Problem">
             <div className="mx-auto max-w-3xl space-y-5 text-base leading-relaxed text-white/75 md:text-lg">
               <p>
@@ -169,7 +172,7 @@ const MODWorldwide = () => {
             id="mod-walkthrough-heading"
             title="Platform Walkthrough"
           >
-            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+            <p className="mx-auto max-w-2xl text-left text-sm leading-relaxed text-white/60 md:text-base">
               The platform separates content structure from presentation, then
               reconnects them through a controlled vocabulary of reusable
               blocks.
@@ -189,7 +192,7 @@ const MODWorldwide = () => {
             id="mod-challenges-heading"
             title="Featured Engineering Challenges"
           >
-            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+            <p className="mx-auto max-w-2xl text-left text-sm leading-relaxed text-white/60 md:text-base">
               Three architectural decisions turned a visually ambitious agency
               site into a maintainable publishing platform.
             </p>
@@ -207,7 +210,7 @@ const MODWorldwide = () => {
             id="mod-architecture-heading"
             title="Architecture"
           >
-            <div className="mx-auto max-w-3xl space-y-4 text-center text-sm leading-relaxed text-white/70 md:text-base">
+            <div className="mx-auto max-w-3xl space-y-4 text-left text-sm leading-relaxed text-white/70 md:text-base">
               <p>
                 A slug resolves its JSON page definition, then
                 ContentTransformer maps each declared section to a known React
@@ -228,7 +231,7 @@ const MODWorldwide = () => {
             id="mod-quality-heading"
             title="Quality & Production Readiness"
           >
-            <p className="mx-auto max-w-3xl text-center text-sm leading-relaxed text-white/70 md:text-base">
+            <p className="mx-auto max-w-3xl text-left text-sm leading-relaxed text-white/70 md:text-base">
               The platform pairs visual ambition with static delivery,
               structured publishing, accessible interaction states, and a
               bounded component vocabulary that remains practical to operate.
@@ -257,7 +260,7 @@ const MODWorldwide = () => {
             id="mod-notes-heading"
             title="Engineering Notes"
           >
-            <p className="mx-auto mb-8 max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+            <p className="mx-auto mb-8 max-w-2xl text-left text-sm leading-relaxed text-white/60 md:text-base">
               The main narrative stays visual; these notes retain the existing
               implementation evidence and archived excerpts for deeper review.
             </p>
@@ -323,6 +326,7 @@ const MODWorldwide = () => {
               </a>
             </div>
           </section>
+          <CaseStudyFooter nextTitle="Arbiter" nextPath="/works/arbiter" />
           </CybersigilFrame>
         </MotionSection>
       </main>

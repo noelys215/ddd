@@ -22,6 +22,8 @@ export type ModEngineeringNote = {
 export const heroMedia: MediaItem = {
   kind: "video",
   poster: modVideoPoster,
+  width: 960,
+  height: 530,
   alt: "A motion preview of the MOD Worldwide website",
   sources: [
     { src: modVideoWebm, type: "video/webm" },
@@ -41,6 +43,8 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: modShot1,
+        width: 1440,
+        height: 900,
         alt: "MOD Worldwide homepage with cinematic artwork and restrained navigation",
       },
     ],
@@ -56,6 +60,8 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: modShot4,
+        width: 1440,
+        height: 900,
         alt: "A monochrome fullscreen media section on the MOD Worldwide website",
       },
     ],
@@ -71,6 +77,8 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: modShot2,
+        width: 1440,
+        height: 900,
         alt: "MOD Worldwide brand and culture page with editorial typography and client marks",
       },
     ],

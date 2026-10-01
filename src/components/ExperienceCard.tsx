@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Text from "./Text";
 import SkillsCard from "./SkillsCard";
 
@@ -9,6 +10,7 @@ interface ExperienceCardProps {
   content: string;
   highlights?: string[];
   skills?: string[];
+  caseStudy?: string;
 }
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({
@@ -18,13 +20,14 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   content,
   highlights,
   skills,
+  caseStudy,
 }) => {
   return (
     <section>
       <header className="mb-2">
-        <h3 className="inline-block text-white text-xl font-medium mb-1">
+        <h2 className="inline-block text-white text-xl font-medium mb-1">
           {company}
-        </h3>
+        </h2>
         <br />
         <h4 className="inline-block text-white text-md font-medium mb-1">
           {job}
@@ -46,6 +49,15 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
             ))}
           </ul>
         </section>
+      )}
+
+      {caseStudy && (
+        <Link
+          to={caseStudy}
+          className="inline-flex min-h-11 items-center text-pink-400 hover:underline underline-offset-4"
+        >
+          Explore the {company} case study ↗
+        </Link>
       )}
 
       {skills && <SkillsCard skills={skills} />}

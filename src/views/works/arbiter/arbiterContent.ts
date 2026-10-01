@@ -34,6 +34,8 @@ export type EngineeringNote = {
 
 export const heroMedia: MediaItem = {
   src: watchlist,
+  width: 1440,
+  height: 900,
   alt: "Arbiter group watchlist showing movie artwork, search controls, group navigation, and friends",
 };
 
@@ -49,6 +51,8 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: watchlistDetail,
+        width: 1016,
+        height: 650,
         alt: "A focused view of Matcha Club's shared Arbiter watchlist",
       },
     ],
@@ -64,6 +68,8 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: moodSetup,
+        width: 1440,
+        height: 900,
         alt: "Arbiter's Tonight Feels Like setup with emotional cues and optional constraints",
       },
     ],
@@ -79,6 +85,8 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: voting,
+        width: 1440,
+        height: 900,
         alt: "An Arbiter movie-night session with a synchronized film deck ready for group voting",
       },
     ],
@@ -94,6 +102,8 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: friends,
+        width: 1440,
+        height: 900,
         alt: "Arbiter's account surface for finding friends and managing pending requests",
       },
     ],
@@ -109,14 +119,20 @@ export const productMoments: ProductMoment[] = [
     media: [
       {
         src: history,
+        width: 1440,
+        height: 900,
         alt: "Arbiter Movie Night History with winners, moods, participants, and watched states",
       },
       {
         src: insights,
+        width: 1440,
+        height: 900,
         alt: "Arbiter Insights showing Group Personality and factual taste metrics",
       },
       {
         src: cardCreator,
+        width: 1440,
+        height: 900,
         alt: "Arbiter Movie Night Card creator with format, template, and privacy controls",
       },
     ],

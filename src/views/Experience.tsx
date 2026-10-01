@@ -1,7 +1,8 @@
 import { Rabbit } from "@phosphor-icons/react";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container } from "../components/Container";
+import SkillsCard from "../components/SkillsCard";
 import ExperienceCard from "../components/ExperienceCard";
 import Layout from "../components/Layout";
 import MotionSection from "../components/MotionSection";
@@ -32,23 +33,12 @@ const skillsArray = [
 
 const experiences = [
   {
-    company: "TechnologyAdvice",
-    job: "Software Engineer Intern",
-    year: "May 2024 - Aug 2024",
-    content: `During my internship at TechnologyAdvice, I worked on full-stack web applications built with PHP, Laravel, and Vue.js, contributing to production features within my first few weeks.
-
-I collaborated with product managers, designers, and QA engineers in Agile sprints while building UI improvements and implementing API endpoints.`,
-    highlights: [
-      "Contributed to production features in a Laravel + Vue.js stack",
-      "Implemented API endpoints and UI improvements",
-      "Collaborated with product, design, and QA teams in Agile sprints",
-    ],
-  },
-  {
     company: "MOD Worldwide",
     job: "Web Developer",
     year: "March 2025 - Present",
-    content: `At MOD, a digital agency working with large organizations including Aetna, Comcast Business, and Xumo, I spend most of my time jumping between very different codebases and making them better.
+    content: `I built the MOD company website from the ground up, creating a reusable publishing platform for the agency.
+
+At MOD, a digital agency working with large organizations including Aetna, Comcast Business, and Xumo, I spend most of my time jumping between very different codebases and making them better.
 
 A big part of my work involves migrating Aetna employee benefit microsites into our internal template built on TinaCMS. These sites have strict accessibility requirements such as ADA and WCAG compliance, so the goal is to turn complex benefit information into something clean, fast, and accessible for thousands of employees.
 
@@ -58,31 +48,41 @@ On the Comcast and Xumo side, I help build and maintain websites powered by Dire
       "Migrated enterprise healthcare microsites into accessible CMS templates",
       "Maintained and modernized legacy systems including jQuery, WordPress, PHP, and Svelte applications",
     ],
-    skills: skillsArray,
+    caseStudy: "/works/modworldwide",
+  },
+  {
+    company: "TechnologyAdvice",
+    job: "Software Engineer Intern",
+    year: "May 2024 - Aug 2024",
+    content:
+      "I joined a full-stack team working in PHP, Laravel, and Vue.js, shipping production features within my first few weeks.",
+    highlights: [
+      "Implemented API endpoints and UI improvements",
+      "Worked with product, design, and QA through Agile delivery",
+    ],
   },
 ];
 
 export const Experience = () => {
-  const navigate = useNavigate();
   const { track } = useAnalytics();
 
   return (
     <Layout title="experience">
       <MotionSection delay={0.2}>
         <Container>
-          <header className="mb-5 breadcrumb-font">
-            <a
+          <nav aria-label="breadcrumb" className="mb-5 breadcrumb-font">
+            <Link
+              to="/"
               onClick={() => {
                 track("breadcrumb_navigated", {
                   destination: "/",
                   context: "experience",
                 });
-                navigate("/");
               }}
               className="text-pink-500 hover:underline cursor-pointer"
             >
               Home
-            </a>
+            </Link>
             <span
               aria-hidden="true"
               className="mx-1 inline-block"
@@ -90,10 +90,10 @@ export const Experience = () => {
             >
               /
             </span>
-            <h3 className="inline-block text-white text-2xl font-medium">
+            <h1 className="inline-block text-white text-2xl font-medium">
               Experience
-            </h3>
-          </header>
+            </h1>
+          </nav>
 
           <div className="relative mb-6">
             <hr className="border-gray-400 w-4/5 mx-auto" />
@@ -124,13 +124,16 @@ export const Experience = () => {
                 year={experience.year}
                 content={experience.content}
                 highlights={experience.highlights}
-                skills={experience.skills}
+                caseStudy={experience.caseStudy}
               />
               {index < experiences.length - 1 && (
                 <hr className="my-8 border-gray-600" />
               )}
             </React.Fragment>
           ))}
+          <div className="mt-8 border-t border-white/15 pt-6">
+            <SkillsCard skills={skillsArray} />
+          </div>
         </Container>
       </MotionSection>
     </Layout>

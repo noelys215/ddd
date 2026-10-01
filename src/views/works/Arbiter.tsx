@@ -1,3 +1,4 @@
+import { CaseStudyNavigation, CaseStudyFooter } from "../../components/CaseStudyNavigation";
 import { GithubLogo } from "@phosphor-icons/react";
 import CybersigilFrame from "../../components/CybersigilFrame";
 import Layout from "../../components/Layout";
@@ -62,7 +63,7 @@ const ArbiterPortfolioCaseStudy = () => {
       <main className="w-full">
         <MotionSection delay={0.1}>
           <CybersigilFrame
-          className="mx-auto min-w-0 w-full max-w-5xl rounded-md bg-black p-4 shadow-md opacity-95 sm:p-6 md:p-10 lg:p-14"
+          className="case-study mx-auto min-w-0 w-full max-w-5xl rounded-md bg-black p-4 shadow-md opacity-95 sm:p-6 md:p-10 lg:p-14"
           style={{ backgroundColor: "#0f0f0f" }}
           aria-labelledby="arbiter-title"
         >
@@ -76,7 +77,7 @@ const ArbiterPortfolioCaseStudy = () => {
                 </p>
                 <h1
                   id="arbiter-title"
-                  className="text-5xl font-semibold leading-none text-white sm:text-6xl md:text-7xl"
+                  className="text-[clamp(1.75rem,7vw,3rem)] font-semibold leading-tight text-white sm:text-6xl md:text-7xl"
                 >
                   Arbiter
                 </h1>
@@ -159,6 +160,8 @@ const ArbiterPortfolioCaseStudy = () => {
             </div>
           </header>
 
+          <CaseStudyNavigation prefix="" />
+
           <CaseStudySection
             id="problem-heading"
             title="The Problem"
@@ -195,7 +198,7 @@ const ArbiterPortfolioCaseStudy = () => {
             title="Product Walkthrough"
             spacing="compact"
           >
-            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+            <p className="mx-auto max-w-2xl text-left text-sm leading-relaxed text-white/60 md:text-base">
               The core loop moves from a durable group shortlist to a shared
               decision, then turns the outcome into memory and context.
             </p>
@@ -215,7 +218,7 @@ const ArbiterPortfolioCaseStudy = () => {
             title="Featured Engineering Challenges"
             spacing="compact"
           >
-            <p className="mx-auto max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+            <p className="mx-auto max-w-2xl text-left text-sm leading-relaxed text-white/60 md:text-base">
               Three decisions shaped Arbiter more than any individual component
               or endpoint.
             </p>
@@ -234,7 +237,7 @@ const ArbiterPortfolioCaseStudy = () => {
             title="Architecture"
             spacing="compact"
           >
-            <div className="mx-auto max-w-3xl space-y-4 text-center text-sm leading-relaxed text-white/70 md:text-base">
+            <div className="mx-auto max-w-3xl space-y-4 text-left text-sm leading-relaxed text-white/70 md:text-base">
               <p>
                 FastAPI owns authentication, authorization, session transitions,
                 analytics definitions, and canonical group state. TanStack Query
@@ -258,7 +261,7 @@ const ArbiterPortfolioCaseStudy = () => {
             title="Quality & Production Readiness"
             spacing="compact"
           >
-            <p className="mx-auto max-w-3xl text-center text-sm leading-relaxed text-white/70 md:text-base">
+            <p className="mx-auto max-w-3xl text-left text-sm leading-relaxed text-white/70 md:text-base">
               I treated Arbiter as a production product rather than a visual
               prototype, including concurrency, reconnect recovery, object-level
               authorization, accessibility, failure states, migrations, and safe
@@ -289,7 +292,7 @@ const ArbiterPortfolioCaseStudy = () => {
             title="Engineering Notes"
             spacing="compact"
           >
-            <p className="mx-auto mb-8 max-w-2xl text-center text-sm leading-relaxed text-white/60 md:text-base">
+            <p className="mx-auto mb-8 max-w-2xl text-left text-sm leading-relaxed text-white/60 md:text-base">
               The main story stays concise; these notes preserve implementation
               depth for readers who want to inspect specific systems.
             </p>
@@ -362,6 +365,7 @@ const ArbiterPortfolioCaseStudy = () => {
               <RepositoryLinks />
             </div>
           </section>
+          <CaseStudyFooter nextTitle="MOD Worldwide" nextPath="/works/modworldwide" />
           </CybersigilFrame>
         </MotionSection>
       </main>

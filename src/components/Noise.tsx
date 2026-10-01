@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
+import { useReducedMotion } from "../hooks/useReducedMotion";
+
 interface NoiseProps {
   opacity?: number;
   speed?: number;
@@ -32,6 +34,7 @@ const Noise: React.FC<NoiseProps> = ({
   scale = 1.2,
   color = "#ffffff",
 }) => {
+  const reducedMotion = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -64,6 +67,7 @@ const Noise: React.FC<NoiseProps> = ({
       );
       canvas.style.width = `${renderWidth}px`;
       canvas.style.height = `${renderHeight}px`;
+      drawNoise();
     };
 
     const drawNoise = () => {
@@ -95,14 +99,14 @@ const Noise: React.FC<NoiseProps> = ({
     window.addEventListener("resize", resize);
     resize();
     drawNoise();
-    animationId = window.requestAnimationFrame(loop);
+    if (!reducedMotion) animationId = window.requestAnimationFrame(loop);
 
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", resize);
       window.cancelAnimationFrame(animationId);
     };
-  }, [opacity, speed, scale, color]);
+  }, [opacity, speed, scale, color, reducedMotion]);
 
   return (
     <canvas

@@ -64,9 +64,9 @@ describe("Arbiter portfolio case study", () => {
     );
 
     expect(container.querySelectorAll("details")).toHaveLength(7);
-    expect(container.querySelectorAll('[data-lightbox="case-study-image"]')).toHaveLength(
-      8,
-    );
+    expect(
+      container.querySelectorAll('[data-lightbox="case-study-image"]'),
+    ).toHaveLength(8);
     expect(
       [...container.querySelectorAll("main section")].filter((section) =>
         section.classList.contains("border-t"),
@@ -75,12 +75,21 @@ describe("Arbiter portfolio case study", () => {
     expect(
       screen.getByRole("heading", { level: 2, name: "See Arbiter in motion." }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /visit arbiter/i })[0]).toHaveAttribute(
+    expect(
+      screen.getAllByRole("link", { name: /visit arbiter/i })[0],
+    ).toHaveAttribute("href", "https://arbitertv.com");
+    expect(screen.getByRole("link", { name: /next project/i })).toHaveAttribute(
       "href",
-      "https://arbitertv.com",
+      "/works/modworldwide",
     );
-    expect(screen.queryByRole("link", { name: /next project/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: "Contact" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: /source/i })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /back to works/i }),
+    ).toHaveAttribute("href", "/works");
+    expect(
+      screen.queryByRole("link", { name: "Contact" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: /source/i }),
+    ).not.toBeInTheDocument();
   });
 });

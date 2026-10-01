@@ -80,7 +80,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title }) => {
         </div>
       )}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <Noise opacity={0.13} speed={0.04} scale={1.3} color="#ffffff" />
+        <Noise opacity={0.075} speed={0.04} scale={1.3} color="#ffffff" />
       </div>
       <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_12%,rgba(0,0,0,0.12)_60%,rgba(0,0,0,0.26)_100%)]" />
       <Seo titleKey={title} />

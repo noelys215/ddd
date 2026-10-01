@@ -6,11 +6,15 @@ export interface VideoSource {
 export type MediaItem =
   | {
       alt: string;
+      width?: number;
+      height?: number;
       kind?: "image";
       src: string;
     }
   | {
       alt: string;
+      width?: number;
+      height?: number;
       kind: "video";
       poster?: string;
       sources: VideoSource[];

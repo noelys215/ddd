@@ -1,6 +1,8 @@
 import React, { CSSProperties, useEffect, useRef } from "react";
 import { isVideoMedia, type MediaItem } from "./media";
 
+import { useReducedMotion } from "../hooks/useReducedMotion";
+
 interface MediaAssetProps {
   media: MediaItem;
   className?: string;
@@ -24,6 +26,7 @@ export const MediaAsset: React.FC<MediaAssetProps> = ({
   preload = "metadata",
   onLoad,
 }) => {
+  const reducedMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -32,7 +35,7 @@ export const MediaAsset: React.FC<MediaAssetProps> = ({
     const video = videoRef.current;
     if (!video) return;
 
-    if (active) {
+    if (active && !reducedMotion) {
       const playPromise = video.play();
       void playPromise?.catch(() => undefined);
       return;
@@ -40,18 +43,20 @@ export const MediaAsset: React.FC<MediaAssetProps> = ({
 
     video.pause();
     video.currentTime = 0;
-  }, [active, media]);
+  }, [active, media, reducedMotion]);
 
   if (isVideoMedia(media)) {
     return (
       <video
         ref={videoRef}
+        width={media.width}
+        height={media.height}
         className={className}
         style={style}
         muted
         loop
         playsInline
-        autoPlay={active}
+        autoPlay={active && !reducedMotion}
         preload={preload}
         poster={media.poster}
         aria-label={media.alt}
@@ -66,6 +71,8 @@ export const MediaAsset: React.FC<MediaAssetProps> = ({
   return (
     <img
       src={media.src}
+      width={media.width}
+      height={media.height}
       alt={media.alt}
       className={className}
       style={style}

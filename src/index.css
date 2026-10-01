@@ -582,3 +582,51 @@ button:hover {
 		opacity: 0.48;
 	}
 }
+
+/* Keep detailed project reading in the body face; retain pixel display headings. */
+.case-study h3 {
+  font-family: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.case-study h2[id] {
+  scroll-margin-top: 2rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #ff2a8a;
+  outline-offset: 4px;
+}
+
+@media (max-width: 639px) {
+  .button-89 {
+    width: auto;
+    min-width: 6rem;
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-starfield::before,
+  .site-starfield-stars,
+  .site-starfield-stars::before,
+  .site-starfield-stars::after,
+  .rotate,
+  .counter-rotate {
+    animation: none;
+  }
+
+  a,
+  button,
+  summary {
+    transition: none;
+  }
+
+  a:hover,
+  button:hover {
+    transform: none;
+  }
+}

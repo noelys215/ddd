@@ -2,10 +2,12 @@ import React from "react";
 import BioCard from "../components/BioCard";
 import Layout from "../components/Layout";
 import whomImage from "../assets/whom.jpeg";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 import { motion } from "framer-motion";
 import { useLocalEnvironment } from "../hooks/useLocalEnvironment";
 
 export const Home: React.FC = () => {
+  const reducedMotion = useReducedMotion();
   const { city, weather, error } = useLocalEnvironment(true);
 
   const locationMessage = city
@@ -16,7 +18,11 @@ export const Home: React.FC = () => {
     <Layout title="home">
       <section className="relative w-full max-w-5xl min-h-[68vh] md:min-h-[72vh] flex items-center justify-center">
         <motion.div
-          initial={{ opacity: 0, y: 12, scale: 0.992, filter: "blur(8px)" }}
+          initial={
+            reducedMotion
+              ? false
+              : { opacity: 0, y: 12, scale: 0.992, filter: "blur(8px)" }
+          }
           animate={{
             opacity: 1,
             y: 0,
@@ -24,7 +30,7 @@ export const Home: React.FC = () => {
             filter: "blur(0px)",
           }}
           transition={{
-            duration: 0.82,
+            duration: reducedMotion ? 0 : 0.6,
             ease: [0.22, 1, 0.36, 1],
           }}
           className="w-full flex justify-center"

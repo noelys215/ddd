@@ -1,5 +1,5 @@
 import { ArrowsOutSimpleIcon, XIcon } from "@phosphor-icons/react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "../../../hooks/useReducedMotion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
@@ -65,7 +65,7 @@ export function CaseStudySection({
         symbol="cross"
         headingId={id}
         className="!mt-0 mb-8"
-        headingClassName="font-bold text-center whitespace-normal"
+        headingClassName="font-bold"
       >
         {title}
       </SectionHeading>

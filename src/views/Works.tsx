@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import MotionSection from "../components/MotionSection";
 import { WorkGridItem } from "../components/WorkGridItem";
@@ -11,9 +11,6 @@ import type { MediaItem } from "../components/media";
 import arbiterThumbMp4 from "../assets/works/arbiter/arbiter_home.mp4";
 import arbiterThumbPoster from "../assets/works/arbiter/arbiter_home_poster.jpg";
 import arbiterThumbWebm from "../assets/works/arbiter/arbiter_home.webm";
-// import aiThumbPoster from "../assets/works/aiknowledgeassistant/ai_chat_thumb.png";
-// import aiThumbMp4 from "../assets/works/aiknowledgeassistant/ai_chat_demo.mp4";
-// import aiThumbWebm from "../assets/works/aiknowledgeassistant/ai_chat_demo.webm";
 import modWorldwideThumbMp4 from "../assets/works/modworldwide/mod_thumb_animated.mp4";
 import modWorldwideThumbPoster from "../assets/works/modworldwide/mod_thumb_animated_poster.jpg";
 import modWorldwideThumbWebm from "../assets/works/modworldwide/mod_thumb_animated.webm";
@@ -27,15 +24,6 @@ const modWorldwideMedia: MediaItem = {
     { src: modWorldwideThumbMp4, type: "video/mp4" },
   ],
 };
-// const aiThumbMedia: MediaItem = {
-//   kind: "video",
-//   alt: "Screenshot of AI Knowledge Assistant",
-//   poster: aiThumbPoster,
-//   sources: [
-//     { src: aiThumbWebm, type: "video/webm" },
-//     { src: aiThumbMp4, type: "video/mp4" },
-//   ],
-// };
 const arbiterThumbMedia: MediaItem = {
   kind: "video",
   alt: "Screenshot of Arbiter",
@@ -47,7 +35,6 @@ const arbiterThumbMedia: MediaItem = {
 };
 
 export const Works: React.FC = () => {
-  const navigate = useNavigate();
   const { track } = useAnalytics();
 
   return (
@@ -58,19 +45,19 @@ export const Works: React.FC = () => {
           style={{ backgroundColor: "#101010" }}
           aria-labelledby="works-heading"
         >
-          <header className="mb-5 breadcrumb-font">
-            <a
+          <nav aria-label="breadcrumb" className="mb-5 breadcrumb-font">
+            <Link
+              to="/"
               onClick={() => {
                 track("breadcrumb_navigated", {
                   destination: "/",
                   context: "works",
                 });
-                navigate("/");
               }}
               className="text-pink-500 hover:underline cursor-pointer"
             >
               Home
-            </a>
+            </Link>
             <span
               aria-hidden="true"
               className="mx-1 inline-block"
@@ -78,49 +65,39 @@ export const Works: React.FC = () => {
             >
               /
             </span>
-            <h1 className="inline-block text-white text-2xl font-medium">
+            <h1
+              id="works-heading"
+              className="inline-block text-white text-2xl font-medium"
+            >
               Works
             </h1>
-          </header>
+          </nav>
 
           <SectionHeading symbol="cross">Client Work</SectionHeading>
 
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8"
-            role="list"
-          >
-            {/* <WorkGridItem
-              title="Atalanta A.C."
-              description="A semi-modern athletic clothing e-commerce store."
-              imageUrl={atalantaThumb}
-              link="/works/atalanta"
-            /> */}
-
+          <ul className="mb-8 space-y-6">
             <WorkGridItem
               title="MOD Worldwide"
-              description="Official MOD portfolio platform with JSON-driven pages and high-end motion."
+              description="A modular publishing platform for an independent creative agency."
+              stack="Next.js · React · TypeScript · Tailwind CSS"
+              evidence="16 content-defined routes. 20+ reusable blocks. One publishing system."
               media={modWorldwideMedia}
               link="/works/modworldwide"
             />
-
-            {/* <WorkGridItem
-              title="AI Knowledge Assistant"
-              description="AI-powered knowledge assistant embedded into a CMS platform, enabling instant document retrieval and reducing manual search time for internal teams."
-              media={aiThumbMedia}
-              link="/works/ai-knowledge-assistant"
-            /> */}
-          </div>
+          </ul>
 
           <SectionHeading symbol="plus">Personal Work</SectionHeading>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6" role="list">
+          <ul className="space-y-6">
             <WorkGridItem
               title="Arbiter"
-              description="Real-time collaborative decision platform with dynamic card-based UI and session-based interactions for group watch experiences."
+              description="A realtime movie-night decision platform."
+              stack="React · FastAPI · PostgreSQL · WebSockets"
+              evidence="Server-owned state, synchronized voting, and 375 automated tests."
               media={arbiterThumbMedia}
               link="/works/arbiter"
             />
-          </div>
+          </ul>
         </CybersigilFrame>
       </MotionSection>
     </Layout>

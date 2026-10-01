@@ -15,9 +15,10 @@ import {
 
 import React, { useState, useEffect } from "react";
 
+import { useReducedMotion } from "../hooks/useReducedMotion";
 import { useGlitch } from "react-powerglitch";
 import Text from "./Text";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useScramble } from "use-scramble";
 import CybersigilFrame from "./CybersigilFrame";
 import { useAnalytics } from "../hooks/useAnalytics";
@@ -45,13 +46,24 @@ const BioCard: React.FC<BioCardProps> = ({
   linkedinUrl,
   githubUrl,
 }) => {
-  const glitch = useGlitch();
+  const reducedMotion = useReducedMotion();
+  const glitch = useGlitch({
+    playMode: "manual",
+    timing: { duration: 2000, iterations: Infinity },
+    glitchTimeSpan: { start: 0.5, end: 0.7 },
+  });
+  const { startGlitch, stopGlitch } = glitch;
+
+  useEffect(() => {
+    if (reducedMotion) stopGlitch();
+    else startGlitch();
+    return stopGlitch;
+  }, [reducedMotion, startGlitch, stopGlitch]);
   const [time, setTime] = useState<string>("");
   const [shouldStartInitialScramble, setShouldStartInitialScramble] =
     useState(false);
   const [isInitialNameScrambleDone, setIsInitialNameScrambleDone] =
     useState(false);
-  const navigate = useNavigate();
   const { track } = useAnalytics();
   const weatherDescription = weather
     ? weather.description
@@ -117,7 +129,7 @@ const BioCard: React.FC<BioCardProps> = ({
     scramble: 5,
     seed: 4,
     range: [8704, 8959],
-    playOnMount: true,
+    playOnMount: !reducedMotion,
     onAnimationEnd: () => setIsInitialNameScrambleDone(true),
   });
 
@@ -145,7 +157,7 @@ const BioCard: React.FC<BioCardProps> = ({
   }, [fullName]);
 
   useEffect(() => {
-    if (!isInitialNameScrambleDone || !loopNamePart) return;
+    if (reducedMotion || !isInitialNameScrambleDone || !loopNamePart) return;
 
     replayLoopingNameScramble();
     const loopInterval = setInterval(() => {
@@ -153,24 +165,12 @@ const BioCard: React.FC<BioCardProps> = ({
     }, 3200);
 
     return () => clearInterval(loopInterval);
-  }, [isInitialNameScrambleDone, loopNamePart, replayLoopingNameScramble]);
-
-  // Previous full-name looping scramble implementation (kept for rollback)
-  /*
-  const { ref: scrambledNameRef, replay: replayScramble } = useScramble({
-    text: name || "",
-    speed: 0.8,
-    tick: 1,
-    step: 1,
-    scramble: 4,
-    seed: 2,
-    overflow: true,
-    overdrive: true,
-  });
-  */
-  // Previous typewriter implementation (kept for quick rollback)
-  // const staticPart = name?.slice(0, -3);
-  // const typewriterPart = name?.slice(-3);
+  }, [
+    reducedMotion,
+    isInitialNameScrambleDone,
+    loopNamePart,
+    replayLoopingNameScramble,
+  ]);
 
   const trackButtonClick = (buttonName: string) => {
     track("home_cta_clicked", {
@@ -179,21 +179,40 @@ const BioCard: React.FC<BioCardProps> = ({
     });
   };
 
+  const portfolioLinks = (
+    <>
+      <Link
+        to="/works"
+        onClick={() => trackButtonClick("Works")}
+        className="button-89 inline-flex items-center justify-center"
+      >
+        Works
+      </Link>
+      <Link
+        to="/experience"
+        onClick={() => trackButtonClick("Experience")}
+        className="button-89 inline-flex items-center justify-center"
+      >
+        Experience
+      </Link>
+    </>
+  );
+
   return (
     <CybersigilFrame
       className="rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
       style={{ backgroundColor: "#101010" }}
     >
-      <header className="flex items-center justify-between mb-4">
+      <header className="flex flex-col-reverse items-start justify-between gap-5 mb-4 sm:flex-row sm:items-center">
         {/* Name/Title and Subtitle on the left */}
         <div className="flex-1 min-w-0">
           {/* Name/Title */}
-          {/* <h1 id="bio-card-title" className="text-white text-lg font-semibold"> */}
           <h1
             id="bio-card-title"
-            className="text-white text-sm md:text-xl font-semibold"
+            aria-label={fullName}
+            className="text-white text-sm md:text-xl font-semibold whitespace-nowrap"
           >
-            {!shouldStartInitialScramble ? (
+            {reducedMotion || !shouldStartInitialScramble ? (
               <span>{fullName}</span>
             ) : !isInitialNameScrambleDone ? (
               <span ref={fullNameScrambleRef} />
@@ -206,22 +225,6 @@ const BioCard: React.FC<BioCardProps> = ({
                 />
               </>
             )}
-            {/*
-              Previous typewriter implementation (kept for quick rollback)
-              <span>{staticPart}</span>
-              <span style={{ display: "inline-block" }}>
-                <Typewriter
-                  options={{
-                    strings: typewriterPart,
-                    autoStart: true,
-                    loop: true,
-                    cursor: "_",
-                    delay: 250,
-                    deleteSpeed: 250,
-                  }}
-                />
-              </span>
-            */}
           </h1>
 
           {/* Subtitle */}
@@ -245,14 +248,14 @@ const BioCard: React.FC<BioCardProps> = ({
           </p>
 
           {/* Social Links (now under subtitle) */}
-          <nav aria-label="Social Links" className="flex space-x-4 mt-2">
+          <nav aria-label="Social Links" className="flex gap-1 mt-2 -ml-2">
             {linkedinUrl && (
               <a
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                className="text-white hover:text-pink-400"
+                className="inline-flex h-11 w-11 items-center justify-center rounded text-white hover:text-pink-400"
                 onClick={() =>
                   track("home_social_clicked", {
                     destination: linkedinUrl,
@@ -269,7 +272,7 @@ const BioCard: React.FC<BioCardProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
-                className="text-white hover:text-pink-400"
+                className="inline-flex h-11 w-11 items-center justify-center rounded text-white hover:text-pink-400"
                 onClick={() =>
                   track("home_social_clicked", {
                     destination: githubUrl,
@@ -284,7 +287,7 @@ const BioCard: React.FC<BioCardProps> = ({
               <a
                 href="mailto:betanch@gmail.com?subject=A%20message%20from%20the%20digital%20void!&body=Hmm…%20what%20to%20write…%20oh!%20Hi%20Found%20your%20website,%20so%20now%20I’m%20here!"
                 aria-label="Send Email"
-                className="text-white hover:text-pink-400"
+                className="inline-flex h-11 w-11 items-center justify-center rounded text-white hover:text-pink-400"
                 onClick={() =>
                   track("home_social_clicked", {
                     destination: "mailto:betanch@gmail.com",
@@ -299,11 +302,11 @@ const BioCard: React.FC<BioCardProps> = ({
         </div>
 
         {/* Image on the top right */}
-        <figure className="relative ml-3 sm:ml-4 shrink-0 self-center">
+        <figure className="relative shrink-0 sm:ml-4 sm:self-center">
           <img
             src={imageUrl}
             alt={`Photo of ${name}`}
-            className="object-cover rounded-full border-2 border-gray-200 w-[clamp(80px,32vw,147px)] h-[clamp(80px,32vw,147px)]"
+            className="object-cover rounded-full border-2 border-gray-200 w-20 h-20 sm:w-[147px] sm:h-[147px]"
             loading="eager"
             decoding="async"
             fetchPriority="high"
@@ -311,6 +314,13 @@ const BioCard: React.FC<BioCardProps> = ({
           />
         </figure>
       </header>
+
+      <nav
+        aria-label="Explore portfolio"
+        className="mb-8 mt-6 flex flex-wrap justify-center gap-3 sm:hidden"
+      >
+        {portfolioLinks}
+      </nav>
 
       {/* Horizontal Line - Rabbit */}
       <div className="relative mb-4">
@@ -327,44 +337,20 @@ const BioCard: React.FC<BioCardProps> = ({
               })
             }
           >
-            <Rabbit
-              size={40}
-              weight="fill"
-              // onClick={() => navigate('/novella/calling')}
-              className="rotate"
-            />
+            <Rabbit size={40} weight="fill" className="rotate" />
           </Link>
         </div>
       </div>
 
       {/* Text Component */}
-      <section aria-labelledby="bio-text">
-        {text && <Text text={text} />}
-      </section>
+      <section aria-label="About Henry">{text && <Text text={text} />}</section>
 
-      {/* Buttons (added Experience button) */}
-      <footer className="flex justify-center space-x-4 mt-6">
-        <button
-          onClick={() => {
-            trackButtonClick("Works");
-            navigate("/works");
-          }}
-          aria-label="Navigate to Works"
-          className="button-89"
-        >
-          Works
-        </button>
-        <button
-          onClick={() => {
-            trackButtonClick("Experience");
-            navigate("/experience");
-          }}
-          aria-label="Navigate to Experience"
-          className="button-89"
-        >
-          Experience
-        </button>
-      </footer>
+      <nav
+        aria-label="Explore portfolio"
+        className="mt-6 hidden flex-wrap justify-center gap-4 sm:flex"
+      >
+        {portfolioLinks}
+      </nav>
     </CybersigilFrame>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAnalytics } from "../hooks/useAnalytics";
 import { MediaAsset } from "./MediaAsset";
 import type { MediaItem } from "./media";
@@ -8,8 +8,9 @@ interface WorkGridItemProps {
   title: string;
   description: string;
   media?: MediaItem;
-  link?: string;
-  href?: string;
+  link: string;
+  stack: string;
+  evidence: string;
 }
 
 export const WorkGridItem: React.FC<WorkGridItemProps> = ({
@@ -17,72 +18,51 @@ export const WorkGridItem: React.FC<WorkGridItemProps> = ({
   description,
   media,
   link,
-  href,
+  stack,
+  evidence,
 }) => {
-  const navigate = useNavigate();
   const { track } = useAnalytics();
-  const titleId = React.useId();
-
-  const handleNavigation = () => {
-    if (link) {
-      track("work_card_opened", {
-        work_title: title,
-        destination_type: "internal",
-        destination: link,
-      });
-      navigate(link);
-    }
-  };
 
   return (
-    <article
-      className="p-6 bg-black rounded-lg"
-      style={{ backgroundColor: "#101010" }}
-      aria-labelledby={titleId}
-      role="button"
-      onClick={handleNavigation}
-      tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && handleNavigation()}
-    >
-      <a
-        href={href || "#"}
-        onClick={(e) => {
-          if (href) {
-            track("work_card_opened", {
-              work_title: title,
-              destination_type: "external",
-              destination: href,
-            });
-          }
-          if (!href) e.preventDefault();
-        }}
-        rel="noopener noreferrer"
-        target={href ? "_blank" : "_self"}
-        className="block text-center"
-        aria-label={`Learn more about ${title}`}
+    <li className="min-w-0">
+      <Link
+        to={link}
+        onClick={() =>
+          track("work_card_opened", {
+            work_title: title,
+            destination_type: "internal",
+            destination: link,
+          })
+        }
+        aria-label={`Explore ${title} case study`}
+        className="group grid min-w-0 items-center gap-6 rounded-lg border border-white/10 bg-white/[0.015] p-4 transition-colors hover:border-pink-500/45 hover:bg-pink-500/[0.025] sm:p-6 md:grid-cols-2 md:gap-8"
       >
-        <figure>
-          {media ? (
+        {media && (
+          <figure className="min-w-0 overflow-hidden rounded-md border border-white/10 bg-black">
             <MediaAsset
               media={media}
-              className="object-cover w-full h-48 rounded-lg mb-4 transition-[filter] duration-500 ease-out hover:blur-[1px] focus-visible:blur-[1px]"
+              className="aspect-video w-full object-cover"
               loading="lazy"
-              decoding="async"
               preload="metadata"
             />
-          ) : null}
-        </figure>
-
-        <h2 id={titleId} className="text-white text-lg font-semibold mb-2">
-          {title}
-        </h2>
-
-        <div className="relative mb-4">
-          <hr className="border-gray-400 w-4/5 mx-auto" aria-hidden="true" />
+          </figure>
+        )}
+        <div className="min-w-0">
+          <h2 className="text-xl font-semibold leading-snug text-white md:text-2xl">
+            {title}
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-gray-300">
+            {description}
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-white/60">{stack}</p>
+          <p className="mt-4 border-l border-pink-500/50 pl-3 text-sm leading-relaxed text-white/80">
+            {evidence}
+          </p>
+          <span className="mt-6 inline-flex min-h-11 items-center !text-pink-400 underline-offset-4 group-hover:underline">
+            Explore case study ↗
+          </span>
         </div>
-
-        <p className="text-gray-300 text-md">{description}</p>
-      </a>
-    </article>
+      </Link>
+    </li>
   );
 };

@@ -1,4 +1,4 @@
-import { Suspense, StrictMode, lazy } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Analytics } from "@vercel/analytics/react";
 import "./index.css";
@@ -6,135 +6,78 @@ import { Home } from "./views/Home.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { registerAnalyticsDefaults } from "./hooks/useAnalytics.ts";
-import Noise from "./components/Noise.tsx";
+import RouterLayout from "./components/RouterLayout.tsx";
+import RouteFallback from "./components/RouteFallback.tsx";
 
 registerAnalyticsDefaults();
 
-const Experience = lazy(() =>
-  import("./views/Experience.tsx").then((module) => ({
-    default: module.Experience,
-  })),
-);
-const NotFound = lazy(() =>
-  import("./views/NotFound.tsx").then((module) => ({
-    default: module.NotFound,
-  })),
-);
-const Works = lazy(() =>
-  import("./views/Works.tsx").then((module) => ({
-    default: module.Works,
-  })),
-);
-const MODWorldwide = lazy(() => import("./views/works/MODWorldwide.tsx"));
-const ArbiterPortfolioCaseStudy = lazy(
-  () => import("./views/works/Arbiter.tsx"),
-);
-const AIKnowledgeAssistant = lazy(
-  () => import("./views/works/AIKnowledgeAssistant.tsx"),
-);
-const RedLightGreenLight = lazy(() =>
-  import("./views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx").then(
-    (module) => ({
-      default: module.RedLightGreenLight,
-    }),
-  ),
-);
-const Maze = lazy(() =>
-  import("./views/novella/Games/Maze/maze.tsx").then((module) => ({
-    default: module.Maze,
-  })),
-);
-const WhackAMole = lazy(
-  () => import("./views/novella/Games/WhackAMole/WackAMole.tsx"),
-);
-
-const RouteFallback = () => (
-  <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-black px-6 font-custom">
-    <div className="site-starfield" aria-hidden="true">
-      <div className="site-starfield-stars" />
-    </div>
-    <div className="absolute inset-0 z-[1] pointer-events-none">
-      <Noise opacity={0.13} speed={0.04} scale={1.3} color="#ffffff" />
-    </div>
-    <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_12%,rgba(0,0,0,0.12)_60%,rgba(0,0,0,0.26)_100%)]" />
-    <div className="relative z-10 w-full max-w-md rounded-md border border-white/15 bg-[#101010]/90 px-6 py-5 text-center backdrop-blur-sm">
-      <p className="breadcrumb-font text-sm text-pink-500">loading route</p>
-      <p className="mt-2 text-sm text-white/75">One moment.</p>
-    </div>
-  </div>
-);
-
-const withSuspense = (Component: React.ComponentType) => (
-  <Suspense fallback={<RouteFallback />}>
-    <Component />
-  </Suspense>
-);
-
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
+    element: <RouterLayout />,
+    HydrateFallback: RouteFallback,
+    children: [
+      { path: "/", element: <Home /> },
+      {
+        path: "/experience",
+        lazy: async () => ({
+          Component: (await import("./views/Experience.tsx")).Experience,
+        }),
+      },
+      {
+        path: "*",
+        lazy: async () => ({
+          Component: (await import("./views/NotFound.tsx")).NotFound,
+        }),
+      },
+      {
+        path: "/works",
+        lazy: async () => ({
+          Component: (await import("./views/Works.tsx")).Works,
+        }),
+      },
+      {
+        path: "/works/modworldwide",
+        lazy: async () => ({
+          Component: (await import("./views/works/MODWorldwide.tsx")).default,
+        }),
+      },
+      {
+        path: "/works/arbiter",
+        lazy: async () => ({
+          Component: (await import("./views/works/Arbiter.tsx")).default,
+        }),
+      },
+      {
+        path: "/works/ai-knowledge-assistant",
+        lazy: async () => ({
+          Component: (await import("./views/works/AIKnowledgeAssistant.tsx"))
+            .default,
+        }),
+      },
+      {
+        path: "/maze",
+        lazy: async () => ({
+          Component: (
+            await import("./views/novella/Games/RedLightGreenLight/RedLightGreenLight.tsx")
+          ).RedLightGreenLight,
+        }),
+      },
+      {
+        path: "/maze-classic",
+        lazy: async () => ({
+          Component: (await import("./views/novella/Games/Maze/maze.tsx")).Maze,
+        }),
+      },
+      {
+        path: "/mole",
+        lazy: async () => ({
+          Component: (
+            await import("./views/novella/Games/WhackAMole/WackAMole.tsx")
+          ).default,
+        }),
+      },
+    ],
   },
-  {
-    path: "/experience",
-    element: withSuspense(Experience),
-  },
-  {
-    path: "*",
-    element: withSuspense(NotFound),
-  },
-  {
-    path: "/works",
-    element: withSuspense(Works),
-  },
-  {
-    path: "/works/modworldwide",
-    element: withSuspense(MODWorldwide),
-  },
-  {
-    path: "/works/arbiter",
-    element: withSuspense(ArbiterPortfolioCaseStudy),
-  },
-  {
-    path: "/works/ai-knowledge-assistant",
-    element: withSuspense(AIKnowledgeAssistant),
-  },
-  {
-    path: "/maze",
-    element: withSuspense(RedLightGreenLight),
-  },
-  {
-    path: "/maze-classic",
-    element: withSuspense(Maze),
-  },
-  {
-    path: "/mole",
-    element: withSuspense(WhackAMole),
-  },
-  // {
-  // 	path: '/novella/calling',
-  // 	element: <Calling />,
-  // },
-  // {
-  // 	path: '/novella/descent',
-  // 	element: <Descent />,
-  // },
-  // {
-  // 	path: '/novella/descent/watcher',
-  // 	element: <Watcher />,
-  // },
-  // {
-  // 	path: '/novella/descent/watcherSpeaks',
-  // 	element: <WatcherSpeaks />,
-  // },
-  // {
-  // 	path: '/novella/descent/obedience',
-  // 	element: <Obedience />,
-  // },
-  // {
-  // 	path: '/novella/descent/knowledge',
-  // 	element: <Knowledge />,
-  // },
 ]);
 
 createRoot(document.getElementById("root")!).render(
