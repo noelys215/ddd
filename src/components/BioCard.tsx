@@ -203,14 +203,14 @@ const BioCard: React.FC<BioCardProps> = ({
       className="rounded-md max-w-4xl w-full p-6 md:p-12 bg-black mx-auto opacity-95"
       style={{ backgroundColor: "#101010" }}
     >
-      <header className="flex flex-col-reverse items-start justify-between gap-5 mb-4 sm:flex-row sm:items-center">
+      <header className="flex items-center justify-between gap-3 mb-4 sm:gap-5">
         {/* Name/Title and Subtitle on the left */}
         <div className="flex-1 min-w-0">
           {/* Name/Title */}
           <h1
             id="bio-card-title"
             aria-label={fullName}
-            className="text-white text-sm md:text-xl font-semibold whitespace-nowrap"
+            className="text-white text-xs sm:text-sm md:text-xl font-semibold sm:whitespace-nowrap"
           >
             {reducedMotion || !shouldStartInitialScramble ? (
               <span>{fullName}</span>
@@ -219,10 +219,7 @@ const BioCard: React.FC<BioCardProps> = ({
             ) : (
               <>
                 <span>{staticNamePart}</span>
-                <span
-                  style={{ display: "inline-block" }}
-                  ref={loopingNameScrambleRef}
-                />
+                <span ref={loopingNameScrambleRef} />
               </>
             )}
           </h1>
@@ -302,11 +299,11 @@ const BioCard: React.FC<BioCardProps> = ({
         </div>
 
         {/* Image on the top right */}
-        <figure className="relative shrink-0 sm:ml-4 sm:self-center">
+        <figure className="relative shrink-0 sm:ml-4">
           <img
             src={imageUrl}
             alt={`Photo of ${name}`}
-            className="object-cover rounded-full border-2 border-gray-200 w-20 h-20 sm:w-[147px] sm:h-[147px]"
+            className="object-cover rounded-full border-2 border-gray-200 w-[clamp(4rem,20vw,5rem)] h-[clamp(4rem,20vw,5rem)] sm:w-[147px] sm:h-[147px]"
             loading="eager"
             decoding="async"
             fetchPriority="high"
